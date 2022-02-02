@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. $HOME/dotfiles/.sleepwatcher/scripts/manipulate_app.sh
+
+# Turn off sleep mode
+sudo pmset -a disablesleep 1
+
+open_app "Terminal"

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. $HOME/dotfiles/.sleepwatcher/scripts/manipulate_app.sh
+
+quit_app "Terminal"
+quit_app "Brave Browser"

@@ -1,0 +1,12 @@
+
+
+[[ Usage ]]
+
+\033[38;5;{color_num}m{display_string}\033[m
+
+{color_num}: Any of the numbers 0-255 displayed above
+{display_string}: The string to display
+
+(e.g.)
+\033[38;5;155mHello, World!\033[m
+↓
