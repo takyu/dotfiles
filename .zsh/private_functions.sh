@@ -84,7 +84,12 @@ _quit_app_by_apple_script()
 
 _new_instance_terminal()
 {
+	terminal="$(tty | tr -d '/dev/')"
+
 	osascript -e 'tell application "Terminal" to do script activate' 1>/dev/null
+	if [ "$terminal" = 'ttys000' ] ; then
+		clear && echo && neofetch
+	fi
 }
 
 _check_git_status()
@@ -138,6 +143,16 @@ _custom_return_key() {
 		echo
 	fi
 	zle reset-prompt
+}
+
+_cdup() {
+	if [ -z "$BUFFER" ] ; then
+		echo
+		_custom_cd ..
+		zle reset-prompt
+	else
+		zle self-insert '^'
+	fi
 }
 
 _custom_open()

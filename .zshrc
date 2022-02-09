@@ -170,16 +170,7 @@ zle -N _custom_return_key
 bindkey '^m' _custom_return_key
 
 ## I don't really use it... 
-# Function to move to a directory one level above when you press control(^) key
-#cdup() {
-#	if [ -z "$BUFFER" ] ; then
-#		echo
-#		_custom_cd ..
-#		zle reset-prompt
-#	else
-#		zle self-insert '^'
-#	fi
-#}
+# Move to a directory one level above when you press control(^) key
 #zle -N cdup
 #bindkey '\^' cdup
 
