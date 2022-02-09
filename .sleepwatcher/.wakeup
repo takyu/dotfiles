@@ -5,4 +5,6 @@
 # Turn off sleep mode
 sudo pmset -a disablesleep 1
 
+adjust_volume "50/100*7"
+
 open_app "Terminal"

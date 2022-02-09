@@ -2,5 +2,7 @@
 
 . $HOME/dotfiles/.sleepwatcher/scripts/manipulate_app.sh
 
+adjust_volume "with output muted"
+
 quit_app "Terminal"
 quit_app "Brave Browser"

@@ -13,3 +13,8 @@ quit_app()
 {
 	osascript -e "tell application \"$1\" to quit"
 }
+
+adjust_volume()
+{
+	osascript -e "set volume $1"
+}
