@@ -271,6 +271,9 @@ alias chs="open -a 'Google Chrome' -n --args --incognito --new-window"
 alias amav="figlet -cf slant Amazon Prime Video | lolcat && open -a 'Prime Video' -n"
 alias amam="figlet -cf slant Amazon Prime Music | lolcat && open -a 'Amazon Music' -n"
 
+# Alias to open google map in brave browser's extension
+alias glemap="open Applications/Brave\ Browser\ Apps.localized/Google\ マップ.app"
+
 # Alias of brew
 #alias brew='PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin brew'
 

@@ -26,8 +26,15 @@ _notify_done()
 # Function to force disk cache to be purged
 _purge_cache()
 {
+	if [ $# -eq 1 ] ; then
+		revolver --style 'arrow2' start
+		sleep "$1"
+	else
+		revolver --style 'arrow2' start
+	fi
 	sudo purge
 	top -l 1 | grep Mem
+	revolver stop
 }
 
 # Function to ask yes or no
@@ -89,6 +96,7 @@ _new_instance_terminal()
 	osascript -e 'tell application "Terminal" to do script activate' 1>/dev/null
 	if [ "$terminal" = 'ttys000' ] ; then
 		clear && echo && neofetch
+		echo "-------- ${ESC}[34mPurge Cache${ESC}[m --------" && _purge_cache 1 && echo
 	fi
 }
 
