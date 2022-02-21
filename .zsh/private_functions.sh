@@ -238,17 +238,20 @@ _do_sleep_display()
 	terminal="$(tty | tr -d '/dev/')"
 
 	clear
-	_purge_cache
-	echo
 	if [ "$terminal" = "ttys000" ] ; then
+		_quit_app_by_apple_script "Brave Browser"
+		sudo purge
+		echo "------- vm_stat information -------"
 		vm_stat | \
 		perl -ne '/page size of (\d+)/ and $size=$1; /Pages\s+([^:]+)[^\d]+(\d+)/ and printf("%-16s % 16.2f Mi\n", "$1:", $2 * $size / 1048576);'
 		echo
 		cowsay -f kitty Take a break, Taku!
-		_manipulate_sleep on
+		echo && echo && _manipulate_sleep on
 
-		sleep 5;pmset sleepnow
+		revolver --style 'arrow2' start " ${ESC}[32mSoon this computer will go into sleep mode..${ESC}[m"
+		sleep 6;revolver stop && pmset sleepnow
 	else
+		_purge_cache
 		cowsay -f kitty Take a break, Taku!
 		sleep 1.2;pmset displaysleepnow
 		clear

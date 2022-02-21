@@ -182,9 +182,6 @@ bindkey '^m' _custom_return_key
 # Path of sbin of brew
 export PATH="/usr/local/sbin:$PATH"
 
-# Parh of Nodebrew
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
 # Path of Latest Python
 export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 export PATH="/usr/local/opt/python@3.10/libexec/bin:$PATH"
@@ -206,8 +203,31 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 #
 #export PATH="/usr/local/opt/llvm/bin:$PATH"
 
+# Parh of Nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
 # Path of Larvel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+#
+# Path to phpenv
+#
+# PHP multi-version installation and management for humans.
+#
+# GitHub ( https://github.com/phpenv/phpenv )
+#
+export PATH="$HOME/.phpenv/bin:$PATH"
+eval "$(phpenv init -)"
+
+#
+# Path to rbenv
+#
+# Seamlessly manage your app’s Ruby environment with rbenv.
+#
+# GitHub ( https://github.com/rbenv/rbenv )
+#
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 
 # -------------------------------------------------------------------------------------------- #
@@ -236,6 +256,13 @@ alias se="afplay /System/Library/Sounds/Glass.aiff"
 
 # Alias to reboot login shell
 alias reb="clear && exec $SHELL -l"
+
+#
+# Alias of brew
+#
+# To prevent the brew command from looking at extra paths.
+#
+alias brew='PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin brew'
 
 #
 # Alias to add a directory to the currently open window of VScode
@@ -273,9 +300,6 @@ alias amam="figlet -cf slant Amazon Prime Music | lolcat && open -a 'Amazon Musi
 
 # Alias to open google map in brave browser's extension
 alias glemap="open Applications/Brave\ Browser\ Apps.localized/Google\ マップ.app"
-
-# Alias of brew
-#alias brew='PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin brew'
 
 # Alias to display 256 colors
 alias col256="clear && seq 0 255 | xargs -I {} printf '\033[38;5;{}m{}\033[m ' \
@@ -392,6 +416,11 @@ export HOMEBREW_CASK_OPTS=--no-quarantine
 # Used for package ansize (https://github.com/jhchen/ansize) variables.
 #
 export GOPATH="/usr/local/lib/go"
+
+#
+# openssl@1.1 variable
+#
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 
 # -------------------------------------------------------------------------------------------- #
