@@ -78,10 +78,8 @@ fi
 #
 # "autoload" will load the built-in functions in $FPATH.
 # "vcs_info" is a function to get information from the version control system.
-# "setopt prompt_subst" will expand the variable in the PROMPT variable.
 #
-autoload -Uz vcs_info
-setopt prompt_subst
+#autoload -Uz vcs_info
 
 #
 # Configure to prevent being recognized as a file name.
@@ -95,18 +93,21 @@ TMOUT=1
 TRAPALRM() {zle reset-prompt}
 
 # Configure the git status to be displayed in PROMPT
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
-zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
+#zstyle ':vcs_info:git:*' check-for-changes true
+#zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
+#zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
+#zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
 
 #
 # "precmd () {}" is a function that is executed every time the prompt is displayed.
 # By executing vcs_info, it rewrites the contents of the variable "vcs_info_msg_0_" 
 # to the latest every time the prompt is displayed.
 #
-precmd () { vcs_info }
+#precmd () { vcs_info }
+
+# "setopt prompt_subst" will expand the variable in the PROMPT variable.
+setopt prompt_subst
 
 # Customize of prompt (left prompt)
 PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`

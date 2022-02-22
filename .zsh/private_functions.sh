@@ -327,6 +327,7 @@ function _display_git_current_branch
 {
 	local branch_name st branch_status
 
+	# early processing when not managing git
 	if [ ! -e  ".git" ]; then
 		return 0
 	fi
@@ -335,19 +336,26 @@ function _display_git_current_branch
 	st="$(git status 2> /dev/null)"
 
 	if [[ -n "$(git log origin/"${branch_name}".."${branch_name}" 2> /dev/null)" ]] ; then
+		# No push yet!!
 		branch_status="%F{red}!!"
-	elif [[ -n "$(echo "$st" | grep "^nothing to")" ]]; then
+	elif [[ -n "$(echo "$st" | grep "^nothing to")" ]] ; then
+		# All commit
 		branch_status="%F{cyan}"
-	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]]; then
+	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] ; then
+		# No manage file
 		branch_status="%F{yellow}?"
-	elif [[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]]; then
+	elif [[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
+		# No add yet
 		branch_status="%F{yellow}+"
-	elif [[ -n "$(echo "$st" | grep "^Changes to be committed")" ]]; then
+	elif [[ -n "$(echo "$st" | grep "^Changes to be committed")" ]] ; then
+		# No commit yet!
 		branch_status="%F{red}!"
-	elif [[ -n "$(echo "$st" | grep "^rebase in progress")" ]]; then
+	elif [[ -n "$(echo "$st" | grep "^rebase in progress")" ]] ; then
+		# Conflict!
 		echo "%F{red}!(no branch)%f"
 		return 0
 	else
+		# Woops..?
 		branch_status="%F{purple}"
 	fi
 
