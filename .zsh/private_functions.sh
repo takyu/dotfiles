@@ -104,7 +104,7 @@ _check_git_status()
 {
 	if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
 		echo -e "\n# ---------- \033[35mgit status\033[m ---------- #"
-		git status -sb
+		git status -s
 		return 0
 	fi
 	return 1
@@ -323,7 +323,7 @@ _set_default_title_of_terminal()
 	clear
 }
 
-function _display_git_current_branch
+_display_git_current_branch()
 {
 	local branch_name st branch_status
 
@@ -341,8 +341,12 @@ function _display_git_current_branch
 	elif [[ -n "$(echo "$st" | grep "^nothing to")" ]] ; then
 		# All commit
 		branch_status="%F{cyan}"
+	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] &&
+		[[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
+		# No manage and add files yet
+		branch_status="%F{yellow}?+"
 	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] ; then
-		# No manage file
+		# No manage files
 		branch_status="%F{yellow}?"
 	elif [[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
 		# No add yet
