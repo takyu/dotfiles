@@ -109,7 +109,7 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 
 # Customize of prompt (left prompt)
-PROMPT='%F{white}@%n%f%b %F{blue}%~%f %F{cyan}$vcs_info_msg_0_%f
+PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
 %F{white}%%%f '
 
 # Customize of rpropmpt (right propmpt)

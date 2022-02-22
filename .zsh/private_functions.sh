@@ -322,3 +322,34 @@ _set_default_title_of_terminal()
 	
 	clear
 }
+
+function _display_git_current_branch
+{
+	local branch_name st branch_status
+
+	if [ ! -e  ".git" ]; then
+		return 0
+	fi
+
+	branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+	st="$(git status 2> /dev/null)"
+
+	if [[ -n "$(git log origin/"${branch_name}".."${branch_name}" 2> /dev/null)" ]] ; then
+		branch_status="%F{red}!!"
+	elif [[ -n "$(echo "$st" | grep "^nothing to")" ]]; then
+		branch_status="%F{cyan}"
+	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]]; then
+		branch_status="%F{yellow}?"
+	elif [[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]]; then
+		branch_status="%F{yellow}+"
+	elif [[ -n "$(echo "$st" | grep "^Changes to be committed")" ]]; then
+		branch_status="%F{red}!"
+	elif [[ -n "$(echo "$st" | grep "^rebase in progress")" ]]; then
+		echo "%F{red}!(no branch)%f"
+		return 0
+	else
+		branch_status="%F{purple}"
+	fi
+
+	echo "${branch_status}[${branch_name}]%f"
+}
