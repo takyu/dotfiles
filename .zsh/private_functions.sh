@@ -327,13 +327,13 @@ _display_git_current_branch()
 {
 	local branch_name st branch_status
 
-	# early processing when not managing git
-	if [ ! -e  ".git" ]; then
+	st="$(git status 2> /dev/null)"
+	
+	if [ -z "$st" ] ; then
 		return 0
 	fi
 
 	branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-	st="$(git status 2> /dev/null)"
 
 	if [[ -n "$(git log origin/"${branch_name}".."${branch_name}" 2> /dev/null)" ]] ; then
 		# No push yet!!
@@ -344,13 +344,13 @@ _display_git_current_branch()
 	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] &&
 		[[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
 		# No manage and add files yet
-		branch_status="%F{yellow}?+"
+		branch_status="%F{yellow}??M"
 	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] ; then
 		# No manage files
-		branch_status="%F{yellow}?"
+		branch_status="%F{yellow}??"
 	elif [[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
 		# No add yet
-		branch_status="%F{yellow}+"
+		branch_status="%F{yellow}M"
 	elif [[ -n "$(echo "$st" | grep "^Changes to be committed")" ]] ; then
 		# No commit yet!
 		branch_status="%F{red}!"
