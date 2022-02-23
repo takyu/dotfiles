@@ -281,7 +281,7 @@ _customize_speedtest-cli()
 	open -a 'Google Chrome' -n --args --incognito --new-window "$url"
 	sleep 2;_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
 	echo "## Save the date of executing the speed test and the URL of the result in 'speedtest_history.log'.."
-	echo "$date -> $url" >> "$HOME"/Documents/speedtest_history.log
+	echo "$date -> $url" >> "$HOME"/Documents/times/speedtest_history.log
 	_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
 	rm -f /tmp/speed_result.log
 	_notify_done
@@ -370,4 +370,9 @@ _display_git_current_branch()
 	fi
 
 	echo "${branch_status}[${branch_name}]%f"
+}
+
+_execute_quicklook()
+{
+	qlmanage -p > /dev/null 2>&1 "$@" &
 }

@@ -277,9 +277,6 @@ alias advs="code -a"
 #
 alias avs="code"
 
-# Alias to open viewer of quicklook
-alias ql="qlmanage -p 2>/dev/null"
-
 # Alias to open new simulator
 alias si="figlet -f slant Open Simulator! | lolcat && sudo purge && open -a Simulator"
 
@@ -369,6 +366,9 @@ alias deti=_set_default_title_of_terminal
 
 # Alias to start screen saver
 alias ss=_start_screen_saver
+
+# Alias to open viewer of quicklook
+alias ql=_execute_quicklook
 
 ##
 ## use the file 'search_google.sh' in .zsh directory
