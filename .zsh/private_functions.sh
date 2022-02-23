@@ -103,9 +103,15 @@ _new_instance_terminal()
 _check_git_status()
 {
 	if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-		echo -e "\n# ---------- \033[35mgit status\033[m ---------- #"
-		git status -s
-		return 0
+
+		if [ -z "$(git status -s)" ] ; then
+			return 0
+		else
+			echo -e "\n# ---------- \033[35mgit status\033[m ---------- #"
+			git status -s
+			return 0
+		fi
+
 	fi
 	return 1
 }
