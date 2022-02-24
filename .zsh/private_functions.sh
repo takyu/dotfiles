@@ -341,32 +341,53 @@ _display_git_current_branch()
 
 	branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
-	if [[ -n "$(git log origin/"${branch_name}".."${branch_name}" 2> /dev/null)" ]] ; then
+	if [ -n "$(git log origin/"${branch_name}".."${branch_name}" 2> /dev/null)" ] ; then
+
 		# No push yet!!
 		branch_status="%F{red}!!"
-	elif [[ -n "$(echo "$st" | grep "^nothing to")" ]] ; then
-		# All commit
-		branch_status="%F{cyan}"
-	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] &&
-		[[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
+
+	elif [ -n "$(echo "$st" | grep "^nothing to")" ] ; then
+
+		# Have never pushed!!
+		if [ -n "$(git log origin/"${branch_name}".."${branch_name}" 2>&1 > /dev/null)" ] ; then
+			branch_status="%F{red}!!(never)"
+		else
+			# All commit
+			branch_status="%F{cyan}"
+		fi
+
+	elif [ -n "$(echo "$st" | grep "^Untracked files")" ] &&
+		[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ] ; then
+
 		# No manage and add files yet
 		branch_status="%F{yellow}??M"
-	elif [[ -n "$(echo "$st" | grep "^Untracked files")" ]] ; then
+
+	elif [ -n "$(echo "$st" | grep "^Untracked files")" ] ; then
+
 		# No manage files
 		branch_status="%F{yellow}??"
-	elif [[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ]] ; then
+
+	elif [ -n "$(echo "$st" | grep "^Changes not staged for commit")" ] ; then
+
 		# No add yet
 		branch_status="%F{yellow}M"
-	elif [[ -n "$(echo "$st" | grep "^Changes to be committed")" ]] ; then
+
+	elif [ -n "$(echo "$st" | grep "^Changes to be committed")" ] ; then
+
 		# No commit yet!
 		branch_status="%F{red}!"
-	elif [[ -n "$(echo "$st" | grep "^rebase in progress")" ]] ; then
+
+	elif [ -n "$(echo "$st" | grep "^rebase in progress")" ] ; then
+
 		# Conflict!
-		echo "%F{red}!(no branch)%f"
+		echo "%F{red}!< no branch >!%f"
 		return 0
+
 	else
+
 		# Woops..?
 		branch_status="%F{purple}"
+		
 	fi
 
 	echo "${branch_status}[${branch_name}]%f"
