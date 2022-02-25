@@ -296,9 +296,6 @@ alias chs="open -a 'Google Chrome' -n --args --incognito --new-window"
 alias amav="figlet -cf slant Amazon Prime Video | lolcat && open -a 'Prime Video' -n"
 alias amam="figlet -cf slant Amazon Prime Music | lolcat && open -a 'Amazon Music' -n"
 
-# Alias to open google map in brave browser's extension
-alias glemap="open Applications/Brave\ Browser\ Apps.localized/Google\ マップ.app"
-
 # Alias to display 256 colors
 alias col256="clear && seq 0 255 | xargs -I {} printf '\033[38;5;{}m{}\033[m ' \
 	&& cat $HOME/dotfiles/.zsh/manual_col256.txt \
@@ -407,6 +404,10 @@ alias mbup=_processes_for_updating_brew_and_mas
 # -------------------------------------------------------------------------------------------- #
 # Environment Variables
 # -------------------------------------------------------------------------------------------- #
+
+# Japanese localization
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # An environment variable that suppresses a security feature called Gatekeeper
 export HOMEBREW_CASK_OPTS=--no-quarantine

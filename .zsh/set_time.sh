@@ -47,6 +47,7 @@ _set_wake-up_time()
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd
 	fi
+	open -a 'Brave Browser' -n --args --new-window https://www.japantimes.co.jp/
 }
 # oya
 _set_bed_time()

@@ -1,10 +1,15 @@
 #!/bin/bash
 
 en_google="https://www.google.co.jp/search?q="
+
 en_youtube="https://www.youtube.com/results?search_query="
 youtube_top="https://www.youtube.com/"
-#japantimes_top="https://www.japantimes.co.jp/"
+
+google_maps="https://www.google.co.jp/maps"
+en_google_maps="https://www.google.co.jp/maps/search/"
+
 display_yt_tl="cowsay -f turtle Bun, Bun, Hello YouTube!! && figlet -cf slant Enjoy YouTube!"
+display_gl_tl="cowsay -f turtle Delicious food, sweets, fun places... && figlet -cf slant Where to go?"
 
 set_option()
 {
@@ -13,7 +18,7 @@ set_option()
 			echo "Error 1"
 		elif [[ "$1" =~ "c" ]] && [[ "$1" =~ "b" ]] ; then
 			echo "Error 2"
-		elif [[ ! "$1" =~ ^-[cbiyh]+$ ]] ; then
+		elif [[ ! "$1" =~ ^-[cbiyhm]+$ ]] ; then
 			echo "Error 3"
 		elif [[ "$1" =~ "h" ]] && [[ ${#1} -gt 2 ]] ; then
 			echo "Error 4"
@@ -21,8 +26,11 @@ set_option()
 				[ "$(echo "$1" | awk '{count += (split($0, arry, "b") - 1)} END{print count}')" -gt 1 ] ; then
 			echo "Error 5"
 		elif [ "$(echo "$1" | awk '{count += (split($0, arry, "i") - 1)} END{print count}')" -gt 1 ] ||
-				[ "$(echo "$1" | awk '{count += (split($0, arry, "y") - 1)} END{print count}')" -gt 1 ] ; then
+				[ "$(echo "$1" | awk '{count += (split($0, arry, "y") - 1)} END{print count}')" -gt 1 ] ||
+				[ "$(echo "$1" | awk '{count += (split($0, arry, "m") - 1)} END{print count}')" -gt 1 ] ; then
 			echo "Error 6"
+		elif [[ "$1" =~ "y" ]] && [[ "$1" =~ "m" ]] ; then
+			echo "Error 7"
 		else
 			if [[ ! "$1" =~ "c" ]] && [[ ! "$1" =~ "b" ]] && [[ ! "$1" =~ "h" ]]; then
 				echo "${1}b"
@@ -31,12 +39,14 @@ set_option()
 			fi
 		fi
 	else
-		echo "Error 7"
+		echo "Error 8"
 	fi
 }
 
 do_exception()
 {
+	local err_num
+
 	err_num="$(echo "$1" | awk '{print $2}')"
 
 	case "$err_num" in
@@ -46,7 +56,8 @@ do_exception()
 		"4" ) echo "${ESC}[31mError:${ESC}[m Only write the '-h' option, when see Usage." ;;
 		"5" ) echo "${ESC}[31mError:${ESC}[m Included two or more of the same Browsers." ;;
 		"6" ) echo "${ESC}[31mError:${ESC}[m Included two or more of the same options." ;;
-		"7" ) echo "${ESC}[31mError:${ESC}[m Argument '-' is not specified or only written '-'." ;;
+		"7" ) echo "${ESC}[31mError:${ESC}[m Specified can be only one of y or m." ;;
+		"8" ) echo "${ESC}[31mError:${ESC}[m Argument '-' is not specified or only written '-'." ;;
 	esac
 	echo "To see Usage, write only the -h option. ( 'ge -h' )"
 }
@@ -55,7 +66,7 @@ explain_usage()
 {
 	echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words]${ESC}[m"
 	echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
-	echo "${ESC}[32m[options]${ESC}[m: i: incognito mode, y: youtube, h: help"
+	echo "${ESC}[32m[options]${ESC}[m: h: help, i: incognito mode, y: youtube, m: google maps (Specified only one of y or m)"
 	echo "${ESC}[35m[words]${ESC}[m: Words to search (If omitted, go to top page)"
 	echo "${ESC}[31m[[ Notice ]]${ESC}[m"
 	echo "・If you write only 'ge', open 'New Tab' in Brave."
@@ -65,6 +76,8 @@ explain_usage()
 
 use_chrome_browser()
 {
+	local url chrome sec_chrome
+
 	url="${en_google}${2}"
 	chrome="open -a 'Google Chrome' -n --args --new-window"
 	sec_chrome="open -a 'Google Chrome' -n --args --incognito --new-window"
@@ -77,6 +90,15 @@ use_chrome_browser()
 			else
 				url="${en_youtube}${2}"
 				eval "$display_yt_tl"
+				eval "$sec_chrome" "$url"
+			fi
+		elif [[ "$1" =~ "m" ]] ; then
+			if [ "$2" = "" ] ; then
+				eval "$display_gl_tl"
+				eval "$sec_chrome" "$google_maps"
+			else
+				url="${en_google_maps}${2}"
+				eval "$display_gl_tl"
 				eval "$sec_chrome" "$url"
 			fi
 		else
@@ -92,6 +114,15 @@ use_chrome_browser()
 			eval "$display_yt_tl"
 			eval "$chrome" "$url"
 		fi
+	elif [[ "$1" =~ "m" ]] ; then
+		if [ "$2" = "" ] ; then
+			eval "$display_gl_tl"
+			eval "$chrome" "$google_maps"
+		else
+			url="${en_google_maps}${2}"
+			eval "$display_gl_tl"
+			eval "$chrome" "$url"
+		fi
 	else
 		cowsay -f turkey 'Open Chrome !!'
 		if [ "$2" = "" ] ; then
@@ -104,6 +135,8 @@ use_chrome_browser()
 
 use_brave_browser()
 {
+	local url brave sec_brave
+
 	url="${en_google}${2}"
 	brave="open -a 'Brave Browser' -n --args --new-window"
 	sec_brave="open -a 'Brave Browser' -n --args --incognito --new-window"
@@ -116,6 +149,15 @@ use_brave_browser()
 			else
 				url="${en_youtube}${2}"
 				eval "$display_yt_tl"
+				eval "$sec_brave" "$url"
+			fi
+		elif [[ "$1" =~ "m" ]] ; then
+			if [ "$2" = "" ]; then
+				eval "$display_gl_tl"
+				eval "$sec_brave" "$google_maps"
+			else
+				url="${en_google_maps}${2}"
+				eval "$display_gl_tl"
 				eval "$sec_brave" "$url"
 			fi
 		else
@@ -131,6 +173,15 @@ use_brave_browser()
 			eval "$display_yt_tl"
 			eval "$brave" "$url"
 		fi
+	elif [[ "$1" =~ "m" ]] ; then
+		if [ "$2" = "" ] ; then
+			eval "$display_gl_tl"
+			eval "$brave" "$google_maps"
+		else
+			url="${en_google_maps}${2}"
+			eval "$display_gl_tl"
+			eval "$brave" "$url"
+		fi
 	else
 		cowsay -f turkey 'Open Brave !!'
 		if [ "$2" = "" ] ; then
@@ -143,6 +194,8 @@ use_brave_browser()
 
 _search_on_google_engine()
 {
+	local option word
+
 	# early return as to open Brave Browser
 	if [ $# -eq 0 ] ; then
 		cowsay -f turkey "Open 'New Tab' in Brave!"
