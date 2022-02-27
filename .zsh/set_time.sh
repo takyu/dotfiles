@@ -42,7 +42,7 @@ _set_wake-up_time()
 		echo "Sleep Time: ${ESC}[31m${timestamp}${ESC}[m" >> "$HOME"/Documents/times/sleep_time.txt
 	fi
 	clear
-	cowsay -f hellokitty GoodMornig, Taku!
+	cowsay -f hellokitty GoodMornig, "$USER"
 	figlet -f slant sleep_time "$timestamp"
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd
@@ -53,14 +53,14 @@ _set_wake-up_time()
 _set_bed_time()
 {
 	last_line="$(sed -n '$p' "$HOME/Documents/times/sleep_time.txt")" 2>/dev/null
-	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Sleep Time:" ] && [ "$last_line" != "" ] ; then 
+	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Sleep Time:" ] && [ "$last_line" != "" ] ; then
 		display_error "${ESC}[31mYou didn't enter the command 'oha' this morning, did you?${ESC}[m"
 		return 0
 	fi
 	date +"%nBed Time: %Y/%m/%d %A %H:%M:%S" >> "$HOME"/Documents/times/sleep_time.txt
 	_quit_app_by_apple_script "Brave Browser"
 	clear
-	cowsay -f tux Goodsleep, Taku
+	cowsay -f tux Goodsleep, "$USER"
 	sudo purge && _manipulate_sleep on
 	echo "${ESC}[34mSleep after 5 seconds...${ESC}[m"
 	revolver --style 'arrow2' start
@@ -70,13 +70,13 @@ _set_bed_time()
 _set_start_time_for_studying()
 {
 	last_line="$(sed -n '$p' "$HOME/Documents/times/study_time.txt")" 2>/dev/null
-	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Study Time:" ] && [ "$last_line" != "" ] ; then 
+	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Study Time:" ] && [ "$last_line" != "" ] ; then
 		display_error "${ESC}[31mYou didn't enter the command 'fist' when you had finished studying, did you?${ESC}[m"
 		return 0
 	fi
 	date +'%nStart Study Time: %Y/%m/%d %A %H:%M:%S' >> "$HOME"/Documents/times/study_time.txt
 	clear
-	cowsay -f stimpy Study hard, Taku!
+	cowsay -f stimpy Study hard, "$USER"
 	_break_line_before_echo "${ESC}[34mInitialize the terminal display after 5 seconds...${ESC}[m"
 	revolver --style 'arrow2' start
 	sleep 5;revolver stop && _custom_cd
@@ -101,7 +101,7 @@ _set_finish_time_for_studying()
 		echo "Study Time: ${ESC}[31m${timestamp}${ESC}[m" >> "$HOME"/Documents/times/study_time.txt
 	fi
 	clear
-	cowsay -f koala Good work, Taku.
+	cowsay -f koala Good work, "$USER".
 	figlet -f slant study_time "$timestamp"
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd

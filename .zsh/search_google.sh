@@ -70,7 +70,8 @@ explain_usage()
 	echo "${ESC}[35m[words]${ESC}[m: Words to search (If omitted, go to top page)"
 	echo "${ESC}[31m[[ Notice ]]${ESC}[m"
 	echo "・If you write only 'ge', open 'New Tab' in Brave."
-	echo "・If only some valid option is given,
+	echo "・If you write 'ge [URL]', search for the URL in Brave."
+	_break_line_after_echo "・If only some valid option is given,
 		'Brave' will be set as the Browser even if no browser is specified."
 }
 
@@ -197,9 +198,13 @@ _search_on_google_engine()
 	local option word
 
 	# early return as to open Brave Browser
-	if [ $# -eq 0 ] ; then
+	if [ $# -eq 0 ] || { [ $# -eq 1 ] && [[ "$1" =~ ^https?://.*$ ]]; } ; then
 		cowsay -f turkey "Open 'New Tab' in Brave!"
-		open -a 'Brave Browser' -n --args --new-window
+		if [ $# -eq 0 ] ; then
+			open -a 'Brave Browser' -n --args --new-window
+		else
+			open -a 'Brave Browser' -n --args --new-window "$1"
+		fi
 		return 0
 	fi
 	

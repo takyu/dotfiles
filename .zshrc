@@ -101,7 +101,7 @@ TRAPALRM() {zle reset-prompt}
 
 #
 # "precmd () {}" is a function that is executed every time the prompt is displayed.
-# By executing vcs_info, it rewrites the contents of the variable "vcs_info_msg_0_" 
+# By executing vcs_info, it rewrites the contents of the variable "vcs_info_msg_0_"
 # to the latest every time the prompt is displayed.
 #
 #precmd () { vcs_info }
@@ -170,7 +170,7 @@ command_not_found_handler()
 zle -N _custom_return_key
 bindkey '^m' _custom_return_key
 
-## I don't really use it... 
+## I don't really use it...
 # Move to a directory one level above when you press control(^) key
 #zle -N cdup
 #bindkey '\^' cdup
@@ -364,7 +364,7 @@ alias deti=_set_default_title_of_terminal
 # Alias to start screen saver
 alias ss=_start_screen_saver
 
-# Alias to open viewer of quicklook
+# Alias to open viewer of quicklook in the background
 alias ql=_execute_quicklook
 
 ##

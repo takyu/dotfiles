@@ -63,7 +63,7 @@ _ask_yn()
 			echo "${ESC}[31mError:${ESC}[m Please enter 'y' or 'n'."
 			echo
 		fi
-		
+
 	done
 }
 
@@ -138,7 +138,7 @@ _custom_cd()
 
 		terminal="$(tty | tr -d '/dev/')"
 		time="$(date +'%a %b %d %H:%M:%S')"
-		echo "Last init: $time on $terminal" 
+		echo "Last init: $time on $terminal"
 	else
 		\cd "$@" || return 0
 	fi
@@ -180,7 +180,7 @@ _custom_open()
 
 _open_each_directory_or_file_with_vscode()
 {
-	
+
 	if [ $# -eq 1 ] && [ "$1" = "-h" ]; then
 		_break_line_after_echo "${ESC}[32mUsage: vs (<dir>|<file> <dir>|<file> ..)${ESC}[m"
 		echo "Open or create the directory or file with VScode."
@@ -188,7 +188,7 @@ _open_each_directory_or_file_with_vscode()
 		echo "If not specified, open the current directory with VScode."
 		return 0
 	fi
-	cowsay -f dragon-and-cow 'Hello, Taku!' && figlet -cf slant Just coding!
+	cowsay -f dragon-and-cow "Hello, ${USER}!" && figlet -cf slant Just coding!
 	if [ $# -eq 0 ] ; then
 		code -n .
 	else
@@ -224,7 +224,7 @@ _start_screen_saver()
 	else
 		_break_line_after_echo "${ESC}[31mError:${ESC}[m Invalid option is specified."
 		echo "Usage:ss [option]"
-		echo "[option]" 
+		echo "[option]"
 		_break_line_after_echo "'--not-always-display-login-screen' -> Don't always display the login screen"
 	fi
 }
@@ -251,14 +251,14 @@ _do_sleep_display()
 		vm_stat | \
 		perl -ne '/page size of (\d+)/ and $size=$1; /Pages\s+([^:]+)[^\d]+(\d+)/ and printf("%-16s % 16.2f Mi\n", "$1:", $2 * $size / 1048576);'
 		echo
-		cowsay -f kitty Take a break, Taku!
+		cowsay -f kitty Take a break, "$USER"
 		echo && echo && _manipulate_sleep on
 
 		revolver --style 'arrow2' start " ${ESC}[32mSoon this computer will go into sleep mode..${ESC}[m"
 		sleep 6;revolver stop && pmset sleepnow
 	else
 		_purge_cache
-		cowsay -f kitty Take a break, Taku!
+		cowsay -f kitty Take a break, "$USER"
 		sleep 1.2;pmset displaysleepnow
 		clear
 	fi
@@ -325,7 +325,7 @@ _set_default_title_of_terminal()
 	else
 		echo -e "${ESC}];Sub\007"
 	fi
-	
+
 	clear
 }
 
@@ -334,7 +334,7 @@ _display_git_current_branch()
 	local branch_name st branch_status
 
 	st="$(git status 2> /dev/null)"
-	
+
 	if [ -z "$st" ] ; then
 		return 0
 	fi
@@ -387,7 +387,7 @@ _display_git_current_branch()
 
 		# Woops..?
 		branch_status="%F{purple}"
-		
+
 	fi
 
 	echo "${branch_status}[${branch_name}]%f"
