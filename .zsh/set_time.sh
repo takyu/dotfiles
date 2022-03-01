@@ -3,6 +3,8 @@
 # Function to get a timestamp
 set_timestamp_timesecond()
 {
+  local time_second sec min hrs timestamp
+
 	time_second=$(( $(date -j -f "%Y/%m/%d %H:%M:%S" "$1" +%s) - $(date -j -f "%Y/%m/%d %H:%M:%S" "$2" +%s) ))
 
 	sec=$((time_second%60))
@@ -25,6 +27,8 @@ display_error()
 # oha
 _set_wake-up_time()
 {
+	local last_line bed_time wakeup_time sleep_timestamp_timesecond timestamp timesecond
+
 	last_line="$(sed -n '$p' "$HOME/Documents/times/sleep_time.txt")" 2>/dev/null
 	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Bed Time:" ] ; then
 		display_error "${ESC}[31mYou didn't enter the command 'oya' last night, did you?${ESC}[m"
@@ -47,11 +51,13 @@ _set_wake-up_time()
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd
 	fi
-	open -a 'Brave Browser' -n --args --new-window https://www.japantimes.co.jp/
+	_search_on_google_engine https://www.japantimes.co.jp/ 1>/dev/null
 }
 # oya
 _set_bed_time()
 {
+	local last_line
+
 	last_line="$(sed -n '$p' "$HOME/Documents/times/sleep_time.txt")" 2>/dev/null
 	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Sleep Time:" ] && [ "$last_line" != "" ] ; then
 		display_error "${ESC}[31mYou didn't enter the command 'oha' this morning, did you?${ESC}[m"
@@ -61,14 +67,16 @@ _set_bed_time()
 	_quit_app_by_apple_script "Brave Browser"
 	clear
 	cowsay -f tux Goodsleep, "$USER"
-	sudo purge && _manipulate_sleep on
-	echo "${ESC}[34mSleep after 5 seconds...${ESC}[m"
+	_purge_cache 1>/dev/null && _manipulate_sleep on
 	revolver --style 'arrow2' start
+	echo "${ESC}[34mSleep after 5 seconds...${ESC}[m"
 	sleep 5;revolver stop && pmset sleepnow
 }
 # stst
 _set_start_time_for_studying()
 {
+	local last_line
+
 	last_line="$(sed -n '$p' "$HOME/Documents/times/study_time.txt")" 2>/dev/null
 	if [ "$(echo "$last_line" | awk '{print $1,$2}')" != "Study Time:" ] && [ "$last_line" != "" ] ; then
 		display_error "${ESC}[31mYou didn't enter the command 'fist' when you had finished studying, did you?${ESC}[m"
@@ -84,6 +92,8 @@ _set_start_time_for_studying()
 # fist
 _set_finish_time_for_studying()
 {
+	local last_line start_time finish_time study_timestamp_timesecond timestamp timesecond
+
 	last_line="$(sed -n '$p' "$HOME/Documents/times/study_time.txt")" 2>/dev/null
 	if [ "$(echo "$last_line" | awk '{print $1,$2,$3}')" != "Start Study Time:" ] ; then
 		display_error "${ESC}[31mYou hadn't entered the command 'stst' before you studied, had you?${ESC}[m"

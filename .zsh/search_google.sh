@@ -48,7 +48,7 @@ do_exception()
 	local err_num
 
 	err_num="$(echo "$1" | awk '{print $2}')"
-
+	
 	case "$err_num" in
 		"1" ) echo "${ESC}[31mError:${ESC}[m Too many arguments." ;;
 		"2" ) echo "${ESC}[31mError:${ESC}[m Specified can be only one browser." ;;
@@ -207,7 +207,7 @@ _search_on_google_engine()
 		fi
 		return 0
 	fi
-	
+
 	option="$(set_option "$1")"
 	shift
 	word="${*// /+}"

@@ -109,11 +109,9 @@ _check_git_status()
 		else
 			echo -e "\n# ---------- \033[35mgit status\033[m ---------- #"
 			git status -s
-			return 0
 		fi
 
 	fi
-	return 1
 }
 
 _auto_ls()
@@ -145,17 +143,32 @@ _custom_cd()
 }
 
 _custom_return_key() {
+
 	if [ -n "$BUFFER" ] ; then
 		zle accept-line
 		return 0
 	fi
-	echo
-	clear && ls -G
-	if _check_git_status ; then
-		echo -e "\n" # same as commmand 'echo echo'
-	else
-		echo
+
+	if [ "$WIDGET" != "$LASTWIDGET" ] ; then
+		CUSTOM_RETURN_COUNT=0
 	fi
+
+	clear
+	case "$CUSTOM_RETURN_COUNT" in
+		0)
+			ls -G && _check_git_status
+			((++CUSTOM_RETURN_COUNT)) ;;
+		1)
+			ls -aG && _check_git_status
+			unset CUSTOM_RETURN_COUNT ;;
+		*)
+			echo "Usage: Press enter once per second to display files and directories,"
+			echo "twice to display hidden files and directories as well."
+			unset CUSTOM_RETURN_COUNT ;;
+	esac
+	
+	echo -e "\n" # same as commmand 'echo echo'
+
 	zle reset-prompt
 }
 

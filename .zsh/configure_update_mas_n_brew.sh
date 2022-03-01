@@ -93,7 +93,7 @@ do_brew_update()
 			echo "# ------------------------------------------------------------------------------------------------- #"
 			brew upgrade
 			_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
-			
+
 			break
 		else
 			_break_line_after_echo "${ESC}[31mError:${ESC}[m Please enter 'y' or 'n' or please hold for four seconds."
