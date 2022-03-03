@@ -2,24 +2,23 @@
 
 _display_battery_amount()
 {
-	local ba_amount ba_status
+	local ba_amount ba_status ba_status_mark
 
 	ba_amount="$(pmset -g ps | awk 'NR==2' | awk '{print $3}' | sed 's/%;//g')"
-	ba_status="$(pmset -g ps | awk 'NR==1' | awk '{print $4, $5}')"
+	ba_status="$(pmset -g ps | awk 'NR==1' | awk '{print $4}' | sed "s/'//g")"
+	ba_status_mark="🔋"
 
-	if [ "$ba_status" = "'AC Power'" ] ; then
-		echo -n "%F{cyan}${ba_amount}%f%%"
-		return 0
+	if [ "$ba_status" = "AC" ] ; then
+		ba_status_mark="🔌"
 	fi
 	
 	if [ "$ba_amount" -gt 50 ] ; then
-		echo "%F{green}${ba_amount}%f%%"
+		echo "${ba_status_mark}%F{green}${ba_amount}%f"
 	elif [ "$ba_amount" -gt 20 ] ; then
-		echo "%F{yellow}${ba_amount}%f%%"
+		echo "${ba_status_mark}%F{yellow}${ba_amount}%f"
 	else
-		echo "%F{red}${ba_amount}%f%%"
+		echo "${ba_status_mark}%F{red}${ba_amount}%f"
 	fi
-
 }
 
 _display_git_current_branch()

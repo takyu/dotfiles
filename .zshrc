@@ -91,10 +91,6 @@ fi
 #
 setopt nonomatch
 
-# Configure the time to be displayed every second in RPROMPT
-TMOUT=1
-TRAPALRM() {zle reset-prompt}
-
 # Configure the git status to be displayed in PROMPT
 #zstyle ':vcs_info:git:*' check-for-changes true
 #zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
@@ -112,12 +108,19 @@ TRAPALRM() {zle reset-prompt}
 # "setopt prompt_subst" will expand the variable in the PROMPT variable.
 setopt prompt_subst
 
+# Configure the time to be displayed every second in RPROMPT
+export TMOUT=1
+TRAPALRM()
+{
+	zle reset-prompt
+}
+
 # Customize of prompt (left prompt)
-PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
-%F{white}%%%f '
+PROMPT='`_display_battery_amount` %F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
+🐧 '
 
 # Customize of rpropmpt (right propmpt)
-RPROMPT="[`_display_battery_amount`] %F{white}%D{%y-%m-%d %a %H:%M:%S}%f"
+RPROMPT="%F{white}%D{%y-%m-%d %a %H:%M:%S}%f"
 
 # Configure about beep
 setopt no_beep
