@@ -1,0 +1,241 @@
+{
+  /* ---------------------------------------------------------------------------
+    Settings general
+  --------------------------------------------------------------------------- */
+  /**
+   * editor
+   */
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontSize": 12,
+  "editor.letterSpacing": -0.2,
+  "editor.lineHeight": 18,
+  "editor.cursorStyle": "block",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.renderWhitespace": "all",
+  "editor.detectIndentation": false,
+  "editor.comments.insertSpace": true,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [80],
+  "editor.folding": true,
+  "editor.suggest.showKeywords": false,
+  "editor.suggest.showWords": false,
+  "editor.snippetSuggestions": "top",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+  "editor.minimap.enabled": false,
+
+  // Don't include formatting when copying text
+  "editor.copyWithSyntaxHighlighting": false,
+
+  // Don't auto compltion when press specific key
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+
+  // enable Bracket Pair Colorizer
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+
+  // Disable copying empty lines
+  "editor.emptySelectionClipboard": false,
+
+  /**
+   * workbench
+   */
+  // display in preview mode if there is a readme
+  "workbench.startupEditor": "none",
+
+  "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#222222",
+    // "editorLineNumber.foreground": "#3f3f3f",
+    "editorLineNumber.activeForeground": "#51ff00",
+    "terminalCursor.foreground": "#ffffff7f"
+  },
+
+  // show indent guide lines in the file tree and change indent size
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.tree.indent": 10,
+
+  // Don't close open files when opening other files
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.untitled.hint": "hidden",
+  "workbench.colorTheme": "Ayu Mirage Bordered",
+
+  /**
+   * window
+   */
+  // move to window, if there is already it open.
+  "window.openFilesInNewWindow": "off",
+
+  /**
+   * files
+   */
+  // remove wasted white space.
+  "files.trimTrailingWhitespace": true,
+
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+    // "**/node_modules": true
+  },
+
+  /**
+   * confirm explorer
+   */
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": true,
+
+  /**
+   * debug
+   */
+  "debug.console.fontSize": 12,
+  "debug.inlineValues": true,
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "debug.openDebug": "openOnSessionStart",
+
+  /**
+   * terminal
+   */
+  "terminal.integrated.fontSize": 12,
+
+  // copy when selected in terminal
+  "terminal.integrated.copyOnSelection": true,
+
+  // right-click to paste
+  "terminal.integrated.rightClickBehavior": "paste",
+
+  /* ---------------------------------------------------------------------------
+    Settings extensions
+  --------------------------------------------------------------------------- */
+
+  /**
+   * emmet
+   */
+  // Make HTML tags as a building block structure
+  "emmet.syntaxProfiles": {
+    "html": {
+      "inline_break": 1
+    }
+  },
+  // Use emmet's completion function in js to complete html tags
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "erb": "html",
+    "vue": "html, css"
+  },
+
+  /**
+   * Visual Studio IntelliCode
+   *
+   * AI-assisted development features for Python, TypeScript/JavaScript and Java
+   */
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+  /**
+   * open-in-browser
+   */
+  "open-in-browser.default": "chrome",
+
+  /**
+   * intelephense
+   *
+   * display notice of PHP
+   */
+  "intelephense.diagnostics.undefinedClassConstants": false,
+  "intelephense.diagnostics.undefinedConstants": false,
+  "intelephense.diagnostics.undefinedFunctions": false,
+  "intelephense.diagnostics.undefinedMethods": false,
+  "intelephense.diagnostics.undefinedTypes": false,
+  "intelephense.diagnostics.undefinedProperties": false,
+
+  /**
+   * live server
+   */
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.donotShowInfoMsg": true,
+
+  /**
+   * Dart Sass
+   *
+   * compile css file from scss files when saving
+   */
+  "dartsass.disableSourceMap": true,
+  "dartsass.outputFormat": "cssonly",
+  "dartsass.targetDirectory": "src/css",
+  "dartsass.pauseInterval": 2,
+
+  /* ---------------------------------------------------------------------------
+    Settings each language
+  --------------------------------------------------------------------------- */
+
+  "[shellscript]": {
+    "editor.insertSpaces": false,
+    "editor.comments.insertSpace": false,
+    "editor.tabSize": 4,
+    "files.trimTrailingWhitespace": false
+  },
+  "[c]": {
+    "editor.defaultFormatter": null,
+    "editor.insertSpaces": false,
+    "editor.comments.insertSpace": false,
+    "editor.tabSize": 4,
+    "editor.wordBasedSuggestions": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "files.trimTrailingWhitespace": false
+  },
+
+  "[cpp]": {
+    "editor.defaultFormatter": null,
+    "editor.insertSpaces": false,
+    "editor.comments.insertSpace": false,
+    "editor.tabSize": 4,
+    "editor.wordBasedSuggestions": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "files.trimTrailingWhitespace": false
+  },
+
+  "dart.flutterSdkPath": "/usr/local/bin/flutter",
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [80],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false
+  },
+  "dart.openDevTools": "flutter",
+
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
+    "files.trimTrailingWhitespace": false
+  },
+
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  }
+
+  // "javascript.inlayHints.parameterNames.enabled": "all",
+  // "typescript.inlayHints.parameterNames.enabled": "all"
+}
