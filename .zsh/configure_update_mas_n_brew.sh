@@ -4,8 +4,6 @@ choose_init_display()
 {
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd
-	else
-		echo
 	fi
 }
 

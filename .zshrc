@@ -84,13 +84,6 @@ fi
 #
 #autoload -Uz vcs_info
 
-#
-# Configure to prevent being recognized as a file name.
-# If the command contains meta characters (*,[],? ...) in the command,
-# zsh will recognize it as a file name and return an error "no matches found.
-#
-setopt nonomatch
-
 # Configure the git status to be displayed in PROMPT
 #zstyle ':vcs_info:git:*' check-for-changes true
 #zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
@@ -104,6 +97,13 @@ setopt nonomatch
 # to the latest every time the prompt is displayed.
 #
 #precmd () { vcs_info }
+
+#
+# Configure to prevent being recognized as a file name.
+# If the command contains meta characters (*,[],? ...) in the command,
+# zsh will recognize it as a file name and return an error "no matches found.
+#
+setopt nonomatch
 
 # "setopt prompt_subst" will expand the variable in the PROMPT variable.
 setopt prompt_subst
@@ -163,6 +163,9 @@ cdpath=(.. ~ ~/src)
 # Configure completion to match uppercase even if lowercase is
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# Configure to recognite immidiately of newly installed commands
+zstyle ":completion:*:commands" rehash 1
+
 # Function to display 'misscommand!' when typing the wrong command
 command_not_found_handler()
 {
@@ -180,6 +183,9 @@ bindkey '^m' _custom_return_key
 # Move to a directory one level above when you press control(^) key
 #zle -N cdup
 #bindkey '\^' cdup
+
+# Hook Function which is display just before the prompt
+precmd() { _add_line }
 
 
 # -------------------------------------------------------------------------------------------- #

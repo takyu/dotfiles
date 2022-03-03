@@ -71,7 +71,7 @@ explain_usage()
 	echo "${ESC}[31m[[ Notice ]]${ESC}[m"
 	echo "・If you write only 'ge', open 'New Tab' in Brave."
 	echo "・If you write 'ge [URL]', search for the URL in Brave."
-	_break_line_after_echo "・If only some valid option is given,
+	echo "・If only some valid option is given,
 		'Brave' will be set as the Browser even if no browser is specified."
 }
 

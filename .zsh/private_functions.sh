@@ -16,6 +16,16 @@ _break_line_before_echo()
 	echo "$@"
 }
 
+# Function to add line after command
+_add_line()
+{
+  if [ -z "$PS1_NEWLINE_LOGIN" ]; then
+    PS1_NEWLINE_LOGIN=true
+  else
+    printf '\n'
+  fi
+}
+
 # Function to notify when process is done
 _notify_done()
 {
@@ -96,7 +106,7 @@ _new_instance_terminal()
 	osascript -e 'tell application "Terminal" to do script activate' 1>/dev/null
 	if [ "$terminal" = 'ttys000' ] ; then
 		clear && echo && neofetch
-		echo "-------- ${ESC}[34mPurge Cache${ESC}[m --------" && _purge_cache 1 && echo
+		echo "-------- ${ESC}[34mPurge Cache${ESC}[m --------" && _purge_cache 1
 	fi
 }
 
@@ -167,7 +177,7 @@ _custom_return_key() {
 			unset CUSTOM_RETURN_COUNT ;;
 	esac
 	
-	echo -e "\n" # same as commmand 'echo echo'
+	echo -e "\n"
 
 	zle reset-prompt
 }
@@ -317,7 +327,7 @@ _customize_yt-dlp()
 		echo "When looking up downloadable formats,"
 		_break_line_after_echo "${ESC}[33mdlva -F {URL_Movie}${ESC}[m"
 		echo "When downloading in a specific format,"
-		_break_line_after_echo "${ESC}[33mdlva -f {ID_video}+{ID_audio} --merge-output-format {FORMAT(e.g. mp4)} {URL} -o {output_filename}${ESC}[m"
+		echo "${ESC}[33mdlva -f {ID_video}+{ID_audio} --merge-output-format {FORMAT(e.g. mp4)} {URL} -o {output_filename}${ESC}[m"
 	elif [ "$1" = '-h' ] || [ "$1" = '--help' ] ; then
 		yt-dlp "$1"
 	elif [ "$1" = '-F' ] ; then
