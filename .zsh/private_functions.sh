@@ -107,7 +107,7 @@ _check_git_status()
 		if [ -z "$(git status -s)" ] ; then
 			return 0
 		else
-			echo -e "\n# ---------- \033[35mgit status\033[m ---------- #"
+			echo -e "\n# ----------  \033[35mgit status\033[m  ---------- #"
 			git status -s
 		fi
 
@@ -340,70 +340,6 @@ _set_default_title_of_terminal()
 	fi
 
 	clear
-}
-
-_display_git_current_branch()
-{
-	local branch_name st branch_status
-
-	st="$(git status 2> /dev/null)"
-
-	if [ -z "$st" ] ; then
-		return 0
-	fi
-
-	branch_name="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-
-	if [ -n "$(git log origin/"${branch_name}".."${branch_name}" 2> /dev/null)" ] ; then
-
-		# No push yet!!
-		branch_status="%F{red}!!"
-
-	elif [ -n "$(echo "$st" | grep "^nothing to")" ] ; then
-
-		# Have never pushed!!
-		if [ -n "$(git log origin/"${branch_name}".."${branch_name}" 2>&1 > /dev/null)" ] ; then
-			branch_status="%F{red}!!(never)"
-		else
-			# All commit
-			branch_status="%F{cyan}"
-		fi
-
-	elif [ -n "$(echo "$st" | grep "^Untracked files")" ] &&
-		[ -n "$(echo "$st" | grep "^Changes not staged for commit")" ] ; then
-
-		# No manage and add files yet
-		branch_status="%F{yellow}??M"
-
-	elif [ -n "$(echo "$st" | grep "^Untracked files")" ] ; then
-
-		# No manage files
-		branch_status="%F{yellow}??"
-
-	elif [ -n "$(echo "$st" | grep "^Changes not staged for commit")" ] ; then
-
-		# No add yet
-		branch_status="%F{yellow}M"
-
-	elif [ -n "$(echo "$st" | grep "^Changes to be committed")" ] ; then
-
-		# No commit yet!
-		branch_status="%F{red}!"
-
-	elif [ -n "$(echo "$st" | grep "^rebase in progress")" ] ; then
-
-		# Conflict!
-		echo "%F{red}!< no branch >!%f"
-		return 0
-
-	else
-
-		# Woops..?
-		branch_status="%F{purple}"
-
-	fi
-
-	echo "${branch_status}[${branch_name}]%f"
 }
 
 _execute_quicklook()

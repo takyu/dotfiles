@@ -28,6 +28,9 @@ display_init
 # Private functions
 source $HOME/dotfiles/.zsh/private_functions.sh
 
+# Private functions for prompt
+source $HOME/dotfiles/.zsh/private_functions_for_prompt.sh
+
 # Function to update everything in brew.
 source $HOME/dotfiles/.zsh/configure_update_mas_n_brew.sh
 
@@ -114,7 +117,7 @@ PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
 %F{white}%%%f '
 
 # Customize of rpropmpt (right propmpt)
-RPROMPT="%F{white} %D{%Y-%m-%d %a %H:%M:%S} %f"
+RPROMPT="[`_display_battery_amount`] %F{white}%D{%y-%m-%d %a %H:%M:%S}%f"
 
 # Configure about beep
 setopt no_beep
