@@ -116,11 +116,11 @@ TRAPALRM()
 }
 
 # Customize of prompt (left prompt)
-PROMPT='`_display_battery_amount` %F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
+PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
 🐧 '
 
 # Customize of rpropmpt (right propmpt)
-RPROMPT="%F{white}%D{%y-%m-%d %a %H:%M:%S}%f"
+RPROMPT='`_display_battery_amount` %F{white}%D{%y-%m-%d %a %H:%M:%S}%f"'
 
 # Configure about beep
 setopt no_beep
