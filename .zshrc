@@ -98,15 +98,11 @@ fi
 #
 #precmd () { vcs_info }
 
-#
-# Configure to prevent being recognized as a file name.
-# If the command contains meta characters (*,[],? ...) in the command,
-# zsh will recognize it as a file name and return an error "no matches found.
-#
-setopt nonomatch
-
 # "setopt prompt_subst" will expand the variable in the PROMPT variable.
 setopt prompt_subst
+
+# "setopt transient_rprompt" always remains only the last line rprompt
+setopt transient_rprompt
 
 # Configure the time to be displayed every second in RPROMPT
 export TMOUT=1
@@ -120,7 +116,16 @@ PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
 🐧 '
 
 # Customize of rpropmpt (right propmpt)
-RPROMPT='`_display_battery_amount` %F{white}%D{%y-%m-%d %a %H:%M:%S}%f"'
+RPROMPT='`_display_battery_amount` %F{white}%D{%y-%m-%d %a %H:%M:%S}%f'
+
+# Variables for coloring man
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[01;36m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;32m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[45;93m'
+export LESS_TERMCAP_se=$'\e[0m'
 
 # Configure about beep
 setopt no_beep
@@ -137,6 +142,10 @@ setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
 setopt inc_append_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_reduce_blanks
+unsetopt hist_no_store
 
 #
 # Not have to enter cd when moving a directory,
@@ -144,15 +153,21 @@ setopt inc_append_history
 #
 setopt AUTO_CD
 
-# Automatic ls when moving directories
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd _auto_ls
+#
+# Configure to prevent being recognized as a file name.
+# If the command contains meta characters (*,[],? ...) in the command,
+# zsh will recognize it as a file name and return an error "no matches found.
+#
+setopt nonomatch
 
 # When enter "cd -<tab_key>", it shows previously moved directories.
 setopt auto_pushd
 
 # Don't record duplicate directories with "auto_pushd".
 setopt pushd_ignore_dups
+
+# Complete by cursor position even in the middle of a word
+setopt complete_in_word
 
 #
 # The parent directory, home directory, and ~/src
@@ -165,6 +180,19 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # Configure to recognite immidiately of newly installed commands
 zstyle ":completion:*:commands" rehash 1
+
+# Configure to use color in completion
+autoload colors
+zstyle ':completion:*' list-colors "${LS_COLORS}"
+
+# Configure to colorized display for kill candidates as well
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
+
+# Configure to complete even if sudo is added to the command
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+# Configure to suppress inserting TAB with TAB when nothing is typed
+zstyle ':completion:*' insert-tab false
 
 # Function to display 'misscommand!' when typing the wrong command
 command_not_found_handler()
@@ -181,8 +209,12 @@ bindkey '^m' _custom_return_key
 
 ## I don't really use it...
 # Move to a directory one level above when you press control(^) key
-#zle -N cdup
-#bindkey '\^' cdup
+zle -N _cdup
+bindkey '^j' _cdup
+
+# Automatic ls when moving directories
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _auto_ls
 
 # Hook Function which is display just before the prompt
 precmd() { _add_line }

@@ -127,13 +127,12 @@ _check_git_status()
 _auto_ls()
 {
 	if [ "${AUTOLS_DIR:-$PWD}" != "$PWD" ] ; then
-		if [ "$PWD" = "$HOME" ] ; then
-			return 0
-		fi
 		clear && ls -G
+
 		if _check_git_status ; then
 			echo
 		fi
+		
 	fi
 	AUTOLS_DIR="${PWD}"
 }
@@ -143,10 +142,6 @@ _custom_cd()
 	if [ $# -eq 0 ] ; then
 		\cd || exit
 		clear
-
-		terminal="$(tty | tr -d '/dev/')"
-		time="$(date +'%a %b %d %H:%M:%S')"
-		echo "Last init: $time on $terminal"
 	else
 		\cd "$@" || return 0
 	fi
@@ -183,13 +178,11 @@ _custom_return_key() {
 }
 
 _cdup() {
-	if [ -z "$BUFFER" ] ; then
-		echo
-		_custom_cd ..
-		zle reset-prompt
-	else
-		zle self-insert '^'
-	fi
+	echo
+	cd ..
+	_auto_ls
+	echo
+	zle reset-prompt
 }
 
 _custom_open()
