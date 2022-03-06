@@ -2,14 +2,22 @@
 
 _display_battery_amount()
 {
-	local ba_amount ba_status ba_status_mark
+	local ba_amount ba_status ba_status_mark st_charge
 
 	ba_amount="$(pmset -g ps | awk 'NR==2' | awk '{print $3}' | sed 's/%;//g')"
 	ba_status="$(pmset -g ps | awk 'NR==1' | awk '{print $4}' | sed "s/'//g")"
 	ba_status_mark="🔋"
 
 	if [ "$ba_status" = "AC" ] ; then
-		ba_status_mark="🔌"
+
+		st_charge="$(pmset -g ps | awk 'NR==2' | awk '{print $4}' | sed 's/;//g')"
+
+		if [ "$st_charge" = "charging" ] ; then
+			ba_status_mark="⚡️🔌"
+		else
+			ba_status_mark="🔌"
+		fi
+
 	fi
 	
 	if [ "$ba_amount" -gt 50 ] ; then

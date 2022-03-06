@@ -209,8 +209,8 @@ bindkey '^m' _custom_return_key
 
 ## I don't really use it...
 # Move to a directory one level above when you press control(^) key
-zle -N _cdup
-bindkey '^j' _cdup
+#zle -N _cdup
+#bindkey '^j' _cdup
 
 # Automatic ls when moving directories
 autoload -Uz add-zsh-hook
@@ -273,6 +273,13 @@ eval "$(phpenv init -)"
 #
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+#
+# Path to hub
+#
+# It can do pull-request by using CUI
+#
+eval "$(hub alias -s)"
 
 
 # -------------------------------------------------------------------------------------------- #
