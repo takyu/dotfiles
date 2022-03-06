@@ -1,5 +1,6 @@
 amiralizadeh9480.laravel-extra-intellisense
 bmewburn.vscode-intelephense-client
+bradgashler.htmltagwrap
 bradlc.vscode-tailwindcss
 christian-kohler.path-intellisense
 codelios.dartsass
@@ -30,11 +31,13 @@ oderwat.indent-rainbow
 onecentlin.laravel-blade
 onecentlin.laravel5-snippets
 PKief.material-icon-theme
+pranaygp.vscode-css-peek
 redhat.java
 rifi2k.format-html-in-php
 ritwickdey.LiveServer
 stef-k.laravel-goto-controller
 steoates.autoimport
+streetsidesoftware.code-spell-checker
 stylelint.vscode-stylelint
 teabyii.ayu
 techer.open-in-browser

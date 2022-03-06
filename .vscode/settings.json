@@ -80,13 +80,23 @@
   // remove wasted white space.
   "files.trimTrailingWhitespace": true,
 
-  "files.autoSave": "onFocusChange",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
   "files.exclude": {
     "**/.classpath": true,
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
     // "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.rvm/**": true,
+    "**/node_modules/**": true,
+    "**/GoogleDrive/**": true,
+    "**/Dropbox/**": true,
+    "**/Pictures/**": true
   },
 
   /**
@@ -140,6 +150,11 @@
    * AI-assisted development features for Python, TypeScript/JavaScript and Java
    */
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+  /**
+   * htmltagwrap
+   */
+  "htmltagwrap.tag": "div",
 
   /**
    * open-in-browser
@@ -234,7 +249,7 @@
 
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-  }
+  },
 
   // "javascript.inlayHints.parameterNames.enabled": "all",
   // "typescript.inlayHints.parameterNames.enabled": "all"
