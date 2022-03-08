@@ -274,13 +274,6 @@ eval "$(phpenv init -)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-#
-# Path to hub
-#
-# It can do pull-request by using CUI
-#
-eval "$(hub alias -s)"
-
 
 # -------------------------------------------------------------------------------------------- #
 # Alias
