@@ -15,7 +15,7 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
-  "editor.renderWhitespace": "all",
+  "editor.renderWhitespace": "trailing",
   "editor.detectIndentation": false,
   "editor.comments.insertSpace": true,
   "editor.insertSpaces": true,
@@ -199,11 +199,13 @@
     "editor.tabSize": 4,
     "files.trimTrailingWhitespace": false
   },
+
   "[c]": {
     "editor.defaultFormatter": null,
     "editor.insertSpaces": false,
     "editor.comments.insertSpace": false,
     "editor.tabSize": 4,
+    "editor.renderWhitespace": "boundary",
     "editor.wordBasedSuggestions": true,
     "editor.suggest.insertMode": "replace",
     "editor.semanticHighlighting.enabled": true,
@@ -218,6 +220,7 @@
     "editor.insertSpaces": false,
     "editor.comments.insertSpace": false,
     "editor.tabSize": 4,
+    "editor.renderWhitespace": "boundary",
     "editor.wordBasedSuggestions": true,
     "editor.suggest.insertMode": "replace",
     "editor.semanticHighlighting.enabled": true,
@@ -241,6 +244,10 @@
   "dart.openDevTools": "flutter",
 
   "[markdown]": {
+    "editor.defaultFormatter": null,
+    "editor.insertSpaces": false,
+    "editor.comments.insertSpace": false,
+    "editor.tabSize": 4,
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
@@ -248,8 +255,9 @@
   },
 
   "[php]": {
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-  },
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+    "editor.tabSize": 4,
+  }
 
   // "javascript.inlayHints.parameterNames.enabled": "all",
   // "typescript.inlayHints.parameterNames.enabled": "all"
