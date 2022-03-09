@@ -349,3 +349,31 @@ _execute_quicklook()
 {
 	qlmanage -p > /dev/null 2>&1 "$@" &
 }
+
+_create_pull_request_on_git()
+{
+	local head title body
+
+	if [ $# -eq 0 ] ; then
+		_break_line_after_echo "${ESC}[31mError:${ESC}[m Specify branch which you want to merge."
+		_break_line_after_echo "Usage: ghpc [branch] [title] [body]"
+		echo "[branch]: Specify branch which you want to merge."
+		echo "[title]: Optional. Specify a pull request title."
+		echo "[body]: Optional. Specify a pull request comment."
+		return 0
+	fi
+
+	head="$(git rev-parse --abbrev-ref HEAD)"
+	title=""
+	body=""
+
+	if [ -n "$2" ] ; then
+		title=$2
+	fi
+
+	if [ -n "$3" ]; then
+		body=$3
+	fi
+
+	gh pr create --base "$1" --head "$head" --title "$title" --body "$body"
+}

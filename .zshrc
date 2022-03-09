@@ -411,6 +411,9 @@ alias ss=_start_screen_saver
 # Alias to open viewer of quicklook in the background
 alias ql=_execute_quicklook
 
+# Alias to pull request with github cli
+alias ghpc=_create_pull_request_on_git
+
 ##
 ## use the file 'search_google.sh' in .zsh directory
 ##
