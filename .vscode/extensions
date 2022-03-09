@@ -3,6 +3,7 @@ bmewburn.vscode-intelephense-client
 bradgashler.htmltagwrap
 bradlc.vscode-tailwindcss
 christian-kohler.path-intellisense
+chrmarti.regex
 codelios.dartsass
 codingyu.laravel-goto-view
 Dart-Code.dart-code
@@ -13,15 +14,21 @@ eamodio.gitlens
 esbenp.prettier-vscode
 formulahendry.auto-rename-tag
 formulahendry.code-runner
+gencer.html-slim-scss-css-class-completion
+GitHub.vscode-pull-request-github
 gitkraken.gitkraken-authentication
+hediet.vscode-drawio
 hollowtree.vue-snippets
 ipatalas.vscode-postfix-ts
 jebbs.plantuml
 johnsoncodehk.volar
 kube.42header
+mechatroner.rainbow-csv
 mhutchie.git-graph
 mikestead.dotenv
+mkaufman.HTMLHint
 mrmlnc.vscode-apache
+mrmlnc.vscode-duplicate
 ms-azuretools.vscode-docker
 ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
@@ -53,4 +60,6 @@ vscjava.vscode-java-test
 vscjava.vscode-maven
 waderyan.gitblame
 wix.vscode-import-cost
+Wscats.search
 xdebug.php-debug
+Zignd.html-css-class-completion
