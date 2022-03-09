@@ -3,7 +3,7 @@
 # Function to get a timestamp
 set_timestamp_timesecond()
 {
-  local time_second sec min hrs timestamp
+	local time_second sec min hrs timestamp
 
 	time_second=$(( $(date -j -f "%Y/%m/%d %H:%M:%S" "$1" +%s) - $(date -j -f "%Y/%m/%d %H:%M:%S" "$2" +%s) ))
 

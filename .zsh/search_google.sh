@@ -64,11 +64,11 @@ do_exception()
 
 explain_usage()
 {
-	echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words]${ESC}[m"
-	echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
+	_break_line_before_echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words]${ESC}[m"
+	_break_line_before_echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
 	echo "${ESC}[32m[options]${ESC}[m: h: help, i: incognito mode, y: youtube, m: google maps (Specified only one of y or m)"
 	echo "${ESC}[35m[words]${ESC}[m: Words to search (If omitted, go to top page)"
-	echo "${ESC}[31m[[ Notice ]]${ESC}[m"
+	_break_line_before_echo "${ESC}[31m[[ Notice ]]${ESC}[m"
 	echo "・If you write only 'ge', open 'New Tab' in Brave."
 	echo "・If you write 'ge [URL]', search for the URL in Brave."
 	echo "・If only some valid option is given,
