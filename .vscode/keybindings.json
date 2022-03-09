@@ -64,5 +64,9 @@
     "key": "cmd+space",
     "command": "closeParameterHints",
     "when": "editorFocus && parameterHintsVisible"
+  },
+  {
+    "key": "cmd+m",
+    "command": "duplicate.execute"
   }
 ]
