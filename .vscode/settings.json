@@ -6,7 +6,8 @@
    * editor
    */
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.fontSize": 12,
+  // "editor.fontFamily": "Ricty Diminished",
+  "editor.fontSize": 13,
   "editor.letterSpacing": -0.2,
   "editor.lineHeight": 18,
   "editor.cursorStyle": "block",
@@ -28,6 +29,9 @@
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.suggestSelection": "recentlyUsedByPrefix",
   "editor.minimap.enabled": false,
+
+  // Zoom in/out on the editor using Command key + mouse wheel
+  "editor.mouseWheelZoom": false,
 
   // Don't include formatting when copying text
   "editor.copyWithSyntaxHighlighting": false,
@@ -144,6 +148,11 @@
     "vue": "html, css"
   },
 
+  // Change the language of HTML expanded by Emmet
+  "emmet.variables": {
+    "lang": "ja"
+  },
+
   /**
    * Visual Studio IntelliCode
    *
@@ -256,9 +265,9 @@
 
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
-    "editor.tabSize": 4,
-  }
+    "editor.tabSize": 4
+  },
 
-  // "javascript.inlayHints.parameterNames.enabled": "all",
-  // "typescript.inlayHints.parameterNames.enabled": "all"
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "typescript.inlayHints.parameterNames.enabled": "all"
 }
