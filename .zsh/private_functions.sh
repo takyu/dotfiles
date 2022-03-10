@@ -380,7 +380,7 @@ _create_pull_request_on_git()
 
 _manipulate_enter_docker()
 {
-	local is_open pid_docker
+	local is_open
 
 	is_open="$(\docker images 2>/dev/null)"
 
