@@ -8,7 +8,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // "editor.fontFamily": "Ricty Diminished",
   "editor.fontSize": 13,
-  "editor.letterSpacing": -0.2,
+  "editor.letterSpacing": -0.4,
   "editor.lineHeight": 18,
   "editor.cursorStyle": "block",
   "editor.cursorBlinking": "smooth",
