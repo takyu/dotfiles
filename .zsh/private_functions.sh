@@ -380,7 +380,7 @@ _create_pull_request_on_git()
 
 _manipulate_enter_docker()
 {
-	local is_open
+	local is_open pid_docker
 
 	is_open="$(\docker images 2>/dev/null)"
 
@@ -413,5 +413,10 @@ _manipulate_enter_docker()
 
 		figlet -f slant Open Docker.
 		open -a Docker
+
+		if [ $# -gt 0 ] ; then
+			_break_line_before_echo "${ESC}[36mInfo:${ESC}[m When docker starts, enter it again!"
+			echo "command: docker $*"
+		fi
 	fi
 }
