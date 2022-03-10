@@ -377,3 +377,41 @@ _create_pull_request_on_git()
 
 	gh pr create --base "$1" --head "$head" --title "$title" --body "$body"
 }
+
+_manipulate_enter_docker()
+{
+	local is_open
+
+	is_open="$(\docker images 2>/dev/null)"
+
+	if [ -n "$is_open" ] ; then
+		\docker "$@"
+
+		if [ $# -eq 0 ] ; then
+			echo
+			
+			if _ask_yn "Quit the Docker app?" ; then
+				_quit_app_by_apple_script Docker &
+			fi
+		fi
+	else
+		echo -e "  ___________ \n" \
+			"< Hi, $USER!!>\n" \
+			" ----------- \n" \
+			"    \ \n" \
+			"     \ \n" \
+			"      \     \n" \
+			"                    ##        .            \n" \
+			"              ## ## ##       ==            \n" \
+			"           ## ## ## ##      ===            \n" \
+			"       /\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"___/ ===        \n" \
+			"  ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~   \n" \
+			"       \______ o          __/            \n" \
+			"        \    \        __/             \n" \
+			"          \____\______/   \n" \
+			"                                            \n"
+
+		figlet -f slant Open Docker.
+		open -a Docker
+	fi
+}

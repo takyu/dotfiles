@@ -322,7 +322,7 @@ alias advs="code -a"
 alias avs="code"
 
 # Alias to open new simulator
-alias si="figlet -f slant Open Simulator! | lolcat && sudo purge && open -a Simulator"
+alias si="figlet -f slant Open Simulator! && sudo purge && open -a Simulator"
 
 # Alias to open new QuickTime Player
 alias qp="sudo purge && open -a 'QuickTime Player'"
@@ -386,6 +386,9 @@ alias sleepon="_manipulate_sleep on"
 
 # Alias to open the directory or file with VScode
 alias vs=_open_each_directory_or_file_with_vscode
+
+# Alias to open docker
+alias docker=_manipulate_enter_docker
 
 # Alias to display the typical system information for this computer
 alias sysinfo=_show_this_computer_information
