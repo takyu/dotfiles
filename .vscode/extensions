@@ -1,4 +1,5 @@
 amiralizadeh9480.laravel-extra-intellisense
+bierner.markdown-preview-github-styles
 bmewburn.vscode-intelephense-client
 bradgashler.htmltagwrap
 bradlc.vscode-tailwindcss
@@ -8,6 +9,7 @@ codelios.dartsass
 codingyu.laravel-goto-view
 Dart-Code.dart-code
 Dart-Code.flutter
+DavidAnson.vscode-markdownlint
 dbaeumer.vscode-eslint
 donjayamanne.githistory
 eamodio.gitlens
@@ -19,6 +21,7 @@ GitHub.vscode-pull-request-github
 gitkraken.gitkraken-authentication
 hediet.vscode-drawio
 hollowtree.vue-snippets
+hoovercj.vscode-power-mode
 ipatalas.vscode-postfix-ts
 jebbs.plantuml
 johnsoncodehk.volar
@@ -34,6 +37,7 @@ ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
 ms-vscode.cmake-tools
 ms-vscode.cpptools
+mushan.vscode-paste-image
 oderwat.indent-rainbow
 onecentlin.laravel-blade
 onecentlin.laravel5-snippets
@@ -49,6 +53,8 @@ stylelint.vscode-stylelint
 teabyii.ayu
 techer.open-in-browser
 timonwong.shellcheck
+tomoki1207.pdf
+tonybaloney.vscode-pets
 twxs.cmake
 vadimcn.vscode-lldb
 vincaslt.highlight-matching-tag
@@ -62,4 +68,5 @@ waderyan.gitblame
 wix.vscode-import-cost
 Wscats.search
 xdebug.php-debug
+yzane.markdown-pdf
 Zignd.html-css-class-completion
