@@ -47,6 +47,9 @@
   // Disable copying empty lines
   "editor.emptySelectionClipboard": false,
 
+  // Difference editor ignores whitespace
+  "diffEditor.ignoreTrimWhitespace": true,
+
   /**
    * workbench
    */
@@ -108,6 +111,9 @@
    */
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": true,
+
+  // Open the directory where the file is when the file is opened in a tab
+  "explorer.autoReveal": false,
 
   /**
    * debug
@@ -279,7 +285,8 @@
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
-    "files.trimTrailingWhitespace": false
+    "files.trimTrailingWhitespace": false,
+    "diffEditor.ignoreTrimWhitespace": false
   },
 
   "[php]": {

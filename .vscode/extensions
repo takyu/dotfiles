@@ -1,5 +1,6 @@
 amiralizadeh9480.laravel-extra-intellisense
 bierner.markdown-preview-github-styles
+blackmist.LinkCheckMD
 bmewburn.vscode-intelephense-client
 bradgashler.htmltagwrap
 bradlc.vscode-tailwindcss
@@ -18,7 +19,6 @@ formulahendry.auto-rename-tag
 formulahendry.code-runner
 gencer.html-slim-scss-css-class-completion
 GitHub.vscode-pull-request-github
-gitkraken.gitkraken-authentication
 hediet.vscode-drawio
 hollowtree.vue-snippets
 hoovercj.vscode-power-mode
@@ -37,6 +37,7 @@ ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
 ms-vscode.cmake-tools
 ms-vscode.cpptools
+ms-vsliveshare.vsliveshare
 mushan.vscode-paste-image
 oderwat.indent-rainbow
 onecentlin.laravel-blade
