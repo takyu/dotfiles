@@ -1,16 +1,5 @@
 #!/bin/bash
 
-en_google="https://www.google.co.jp/search?q="
-
-en_youtube="https://www.youtube.com/results?search_query="
-youtube_top="https://www.youtube.com/"
-
-google_maps="https://www.google.co.jp/maps"
-en_google_maps="https://www.google.co.jp/maps/search/"
-
-display_yt_tl="cowsay -f turtle Bun, Bun, Hello YouTube!! && figlet -cf slant Enjoy YouTube!"
-display_gl_tl="cowsay -f turtle Delicious food, sweets, fun places... && figlet -cf slant Where to go?"
-
 set_option()
 {
 	if [[ "$1" =~ "-" ]] && [ ${#1} -gt 1 ] ; then
@@ -64,10 +53,10 @@ do_exception()
 
 explain_usage()
 {
-	_break_line_before_echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words]${ESC}[m"
+	_break_line_before_echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words or URL]${ESC}[m"
 	_break_line_before_echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
 	echo "${ESC}[32m[options]${ESC}[m: h: help, i: incognito mode, y: youtube, m: google maps (Specified only one of y or m)"
-	echo "${ESC}[35m[words]${ESC}[m: Words to search (If omitted, go to top page)"
+	echo "${ESC}[35m[words]${ESC}[m: Words to search or URL to do(If omitted, go to top page)"
 	_break_line_before_echo "${ESC}[31m[[ Notice ]]${ESC}[m"
 	echo "・If you write only 'ge', open 'New Tab' in Brave."
 	echo "・If you write 'ge [URL]', search for the URL in Brave."
@@ -75,62 +64,99 @@ explain_usage()
 		'Brave' will be set as the Browser even if no browser is specified."
 }
 
+set_url()
+{
+	local en_google google_top en_youtube youtube_top google_maps en_google_maps
+
+	en_google="https://www.google.com/search?q="
+	google_top="https://www.google.com/"
+
+	en_youtube="https://www.youtube.com/results?search_query="
+	youtube_top="https://www.youtube.com/"
+
+	google_maps="https://www.google.com/maps"
+	en_google_maps="https://www.google.com/maps/search/"
+
+	if [[ "$2" =~ ^https?://.*$ ]] ; then
+
+		echo "$2"
+
+	elif [ "$2" = "" ] ; then
+
+		if [[ "$1" =~ "y" ]] ; then
+			echo "$youtube_top"
+		elif [[ "$1" =~ "m" ]] ; then
+			echo "$google_maps"
+		else
+			echo "$google_top"
+		fi
+
+	else
+
+		if [[ "$1" =~ "y" ]] ; then
+			echo "${en_youtube}${2}"
+		elif [[ "$1" =~ "m" ]] ; then
+			echo "${en_google_maps}${2}"
+		else
+			echo "${en_google}${2}"
+		fi
+
+	fi
+}
+
+display_terminal()
+{
+	local normal incognito youtube maps
+
+	normal="cowsay -f turkey 'Open normal mode.'"
+	incognito="cowsay -f stegosaurus 'Open incognito mode.'"
+	youtube="cowsay -f turtle Bun, Bun, Hello YouTube!! && figlet -cf slant Enjoy YouTube!"
+	maps="cowsay -f turtle Delicious food, sweets, fun places... && figlet -cf slant Where to go?"
+
+	if [ "$1" = "normal" ] ; then
+		eval "$normal"
+	elif [ "$1" = "incognito" ] ; then
+		eval "$incognito"
+	elif [ "$1" = "youtube" ] ; then
+		eval "$youtube"
+	elif [ "$1" = "maps" ] ; then
+		eval "$maps"
+	else
+		echo "${ESC}[31mError:${ESC}[m target option display is not set."
+	fi
+
+}
+
 use_chrome_browser()
 {
 	local url chrome sec_chrome
 
-	url="${en_google}${2}"
+	url="$(set_url "$1" "$2")"
 	chrome="open -a 'Google Chrome' -n --args --new-window"
 	sec_chrome="open -a 'Google Chrome' -n --args --incognito --new-window"
 
 	if [[ "$1" =~ "i" ]] ; then
+
 		if [[ "$1" =~ "y" ]] ; then
-			if [ "$2" = "" ] ; then
-				eval "$display_yt_tl"
-				eval "$sec_chrome" "$youtube_top"
-			else
-				url="${en_youtube}${2}"
-				eval "$display_yt_tl"
-				eval "$sec_chrome" "$url"
-			fi
+			display_terminal "youtube" && eval "$sec_chrome" "$url"
 		elif [[ "$1" =~ "m" ]] ; then
-			if [ "$2" = "" ] ; then
-				eval "$display_gl_tl"
-				eval "$sec_chrome" "$google_maps"
-			else
-				url="${en_google_maps}${2}"
-				eval "$display_gl_tl"
-				eval "$sec_chrome" "$url"
-			fi
+			display_terminal "maps" && eval "$sec_chrome" "$url"
 		else
-			cowsay -f stegosaurus 'Open Chrome incognito mode.'
-			eval "$sec_chrome" "$url"
+			display_terminal "incognito" && eval "$sec_chrome" "$url"
 		fi
+
 	elif [[ "$1" =~ "y" ]] ; then
-		if [ "$2" = "" ] ; then
-			eval "$display_yt_tl"
-			eval "$chrome" "$youtube_top"
-		else
-			url="${en_youtube}${2}"
-			eval "$display_yt_tl"
-			eval "$chrome" "$url"
-		fi
+
+		display_terminal "youtube" && eval "$chrome" "$url"
+
 	elif [[ "$1" =~ "m" ]] ; then
-		if [ "$2" = "" ] ; then
-			eval "$display_gl_tl"
-			eval "$chrome" "$google_maps"
-		else
-			url="${en_google_maps}${2}"
-			eval "$display_gl_tl"
-			eval "$chrome" "$url"
-		fi
+
+		display_terminal "maps" && eval "$sec_chrome" "$url"
+
 	else
-		cowsay -f turkey 'Open Chrome !!'
-		if [ "$2" = "" ] ; then
-			eval "$chrome"
-		else
-			eval "$chrome" "$url"
-		fi
+
+		display_terminal "normal" && eval "$chrome" "$url"
+
 	fi
 }
 
@@ -138,58 +164,32 @@ use_brave_browser()
 {
 	local url brave sec_brave
 
-	url="${en_google}${2}"
+	url="$(set_url "$1" "$2")"
 	brave="open -a 'Brave Browser' -n --args --new-window"
 	sec_brave="open -a 'Brave Browser' -n --args --incognito --new-window"
 
 	if [[ "$1" =~ "i" ]] ; then
+
 		if [[ "$1" =~ "y" ]] ; then
-			if [ "$2" = "" ]; then
-				eval "$display_yt_tl"
-				eval "$sec_brave" "$youtube_top"
-			else
-				url="${en_youtube}${2}"
-				eval "$display_yt_tl"
-				eval "$sec_brave" "$url"
-			fi
+			display_terminal "youtube" && eval "$sec_brave" "$url"
 		elif [[ "$1" =~ "m" ]] ; then
-			if [ "$2" = "" ]; then
-				eval "$display_gl_tl"
-				eval "$sec_brave" "$google_maps"
-			else
-				url="${en_google_maps}${2}"
-				eval "$display_gl_tl"
-				eval "$sec_brave" "$url"
-			fi
+			display_terminal "maps" && eval "$sec_brave" "$url"
 		else
-			cowsay -f stegosaurus 'Open Brave incognito mode.'
-			eval "$sec_brave" "$url"
+			display_terminal "incognito" && eval "$sec_brave" "$url"
 		fi
+
 	elif [[ "$1" =~ "y" ]] ; then
-		if [ "$2" = "" ] ; then
-			eval "$display_yt_tl"
-			eval "$brave" "$youtube_top"
-		else
-			url="${en_youtube}${2}"
-			eval "$display_yt_tl"
-			eval "$brave" "$url"
-		fi
+
+		display_terminal "youtube" && eval "$brave" "$url"
+
 	elif [[ "$1" =~ "m" ]] ; then
-		if [ "$2" = "" ] ; then
-			eval "$display_gl_tl"
-			eval "$brave" "$google_maps"
-		else
-			url="${en_google_maps}${2}"
-			eval "$display_gl_tl"
-			eval "$brave" "$url"
-		fi
+
+		display_terminal "maps" && eval "$brave" "$url"
+
 	else
-		cowsay -f turkey 'Open Brave !!'
-		if [ "$2" = "" ] ; then
-			eval "$brave"
-		else
-			eval "$brave" "$url"
-		fi
+
+		display_terminal "normal" && eval "$brave" "$url"
+
 	fi
 }
 
@@ -200,11 +200,13 @@ _search_on_google_engine()
 	# early return as to open Brave Browser
 	if [ $# -eq 0 ] || { [ $# -eq 1 ] && [[ "$1" =~ ^https?://.*$ ]]; } ; then
 		cowsay -f turkey "Open 'New Tab' in Brave!"
+
 		if [ $# -eq 0 ] ; then
 			open -a 'Brave Browser' -n --args --new-window
 		else
 			open -a 'Brave Browser' -n --args --new-window "$1"
 		fi
+
 		return 0
 	fi
 
@@ -213,13 +215,21 @@ _search_on_google_engine()
 	word="${*// /+}"
 
 	if [[ "$option" =~ "Error" ]] ; then
+
 		do_exception "$option"
+
 	elif [ "$option" = "-h" ] ; then
+
 		explain_usage
+
 	elif [[ "$option" =~ "c" ]] ; then
+
 		use_chrome_browser "$option" "$word"
+
 	elif [[ "$option" =~ "b" ]] ; then
+
 		use_brave_browser "$option" "$word"
+
 	else
 		echo "What the hell? Unexpected error.."
 	fi
