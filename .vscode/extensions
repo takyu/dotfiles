@@ -4,6 +4,7 @@ blackmist.LinkCheckMD
 bmewburn.vscode-intelephense-client
 bradgashler.htmltagwrap
 bradlc.vscode-tailwindcss
+ChakrounAnas.turbo-console-log
 christian-kohler.path-intellisense
 chrmarti.regex
 codelios.dartsass
@@ -20,9 +21,12 @@ formulahendry.code-runner
 gencer.html-slim-scss-css-class-completion
 GitHub.vscode-pull-request-github
 hediet.vscode-drawio
+helixquar.randomeverything
 hollowtree.vue-snippets
 hoovercj.vscode-power-mode
+humao.rest-client
 ipatalas.vscode-postfix-ts
+jakob101.RelativePath
 jebbs.plantuml
 johnsoncodehk.volar
 kube.42header
@@ -33,6 +37,8 @@ mkaufman.HTMLHint
 mrmlnc.vscode-apache
 mrmlnc.vscode-duplicate
 ms-azuretools.vscode-docker
+ms-kubernetes-tools.vscode-kubernetes-tools
+ms-vscode-remote.remote-containers
 ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
 ms-vscode.cmake-tools
@@ -45,8 +51,10 @@ onecentlin.laravel5-snippets
 PKief.material-icon-theme
 pranaygp.vscode-css-peek
 redhat.java
+redhat.vscode-yaml
 rifi2k.format-html-in-php
 ritwickdey.LiveServer
+shufo.vscode-blade-formatter
 stef-k.laravel-goto-controller
 steoates.autoimport
 streetsidesoftware.code-spell-checker

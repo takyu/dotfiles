@@ -160,6 +160,11 @@
   },
 
   /**
+   * Prettier
+   */
+  "prettier.jsxSingleQuote": true,
+
+  /**
    * Power Mode
    */
   "powermode.enabled": true,
@@ -264,19 +269,6 @@
     "files.trimTrailingWhitespace": false
   },
 
-  "dart.flutterSdkPath": "/usr/local/bin/flutter",
-  "[dart]": {
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
-    "editor.rulers": [80],
-    "editor.selectionHighlight": false,
-    "editor.suggest.snippetsPreventQuickSuggestions": false,
-    "editor.suggestSelection": "first",
-    "editor.tabCompletion": "onlySnippets",
-    "editor.wordBasedSuggestions": false
-  },
-  "dart.openDevTools": "flutter",
-
   "[markdown]": {
     "editor.defaultFormatter": null,
     "editor.insertSpaces": false,
@@ -289,12 +281,41 @@
     "diffEditor.ignoreTrimWhitespace": false
   },
 
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+  "javascript.inlayHints.parameterNames.enabled": "all",
+
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+  "typescript.inlayHints.parameterNames.enabled": "all",
+
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
     "editor.insertSpaces": false,
     "editor.tabSize": 4
   },
 
-  "javascript.inlayHints.parameterNames.enabled": "all",
-  "typescript.inlayHints.parameterNames.enabled": "all"
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter",
+    "editor.tabSize": 4
+  },
+
+  "dart.flutterSdkPath": "/usr/local/bin/flutter",
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [80],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false
+  },
+  "dart.openDevTools": "flutter"
 }
