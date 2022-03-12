@@ -327,10 +327,6 @@ alias si="figlet -f slant Open Simulator! && sudo purge && open -a Simulator"
 # Alias to open new QuickTime Player
 alias qp="sudo purge && open -a 'QuickTime Player'"
 
-# Alias About explore engine
-alias ch="open -a 'Google Chrome' -n --args --new-window"
-alias chs="open -a 'Google Chrome' -n --args --incognito --new-window"
-
 #
 # Alias about amazon prime
 #
@@ -388,7 +384,7 @@ alias sleepon="_manipulate_sleep on"
 alias vs=_open_each_directory_or_file_with_vscode
 
 # Alias to open docker
-alias docker=_manipulate_enter_docker
+alias dc=_manipulate_enter_docker
 
 # Alias to display the typical system information for this computer
 alias sysinfo=_show_this_computer_information
@@ -416,6 +412,9 @@ alias ql=_execute_quicklook
 
 # Alias to pull request with github cli
 alias ghpc=_create_pull_request_on_git
+
+# Alias to compile ts file and execute js file with node
+alias tj=_compile_ts_and_execute_js
 
 ##
 ## use the file 'search_google.sh' in .zsh directory

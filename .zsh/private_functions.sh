@@ -385,15 +385,22 @@ _manipulate_enter_docker()
 	is_open="$(\docker images 2>/dev/null)"
 
 	if [ -n "$is_open" ] ; then
+
+		if [ $# -gt 0 ] && [ "$1" = "c" ] ; then
+			shift
+			\docker compose "$@"
+			return 0
+		fi
+
 		\docker "$@"
 
 		if [ $# -eq 0 ] ; then
 			echo
-			
 			if _ask_yn "Quit the Docker app?" ; then
 				_quit_app_by_apple_script Docker &
 			fi
 		fi
+
 	else
 		echo -e "  ___________ \n" \
 			"< Hi, $USER!!>\n" \
@@ -416,7 +423,35 @@ _manipulate_enter_docker()
 
 		if [ $# -gt 0 ] ; then
 			_break_line_before_echo "${ESC}[36mInfo:${ESC}[m When docker starts, enter it again!"
-			echo "command: docker $*"
+			_break_line_before_echo "command: dc $*"
 		fi
 	fi
+}
+
+_compile_ts_and_execute_js()
+{
+	local ts js
+
+	if [ ! $# -eq 1 ] ; then
+		echo "${ESC}[31mError:${ESC}[ Specified only one ts file."
+		return 0
+	elif [[ ! "$1" =~ ^.*.ts$ ]] ; then
+		echo "${ESC}[31mError:${ESC}[ Specified ts file."
+		return 0
+	fi
+
+	ts="$1"
+
+	##
+	#
+	# SC2001 (https://github.com/koalaman/shellcheck/wiki/SC2001)
+	#
+	# See if you can use ${variable//search/replace} instead.
+	#
+	##
+
+	#js="$(echo "$ts" | sed 's/.ts/.js/g')"
+	js=$(echo "${ts//.ts/.js}")
+
+	tsc "$ts" && node "$js"
 }
