@@ -2,6 +2,7 @@
   /* ---------------------------------------------------------------------------
     Settings general
   --------------------------------------------------------------------------- */
+
   /**
    * editor
    */
@@ -29,6 +30,7 @@
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.suggestSelection": "recentlyUsedByPrefix",
   "editor.minimap.enabled": false,
+  "editor.tabCompletion": "on",
 
   // Zoom in/out on the editor using Command key + mouse wheel
   "editor.mouseWheelZoom": false,
@@ -196,6 +198,15 @@
   },
 
   /**
+   * markdown-formatter
+   */
+  "markdownFormatter.codeAreaToBlock": "",
+  "markdownFormatter.fullWidthTurnHalfWidth": "auto",
+  "markdownFormatter.formatOpt": {
+    "indent_size": 4
+  },
+
+  /**
    * Power Mode
    */
   "powermode.enabled": true,
@@ -301,15 +312,21 @@
   },
 
   "[markdown]": {
-    "editor.defaultFormatter": null,
+    "editor.defaultFormatter": "mervin.markdown-formatter",
     "editor.insertSpaces": false,
     "editor.comments.insertSpace": false,
+    "editor.renderWhitespace": "all",
     "editor.tabSize": 4,
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
     "files.trimTrailingWhitespace": false,
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    }
   },
 
   "[javascript]": {
@@ -339,6 +356,12 @@
     "editor.tabSize": 4
   },
 
+  "[python]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": true
+  },
+  "python.formatting.provider": "black",
+
   "dart.flutterSdkPath": "/usr/local/bin/flutter",
   "[dart]": {
     "editor.formatOnSave": true,
@@ -355,10 +378,12 @@
   "[csv]": {
     "editor.wordWrap": "off"
   },
+
   "[tsv]": {
     "editor.insertSpaces": false,
     "editor.wordWrap": "off"
   },
+
   "[log]": {
     "editor.wordWrap": "off"
   }
