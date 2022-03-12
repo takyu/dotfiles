@@ -1,13 +1,21 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
+  /**
+   * add shortcut key
+   */
+
+  // cmd
   {
     "key": "cmd+t",
-    "command": "workbench.action.terminal.new",
-    "when": "terminalProcessSupported"
+    "command": "workbench.action.createTerminalEditor"
   },
   {
     "key": "shift+cmd+t",
-    "command": "workbench.action.createTerminalEditor"
+    "command": "workbench.action.createTerminalEditorSide"
+  },
+  {
+    "key": "cmd+r",
+    "command": "workbench.action.reopenClosedEditor"
   },
   {
     "key": "cmd+n",
@@ -16,10 +24,6 @@
   {
     "key": "shift+cmd+n",
     "command": "explorer.newFolder"
-  },
-  {
-    "key": "cmd+r",
-    "command": "workbench.action.reopenClosedEditor"
   },
   {
     "key": "cmd+m",
@@ -46,37 +50,41 @@
     "when": "editorFocus && parameterHintsVisible"
   },
   {
+    "key": "shift+cmd+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+
+  // ctrl
+  {
     "key": "ctrl+x",
     "command": "extension.relativePath",
     "when": "editorTextFocus"
   },
-
   {
     "key": "ctrl+c",
     "command": "turboConsoleLog.displayLogMessage"
-  },
-  {
-    "key": "alt+r",
-    "command": "workbench.action.reloadWindow",
-    "when": "isDevelopment"
-  },
-  {
-    "key": "ctrl+alt+cmd+t",
-    "command": "workbench.action.createTerminalEditorSide"
-  },
-  {
-    "key": "shift+cmd+g",
-    "command": "workbench.view.scm",
-    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
   },
   {
     "key": "ctrl+shift+`",
     "command": "workbench.action.showAllSymbols"
   },
 
+  // option
+  {
+    "key": "alt+r",
+    "command": "workbench.action.reloadWindow",
+    "when": "isDevelopment"
+  },
+
   /**
    * Delete shortcut key
    */
+  {
+    "key": "cmd+t",
+    "command": "-workbench.action.terminal.new",
+    "when": "terminalProcessSupported"
+  },
   {
     "key": "cmd+n",
     "command": "-workbench.action.files.newUntitledFile"
@@ -111,5 +119,10 @@
     "key": "shift+cmd+h",
     "command": "-extension.relativePath",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+`",
+    "command": "-workbench.action.terminal.new",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
   }
 ]

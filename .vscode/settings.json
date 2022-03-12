@@ -6,7 +6,6 @@
    * editor
    */
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // "editor.fontFamily": "Ricty Diminished",
   "editor.fontSize": 13,
   "editor.letterSpacing": -0.4,
   "editor.lineHeight": 18,
@@ -23,6 +22,7 @@
   "editor.tabSize": 2,
   "editor.rulers": [80],
   "editor.folding": true,
+  "editor.wordWrap": "on",
   "editor.suggest.showKeywords": false,
   "editor.suggest.showWords": false,
   "editor.snippetSuggestions": "top",
@@ -54,7 +54,7 @@
    * workbench
    */
   // display in preview mode if there is a readme
-  "workbench.startupEditor": "none",
+  "workbench.startupEditor": "readme",
 
   "workbench.colorCustomizations": {
     "editor.lineHighlightBackground": "#222222",
@@ -80,6 +80,14 @@
    */
   // move to window, if there is already it open.
   "window.openFilesInNewWindow": "off",
+
+  /**
+   * search
+   */
+  "search.exclude": {},
+
+  // Search results in the search view with the number of rows
+  "search.showLineNumbers": true,
 
   /**
    * files
@@ -162,7 +170,30 @@
   /**
    * Prettier
    */
-  "prettier.jsxSingleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.vueIndentScriptAndStyle": true,
+  "prettier.printWidth": 80,
+
+  /**
+   * Eslint
+   */
+  "eslint.format.enable": false,
+  "eslint.alwaysShowStatus": true,
+  "eslint.packageManager": "yarn",
+  "eslint.run": "onSave",
+
+  /**
+   * Volar
+   */
+  "volar.formatting.printWidth": 80,
+
+  // Format compatible files with ESLint when saving
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 
   /**
    * Power Mode
@@ -282,18 +313,20 @@
   },
 
   "[javascript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    }
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "javascript.inlayHints.parameterNames.enabled": "all",
 
   "[typescript]": {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    }
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "typescript.inlayHints.parameterNames.enabled": "all",
+
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "gitlens.codeLens.scopes": ["document"],
+    "editor.semanticHighlighting.enabled": true
+  },
 
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
@@ -317,5 +350,16 @@
     "editor.tabCompletion": "onlySnippets",
     "editor.wordBasedSuggestions": false
   },
-  "dart.openDevTools": "flutter"
+  "dart.openDevTools": "flutter",
+
+  "[csv]": {
+    "editor.wordWrap": "off"
+  },
+  "[tsv]": {
+    "editor.insertSpaces": false,
+    "editor.wordWrap": "off"
+  },
+  "[log]": {
+    "editor.wordWrap": "off"
+  }
 }
