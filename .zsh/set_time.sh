@@ -46,8 +46,7 @@ _set_wake-up_time()
 		echo "Sleep Time: ${ESC}[31m${timestamp}${ESC}[m" >> "$HOME"/Documents/times/sleep_time.txt
 	fi
 	clear
-	cowsay -f hellokitty GoodMornig, "$USER"
-	figlet -f slant sleep_time "$timestamp"
+	pokemonsay -n -p Wigglytuff "GoodMornig, $USER!" && figlet -f slant "time $timestamp"
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd
 	fi
@@ -66,11 +65,11 @@ _set_bed_time()
 	date +"%nBed Time: %Y/%m/%d %A %H:%M:%S" >> "$HOME"/Documents/times/sleep_time.txt
 	_quit_app_by_apple_script "Brave Browser"
 	clear
-	cowsay -f tux Goodsleep, "$USER"
-	_purge_cache 1>/dev/null && _manipulate_sleep on
+	pokemonsay -n -p Jigglypuff "Goodsleep, $USER."
+	_purge_cache 1>/dev/null
 	revolver --style 'arrow2' start
 	echo "${ESC}[34mSleep after 5 seconds...${ESC}[m"
-	sleep 5;revolver stop && pmset sleepnow
+	sleep 5;revolver stop && _manipulate_sleep on && pmset sleepnow
 }
 # stst
 _set_start_time_for_studying()
@@ -84,7 +83,7 @@ _set_start_time_for_studying()
 	fi
 	date +'%nStart Study Time: %Y/%m/%d %A %H:%M:%S' >> "$HOME"/Documents/times/study_time.txt
 	clear
-	cowsay -f stimpy Study hard, "$USER"
+	pokemonsay -n -p Vulpix "Study hard, $USER!"
 	_break_line_before_echo "${ESC}[34mInitialize the terminal display after 5 seconds...${ESC}[m"
 	revolver --style 'arrow2' start
 	sleep 5;revolver stop && _custom_cd
@@ -111,8 +110,7 @@ _set_finish_time_for_studying()
 		echo "Study Time: ${ESC}[31m${timestamp}${ESC}[m" >> "$HOME"/Documents/times/study_time.txt
 	fi
 	clear
-	cowsay -f koala Good work, "$USER".
-	figlet -f slant study_time "$timestamp"
+	pokemonsay -n -p Ninetales "Good work, $USER." && figlet -f slant "time $timestamp"
 	if _ask_yn "enter 'y' to initialize the display, or 'n' to exit not to initialize it." ; then
 		_custom_cd
 	fi

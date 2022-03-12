@@ -32,38 +32,6 @@ set_option()
 	fi
 }
 
-do_exception()
-{
-	local err_num
-
-	err_num="$(echo "$1" | awk '{print $2}')"
-	
-	case "$err_num" in
-		"1" ) echo "${ESC}[31mError:${ESC}[m Too many arguments." ;;
-		"2" ) echo "${ESC}[31mError:${ESC}[m Specified can be only one browser." ;;
-		"3" ) echo "${ESC}[31mError:${ESC}[m Invalid options are included or the '-' is misplaced." ;;
-		"4" ) echo "${ESC}[31mError:${ESC}[m Only write the '-h' option, when see Usage." ;;
-		"5" ) echo "${ESC}[31mError:${ESC}[m Included two or more of the same Browsers." ;;
-		"6" ) echo "${ESC}[31mError:${ESC}[m Included two or more of the same options." ;;
-		"7" ) echo "${ESC}[31mError:${ESC}[m Specified can be only one of y or m." ;;
-		"8" ) echo "${ESC}[31mError:${ESC}[m Argument '-' is not specified or only written '-'." ;;
-	esac
-	echo "To see Usage, write only the -h option. ( 'ge -h' )"
-}
-
-explain_usage()
-{
-	_break_line_before_echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words or URL]${ESC}[m"
-	_break_line_before_echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
-	echo "${ESC}[32m[options]${ESC}[m: h: help, i: incognito mode, y: youtube, m: google maps (Specified only one of y or m)"
-	echo "${ESC}[35m[words]${ESC}[m: Words to search or URL to do(If omitted, go to top page)"
-	_break_line_before_echo "${ESC}[31m[[ Notice ]]${ESC}[m"
-	echo "・If you write only 'ge', open 'New Tab' in Brave."
-	echo "・If you write 'ge [URL]', search for the URL in Brave."
-	echo "・If only some valid option is given,
-		'Brave' will be set as the Browser even if no browser is specified."
-}
-
 set_url()
 {
 	local en_google google_top en_youtube youtube_top google_maps en_google_maps
@@ -106,25 +74,59 @@ set_url()
 
 display_terminal()
 {
-	local normal incognito youtube maps
+	local normal incognito youtube maps error
 
-	normal="cowsay -f turkey 'Open normal mode.'"
-	incognito="cowsay -f stegosaurus 'Open incognito mode.'"
-	youtube="cowsay -f turtle Bun, Bun, Hello YouTube!! && figlet -cf slant Enjoy YouTube!"
-	maps="cowsay -f turtle Delicious food, sweets, fun places... && figlet -cf slant Where to go?"
+	normal="clear && pokemonsay -n -p Mewtwo Open normal mode."
+	incognito="clear && pokemonsay -n -p Mew Open incognito mode."
+	youtube="clear && pokemonsay -n -p Pikachu Enjoy YouTube!!"
+	maps="clear && pokemonsay -n -p Dragonite Where to go??"
+	error="pokemonsay -n -p Psyduck Ummm... I forgot what to say."
 
-	if [ "$1" = "normal" ] ; then
-		eval "$normal"
-	elif [ "$1" = "incognito" ] ; then
-		eval "$incognito"
-	elif [ "$1" = "youtube" ] ; then
-		eval "$youtube"
-	elif [ "$1" = "maps" ] ; then
-		eval "$maps"
-	else
-		echo "${ESC}[31mError:${ESC}[m target option display is not set."
-	fi
+	case "$1" in
 
+		"normal" ) eval "$normal" ;;
+		"incognito" ) eval "$incognito" ;;
+		"youtube" ) eval "$youtube" ;;
+		"maps" ) eval "$maps" ;;
+		"error" ) eval "$error" ;;
+		*) echo "${ESC}[31mError:${ESC}[m target option display is not set." ;;
+
+	esac
+
+}
+
+do_exception()
+{
+	local err_num
+
+	err_num="$(echo "$1" | awk '{print $2}')"
+
+	clear
+	case "$err_num" in
+		"1" ) echo "${ESC}[31mError:${ESC}[m Too many arguments." ;;
+		"2" ) echo "${ESC}[31mError:${ESC}[m Specified can be only one browser." ;;
+		"3" ) echo "${ESC}[31mError:${ESC}[m Invalid options are included or the '-' is misplaced." ;;
+		"4" ) echo "${ESC}[31mError:${ESC}[m Only write the '-h' option, when see Usage." ;;
+		"5" ) echo "${ESC}[31mError:${ESC}[m Included two or more of the same Browsers." ;;
+		"6" ) echo "${ESC}[31mError:${ESC}[m Included two or more of the same options." ;;
+		"7" ) echo "${ESC}[31mError:${ESC}[m Specified can be only one of y or m." ;;
+		"8" ) echo "${ESC}[31mError:${ESC}[m Argument '-' is not specified or only written '-'." ;;
+	esac
+	_break_line_after_echo "To see Usage, write only the -h option. ( 'ge -h' )"
+	display_terminal "error"
+}
+
+explain_usage()
+{
+	_break_line_before_echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words or URL]${ESC}[m"
+	_break_line_before_echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
+	echo "${ESC}[32m[options]${ESC}[m: h: help, i: incognito mode, y: youtube, m: google maps (Specified only one of y or m)"
+	echo "${ESC}[35m[words]${ESC}[m: Words to search or URL to do(If omitted, go to top page)"
+	_break_line_before_echo "${ESC}[31m[[ Notice ]]${ESC}[m"
+	echo "・If you write only 'ge', open 'New Tab' in Brave."
+	echo "・If you write 'ge [URL]', search for the URL in Brave."
+	echo "・If only some valid option is given,
+		'Brave' will be set as the Browser even if no browser is specified."
 }
 
 use_chrome_browser()
@@ -199,7 +201,7 @@ _search_on_google_engine()
 
 	# early return as to open Brave Browser
 	if [ $# -eq 0 ] || { [ $# -eq 1 ] && [[ "$1" =~ ^https?://.*$ ]]; } ; then
-		cowsay -f turkey "Open 'New Tab' in Brave!"
+		clear && pokemonsay -n -p Eevee "Open 'New Tab' in Brave!"
 
 		if [ $# -eq 0 ] ; then
 			open -a 'Brave Browser' -n --args --new-window

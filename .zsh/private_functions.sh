@@ -19,11 +19,11 @@ _break_line_before_echo()
 # Function to add line after command
 _add_line()
 {
-  if [ -z "$PS1_NEWLINE_LOGIN" ]; then
-    PS1_NEWLINE_LOGIN=true
-  else
-    printf '\n'
-  fi
+	if [ -z "$PS1_NEWLINE_LOGIN" ]; then
+		PS1_NEWLINE_LOGIN=true
+	else
+		printf '\n'
+	fi
 }
 
 # Function to notify when process is done
@@ -36,12 +36,8 @@ _notify_done()
 # Function to force disk cache to be purged
 _purge_cache()
 {
-	if [ $# -eq 1 ] ; then
-		revolver --style 'arrow2' start
-		sleep "$1"
-	else
-		revolver --style 'arrow2' start
-	fi
+	_break_line_before_echo "--------  ${ESC}[34mPurge Cache${ESC}[m  --------"
+	revolver --style 'arrow2' start
 	sudo purge
 	top -l 1 | grep Mem
 	revolver stop
@@ -106,7 +102,8 @@ _new_instance_terminal()
 	osascript -e 'tell application "Terminal" to do script activate' 1>/dev/null
 	if [ "$terminal" = 'ttys000' ] ; then
 		clear && echo && neofetch
-		echo "-------- ${ESC}[34mPurge Cache${ESC}[m --------" && _purge_cache 1
+		echo "--------  ${ESC}[34mDetail of memory information${ESC}[m  --------"
+		top -l 1 | grep Mem
 	fi
 }
 
@@ -250,33 +247,32 @@ _show_this_computer_information()
 	echo -e "${ESC}[34mKeywords related to Datatype are listed below.${ESC}[m"
 	_break_line_after_echo "Usage: system_profiler {Datatype} ({Datatype}..)"
 	system_profiler -listDataTypes
-	clear && echo
+	echo
+	vm_stat | \
+		perl -ne '/page size of (\d+)/ and $size=$1; /Pages\s+([^:]+)[^\d]+(\d+)/ and printf("%-16s % 16.2f Mi\n", "$1:", $2 * $size / 1048576);'
+	echo
 	neofetch
 	neofetch --clean
 }
 
-_do_sleep_display()
+_do_sleep()
 {
 	terminal="$(tty | tr -d '/dev/')"
 
 	clear
 	if [ "$terminal" = "ttys000" ] ; then
-		_quit_app_by_apple_script "Brave Browser"
-		sudo purge
-		echo "------- vm_stat information -------"
-		vm_stat | \
-		perl -ne '/page size of (\d+)/ and $size=$1; /Pages\s+([^:]+)[^\d]+(\d+)/ and printf("%-16s % 16.2f Mi\n", "$1:", $2 * $size / 1048576);'
-		echo
-		cowsay -f kitty Take a break, "$USER"
-		echo && echo && _manipulate_sleep on
 
+		pokemonsay -n -p Chansey "Get plenty of rest and relax." && echo
+		_quit_app_by_apple_script "Brave Browser"
+		_purge_cache && echo
 		revolver --style 'arrow2' start " ${ESC}[32mSoon this computer will go into sleep mode..${ESC}[m"
-		sleep 6;revolver stop && pmset sleepnow
+		sleep 6;revolver stop && _manipulate_sleep on && pmset sleepnow
+
 	else
-		_purge_cache
-		cowsay -f kitty Take a break, "$USER"
-		sleep 1.2;pmset displaysleepnow
-		clear
+
+		pokemonsay -n -p Charmander "Come right back!"
+		sleep 2;pmset displaysleepnow
+
 	fi
 }
 

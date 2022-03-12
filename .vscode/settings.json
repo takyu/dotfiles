@@ -187,15 +187,15 @@
   "eslint.packageManager": "yarn",
   "eslint.run": "onSave",
 
-  /**
-   * Volar
-   */
-  "volar.formatting.printWidth": 80,
-
   // Format compatible files with ESLint when saving
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+
+  /**
+   * Volar
+   */
+  "volar.formatting.printWidth": 80,
 
   /**
    * markdown-formatter

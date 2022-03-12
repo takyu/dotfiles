@@ -390,7 +390,7 @@ alias dc=_manipulate_enter_docker
 alias sysinfo=_show_this_computer_information
 
 # Alias to sleep display
-alias sd=_do_sleep_display
+alias sd=_do_sleep
 
 # Ailas of speedtest-cli
 alias stc=_customize_speedtest-cli
