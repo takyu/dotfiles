@@ -1,0 +1,53 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[core]
+	excludesfile = /Users/taku/.gitignore_global
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[init]
+	defaultBranch = main
+
+[alias]
+
+  # get git alias list
+  alias = !echo && git config --list | grep ^alias. | sed 's/alias./git /g' | sed -e '1d'
+
+  # git status
+  ss = status
+
+  # git add
+  as = !git add -A "$@" && git status
+  ad = add -A .
+  au = add -u .
+  aup = add -up .
+
+  # git commit
+  cmm = commit -m
+
+  # git push
+  p = !git push origin "$(git rev-parse --abbrev-ref HEAD)"
+
+  # git merge
+  mgff = merge --ff
+  mgnff = merge --no-ff
+
+  # git switch
+  sw = switch
+  swc = switch -c
+
+  # git branch
+  br = branch --sort=-authordate
+  brm = branch -m
+  brd = branch -d
+  brdd = branch -D
