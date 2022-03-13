@@ -473,6 +473,9 @@ export GOPATH="/usr/local/lib/go"
 #
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
 
+# GETOPT variable
+#export FLAGS_GETOPT_CMD=/Applications/Sourcetree.app/Contents/Resources/bin/getopt
+
 
 # -------------------------------------------------------------------------------------------- #
 # Display on the terminal when the .zshrc is finished loading
