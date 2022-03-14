@@ -32,6 +32,82 @@ set_option()
 	fi
 }
 
+# problem...
+display_warnings()
+{
+	local youtube maps
+
+	youtube="${ESC}[33mWarnings:${ESC}[m The URL specified may not be youtube.."
+	maps="${ESC}[33mWarnings:${ESC}[m The URL specified may not be youtube.."
+
+	if [[ "$1" =~ "y" ]] && [[ ! "$2" =~ "youtube" ]]; then
+
+		eval "echo $youtube"
+
+	elif [[ "$1" =~ "m" ]] && [[ ! "$2" =~ "/maps" ]]; then
+
+		eval "echo $maps"
+
+	fi
+}
+
+display_terminal()
+{
+	local normal incognito youtube maps error
+
+	normal="pokemonsay -n -p Mewtwo Open normal mode."
+	incognito="pokemonsay -n -p Mew Open incognito mode."
+	youtube="pokemonsay -n -p Pikachu Enjoy YouTube!!"
+	maps="pokemonsay -n -p Dragonite Where to go??"
+	error="pokemonsay -n -p Psyduck Ummm... I forgot what to say."
+
+	case "$1" in
+
+		"normal" ) eval "$normal" ;;
+		"incognito" ) eval "$incognito" ;;
+		"youtube" ) eval "$youtube" ;;
+		"maps" ) eval "$maps" ;;
+		"error" ) eval "$error" ;;
+		*) echo "${ESC}[31mError:${ESC}[m target option display is not set." ;;
+
+	esac
+
+}
+
+tell_terminal_and_launch_browser()
+{
+	local option url browser sec_browser
+
+	option="$1"
+	url="$2"
+	browser="$3"
+	sec_browser="$4"
+
+	if [[ "$option" =~ "i" ]] ; then
+
+		if [[ "$option" =~ "y" ]] ; then
+			display_terminal "youtube" && eval "$sec_browser" "$url"
+		elif [[ "$option" =~ "m" ]] ; then
+			display_terminal "maps" && eval "$sec_browser" "$url"
+		else
+			display_terminal "incognito" && eval "$sec_browser" "$url"
+		fi
+
+	elif [[ "$option" =~ "y" ]] ; then
+
+		display_terminal "youtube" && eval "$browser" "$url"
+
+	elif [[ "$option" =~ "m" ]] ; then
+
+		display_terminal "maps" && eval "$sec_browser" "$url"
+
+	else
+
+		display_terminal "normal" && eval "$browser" "$url"
+
+	fi
+}
+
 set_url()
 {
 	local en_google google_top en_youtube youtube_top google_maps en_google_maps
@@ -46,6 +122,11 @@ set_url()
 	en_google_maps="https://www.google.com/maps/search/"
 
 	if [[ "$2" =~ ^https?://.*$ ]] ; then
+
+		# When options and URL are not linked
+		if [[ ! "$1" =~ ^-[ibc]+$ ]] ; then
+			display_warnings "$1" "$2"
+		fi
 
 		echo "$2"
 
@@ -70,29 +151,6 @@ set_url()
 		fi
 
 	fi
-}
-
-display_terminal()
-{
-	local normal incognito youtube maps error
-
-	normal="clear && pokemonsay -n -p Mewtwo Open normal mode."
-	incognito="clear && pokemonsay -n -p Mew Open incognito mode."
-	youtube="clear && pokemonsay -n -p Pikachu Enjoy YouTube!!"
-	maps="clear && pokemonsay -n -p Dragonite Where to go??"
-	error="pokemonsay -n -p Psyduck Ummm... I forgot what to say."
-
-	case "$1" in
-
-		"normal" ) eval "$normal" ;;
-		"incognito" ) eval "$incognito" ;;
-		"youtube" ) eval "$youtube" ;;
-		"maps" ) eval "$maps" ;;
-		"error" ) eval "$error" ;;
-		*) echo "${ESC}[31mError:${ESC}[m target option display is not set." ;;
-
-	esac
-
 }
 
 do_exception()
@@ -131,68 +189,26 @@ explain_usage()
 
 use_chrome_browser()
 {
-	local url chrome sec_chrome
+	local option url chrome sec_chrome
 
+	option="$1"
 	url="$(set_url "$1" "$2")"
 	chrome="open -a 'Google Chrome' -n --args --new-window"
 	sec_chrome="open -a 'Google Chrome' -n --args --incognito --new-window"
 
-	if [[ "$1" =~ "i" ]] ; then
-
-		if [[ "$1" =~ "y" ]] ; then
-			display_terminal "youtube" && eval "$sec_chrome" "$url"
-		elif [[ "$1" =~ "m" ]] ; then
-			display_terminal "maps" && eval "$sec_chrome" "$url"
-		else
-			display_terminal "incognito" && eval "$sec_chrome" "$url"
-		fi
-
-	elif [[ "$1" =~ "y" ]] ; then
-
-		display_terminal "youtube" && eval "$chrome" "$url"
-
-	elif [[ "$1" =~ "m" ]] ; then
-
-		display_terminal "maps" && eval "$sec_chrome" "$url"
-
-	else
-
-		display_terminal "normal" && eval "$chrome" "$url"
-
-	fi
+	tell_terminal_and_launch_browser "$option" "$url" "$chrome" "$sec_chrome"
 }
 
 use_brave_browser()
 {
-	local url brave sec_brave
+	local option url brave sec_brave
 
+	option="$1"
 	url="$(set_url "$1" "$2")"
 	brave="open -a 'Brave Browser' -n --args --new-window"
 	sec_brave="open -a 'Brave Browser' -n --args --incognito --new-window"
 
-	if [[ "$1" =~ "i" ]] ; then
-
-		if [[ "$1" =~ "y" ]] ; then
-			display_terminal "youtube" && eval "$sec_brave" "$url"
-		elif [[ "$1" =~ "m" ]] ; then
-			display_terminal "maps" && eval "$sec_brave" "$url"
-		else
-			display_terminal "incognito" && eval "$sec_brave" "$url"
-		fi
-
-	elif [[ "$1" =~ "y" ]] ; then
-
-		display_terminal "youtube" && eval "$brave" "$url"
-
-	elif [[ "$1" =~ "m" ]] ; then
-
-		display_terminal "maps" && eval "$brave" "$url"
-
-	else
-
-		display_terminal "normal" && eval "$brave" "$url"
-
-	fi
+	tell_terminal_and_launch_browser "$option" "$url" "$brave" "$sec_brave"
 }
 
 _search_on_google_engine()
@@ -215,6 +231,7 @@ _search_on_google_engine()
 	option="$(set_option "$1")"
 	shift
 	word="${*// /+}"
+	clear
 
 	if [[ "$option" =~ "Error" ]] ; then
 
