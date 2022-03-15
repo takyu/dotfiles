@@ -31,8 +31,8 @@
 
   # git commit
   cm = commit -v -m
-  cma = !git commit -v --amend -m "$@"
-  cmf = !git commit -v -F "$@"
+  cma = commit -v --amend -m
+  cmf = commit -v -F
 
   # git push
   p = !git push origin "$(git rev-parse --abbrev-ref HEAD)"
@@ -52,4 +52,4 @@
   brdd = branch -D
 
   # git show
-  scm = !echo "-------  commit message  -------" && git show -s --format=format:%B
+  scm = !echo "-------  ↓↓commit message↓↓  -------" && git show -s --format=format:%B
