@@ -31,7 +31,7 @@
 
   # git commit
   cm = commit -v -m
-  cma = commit -v --amend -m
+  cma = !git commit -v --amend -m "$@"
   cmf = !git commit -v -F "$@"
 
   # git push
@@ -50,3 +50,6 @@
   brm = branch -m
   brd = branch -d
   brdd = branch -D
+
+  # git show
+  scm = !echo "-------  commit message  -------" && git show -s --format=format:%B
