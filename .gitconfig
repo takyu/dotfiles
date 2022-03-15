@@ -30,7 +30,9 @@
   aup = add -up .
 
   # git commit
-  cmm = commit -m
+  cm = commit -v -m
+  cma = commit -v --amend -m
+  cmf = !git commit -v -F "$@"
 
   # git push
   p = !git push origin "$(git rev-parse --abbrev-ref HEAD)"
