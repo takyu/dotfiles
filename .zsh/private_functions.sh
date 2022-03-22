@@ -97,13 +97,17 @@ _quit_app_by_apple_script()
 
 _new_instance_terminal()
 {
+	local terminal
+
 	terminal="$(tty | tr -d '/dev/')"
 
 	osascript -e 'tell application "Terminal" to do script activate' 1>/dev/null
 	if [ "$terminal" = 'ttys000' ] ; then
-		clear && echo && neofetch
-		echo "--------  ${ESC}[34mDetail of memory information${ESC}[m  --------"
+		clear && echo && pfetch
+		echo ">>>  ${ESC}[34mDetail of memory information${ESC}[m"
+		revolver --style 'dots' start
 		top -l 1 | grep Mem
+		revolver stop
 	fi
 }
 
@@ -114,7 +118,7 @@ _check_git_status()
 		if [ -z "$(git status -s)" ] ; then
 			return 0
 		else
-			echo -e "\n# ----------  \033[35mgit status\033[m  ---------- #"
+			echo -e "\n# ----------  ${ESC}[35mgit status${ESC}[m  ---------- #"
 			git status -s
 		fi
 
@@ -193,7 +197,6 @@ _custom_open()
 
 _open_each_directory_or_file_with_vscode()
 {
-
 	if [ $# -eq 1 ] && [ "$1" = "-h" ]; then
 		_break_line_after_echo "${ESC}[32mUsage: vs (<dir>|<file> <dir>|<file> ..)${ESC}[m"
 		echo "Open or create the directory or file with VScode."
@@ -207,6 +210,11 @@ _open_each_directory_or_file_with_vscode()
 	else
 		code -n "$@"
 	fi
+}
+
+_exit_all_terminal_opened_vscode()
+{
+	ps | awk 'NR>=2' | grep '/bin/zsh -l' | grep -v 'grep' | awk '{print $1}' | xargs -I@ zsh -c 'kill -9 @'
 }
 
 _manipulate_sleep()
@@ -242,7 +250,7 @@ _start_screen_saver()
 	fi
 }
 
-_show_this_computer_information()
+_show_all_information()
 {
 	echo -e "${ESC}[34mKeywords related to Datatype are listed below.${ESC}[m"
 	_break_line_after_echo "Usage: system_profiler {Datatype} ({Datatype}..)"
@@ -255,6 +263,14 @@ _show_this_computer_information()
 	neofetch --clean
 }
 
+_show_battery_information()
+{
+	echo ">>>  ${ESC}[34mDetail of battery information${ESC}[m"
+	ioreg -l | grep \ \"MaxCapacity | sed -e 's/[ \|]//g' | sed -e 's/\"//g'
+	ioreg -l | grep \ \"CurrentCapacity | sed -e 's/[ \|]//g' | sed -e 's/\"//g'
+	ioreg -l | grep \ \"DesignCapacity | sed -e 's/[ \|]//g' | sed -e 's/\"//g'
+}
+
 _do_sleep()
 {
 	terminal="$(tty | tr -d '/dev/')"
@@ -262,11 +278,12 @@ _do_sleep()
 	clear
 	if [ "$terminal" = "ttys000" ] ; then
 
-		pokemonsay -n -p Chansey "Get plenty of rest and relax." && echo
-		_quit_app_by_apple_script "Brave Browser"
+		pokemonsay -n -p Chansey "Get plenty of rest and relax."
+		_quit_app_by_apple_script "Brave Browser" && _exit_all_terminal_opened_vscode
+		_show_battery_information
 		_purge_cache && echo
 		revolver --style 'arrow2' start " ${ESC}[32mSoon this computer will go into sleep mode..${ESC}[m"
-		sleep 6;revolver stop && _manipulate_sleep on && pmset sleepnow
+		sleep 10;revolver stop && _manipulate_sleep on && pmset sleepnow
 
 	else
 
@@ -390,14 +407,23 @@ _manipulate_enter_docker()
 
 		\docker "$@"
 
-		if [ $# -eq 0 ] ; then
+		if [ $# -eq 0 ] || { [ $# -eq 1 ] && [ "$1" = "-y" ]; }; then
+
 			echo
-			if _ask_yn "Quit the Docker app?" ; then
-				_quit_app_by_apple_script Docker &
+			if [ $# -eq 1 ] ; then
+				if yes | _ask_yn "Quit the Docker app?" ; then
+					_quit_app_by_apple_script Docker &
+				fi
+			else
+				if _ask_yn "Quit the Docker app?" ; then
+					_quit_app_by_apple_script Docker &
+				fi
 			fi
+
 		fi
 
 	else
+		clear
 		echo -e "  ___________ \n" \
 			"< Hi, $USER!!>\n" \
 			" ----------- \n" \

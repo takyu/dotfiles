@@ -387,7 +387,7 @@ alias vs=_open_each_directory_or_file_with_vscode
 alias dc=_manipulate_enter_docker
 
 # Alias to display the typical system information for this computer
-alias sysinfo=_show_this_computer_information
+alias sysinfo=_show_all_information
 
 # Alias to sleep display
 alias sd=_do_sleep
