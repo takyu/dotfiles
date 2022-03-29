@@ -31,6 +31,9 @@ source $HOME/dotfiles/.zsh/private_functions.sh
 # Private functions for prompt
 source $HOME/dotfiles/.zsh/private_functions_for_prompt.sh
 
+# Function to manipulate github CLI
+source $HOME/dotfiles/.zsh/functions_about_github_cli.sh
+
 # Function to update everything in brew.
 source $HOME/dotfiles/.zsh/configure_update_mas_n_brew.sh
 
@@ -410,11 +413,24 @@ alias ss=_start_screen_saver
 # Alias to open viewer of quicklook in the background
 alias ql=_execute_quicklook
 
+# Alias to compile ts file and execute js file with node
+alias tj=_compile_ts_and_execute_js
+
+##
+## use the file 'functions_about_github_cli.sh' in .zsh directory
+##
+
 # Alias to pull request with github cli
 alias ghpc=_create_pull_request_on_git
 
-# Alias to compile ts file and execute js file with node
-alias tj=_compile_ts_and_execute_js
+# Alias to confirm file of pull requested branch
+alias prco=_confirm_file_of_pull_requested_branch
+
+# Alias to display diff of pull request list
+alias prdiff=_display_diff_of_pull_request_list
+
+# Alias to create repository and change default branch
+alias gcre=_create_repository_and_change_default_branch
 
 ##
 ## use the file 'search_google.sh' in .zsh directory
