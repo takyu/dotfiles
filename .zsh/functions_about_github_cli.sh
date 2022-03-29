@@ -33,7 +33,7 @@ _confirm_file_of_pull_requested_branch()
 	local number
 
 	gh pr list;
-    echo "Enter the number of PR to checkout: " && read -r number;
+    echo -n "Enter the number of PR to checkout: " && read -r number;
     gh pr checkout "$number";
 }
 
@@ -42,29 +42,59 @@ _display_diff_of_pull_request_list()
 	local number
 
 	gh pr list;
-    echo "Enter the number of PR to checkout: " && read -r number;
+    echo -n "Enter the number of PR to checkout: " && read -r number;
     gh pr diff "$number";
 }
 
 
 _create_repository_and_change_default_branch()
 {
-	local repo_name repo_description default_branch
+	local user_name name description branch visibility
 
-	git init && git add . && git commit -m "First commit"
+	user_name="$(git config user.name)"
 
-	echo "Enter repository name: " && read -r repo_name;
-    echo "Enter repository description: " && read -r repo_description;
-	echo "Enter the default branch name: " && read -r default_branch;
+	_break_line_before_echo "-------  ${ESC}[34mgit init${ESC}[m  -------" && git init
+	_break_line_before_echo "-------  ${ESC}[32mgit add . & git status${ESC}[m  -------" && git add . && git status
+	echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m "First commit"
 
-	gh repo create "$repo_name" --description "$repo_description"
-	git remote add origin https://github.com/deatiger/"$repo_name".git
+	echo
+	echo -n "Enter repository name: " && read -r name;
+    echo -n "Enter repository description: " && read -r description;
+	echo -n "Enter the default branch name (If nothing is entered, it will be main) : " && read -r branch;
 
-	if [ -n "$default_branch" ] ; then
-		git checkout -b "$default_branch"
+	while true;
+	do
+		echo -n "Enter number [1: public 2: private 3: internal] : "
+		read -r visibility
+
+		if [ "$visibility" = "1" ] ; then
+			_break_line_before_echo "-------  creating ${ESC}[34mpublic${ESC}[m repository now..  -------"
+			gh repo create "$name" -d "$description" --public
+			break
+		elif [ "$visibility" = "2" ] ; then
+			_break_line_before_echo "-------  creating ${ESC}[31mprivate${ESC}[m repository now..  -------"
+			gh repo create "$name" -d "$description" --private
+			break
+		elif [ "$visibility" = "3" ] ; then
+			_break_line_before_echo "-------  creating ${ESC}[32minternal${ESC}[m repository now..  -------"
+			gh repo create "$name" -d "$description" --internal
+			break
+		else
+			echo "${ESC}[31mError:${ESC}[m Please enter '1' or '2' or '3' ."
+			echo
+		fi
+	done
+
+	_break_line_before_echo "-------  ${ESC}[36mgit push${ESC}[m  -------"
+
+	git remote add origin git@github.com:"$user_name"/"$name".git
+
+	if [ -n "$branch" ] ; then
+		git branch -M "$branch"
 	else
-		default_branch="main"
+		branch="main"
+		git branch -M main
 	fi
 	
-	git push -u origin "$default_branch"
+	git push -u origin "$branch"
 }
