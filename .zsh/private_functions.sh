@@ -363,34 +363,6 @@ _execute_quicklook()
 	qlmanage -p > /dev/null 2>&1 "$@" &
 }
 
-_create_pull_request_on_git()
-{
-	local head title body
-
-	if [ $# -eq 0 ] ; then
-		_break_line_after_echo "${ESC}[31mError:${ESC}[m Specify branch which you want to merge."
-		_break_line_after_echo "Usage: ghpc [branch] [title] [body]"
-		echo "[branch]: Specify branch which you want to merge."
-		echo "[title]: Optional. Specify a pull request title."
-		echo "[body]: Optional. Specify a pull request comment."
-		return 0
-	fi
-
-	head="$(git rev-parse --abbrev-ref HEAD)"
-	title=""
-	body=""
-
-	if [ -n "$2" ] ; then
-		title=$2
-	fi
-
-	if [ -n "$3" ]; then
-		body=$3
-	fi
-
-	gh pr create --base "$1" --head "$head" --title "$title" --body "$body"
-}
-
 _manipulate_enter_docker()
 {
 	local is_open
@@ -452,14 +424,20 @@ _manipulate_enter_docker()
 
 _compile_ts_and_execute_js()
 {
-	local ts js
+	local ts js options
 
-	if [ ! $# -eq 1 ] ; then
-		echo "${ESC}[31mError:${ESC}[ Specified only one ts file."
+	if [ $# -gt 2 ] ; then
+		echo "${ESC}[31mError:${ESC}[m Specified only one ts file and only one target option."
 		return 0
 	elif [[ ! "$1" =~ ^.*.ts$ ]] ; then
-		echo "${ESC}[31mError:${ESC}[ Specified ts file."
+		echo "${ESC}[31mError:${ESC}[m Specified ts file."
 		return 0
+	fi
+
+	if [ -z "$2" ] ; then
+		options="es5"
+	else
+		options="$2"
 	fi
 
 	ts="$1"
@@ -475,5 +453,5 @@ _compile_ts_and_execute_js()
 	#js="$(echo "$ts" | sed 's/.ts/.js/g')"
 	js=$(echo "${ts//.ts/.js}")
 
-	tsc "$ts" && node "$js"
+	tsc "$ts" --target "$options" && node "$js"
 }
