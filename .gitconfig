@@ -24,18 +24,18 @@
   ss = status
 
   # git add
-  as = !git add -A "$@" && git status
+  as = "!f() { git add -A \"$@\" && git status; }; f"
   ad = add -A .
   au = add -u .
   aup = add -up .
 
   # git commit
-  cm = commit -v -m
-  cma = commit -v --amend -m
+  cm = "!f() { git commit -v -m \"$1\" && echo && echo '-------  ↓↓ commit message ↓↓  -------' && git show -s --format=format:%B; }; f"
+  cma = "!f() { git commit -v --amend -m \"$1\" && echo && echo '-------  ↓↓ new commit message ↓↓  -------' && git show -s --format=format:%B; }; f"
   cmf = commit -v -F
 
   # git push
-  p = !git push origin "$(git rev-parse --abbrev-ref HEAD)"
+  p = !git push origin "$(git rev-parse --abbrev-ref HEAD)" && echo && echo "-------  ↓↓ git log ( latest 5 logs ) ↓↓  -------" && git log --pretty='format:%C(yellow)%h %C(reset)%ad %C(cyan)[%an] %C(reset)%s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph -5
 
   # git merge
   mgff = merge --ff
@@ -51,5 +51,5 @@
   brd = branch -d
   brdd = branch -D
 
-  # git show
-  scm = !echo "-------  ↓↓commit message↓↓  -------" && git show -s --format=format:%B
+  # git log
+  glog = !clear && git log --pretty='format:%C(yellow)%h %C(reset)%ad %C(cyan)[%an] %C(reset)%s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph
