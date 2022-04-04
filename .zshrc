@@ -277,6 +277,18 @@ eval "$(phpenv init -)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+#
+# Path to fvm
+#
+# A simple CLI to manage Flutter SDK versions.
+#
+# GitHub ( https://github.com/leoafarias/fvm )
+#
+export PATH="$HOME/.pub-cache/bin:$PATH"
+
+# PATH of Global flutter command by fvm
+export PATH="$HOME/Develope/fvm/default/bin:$PATH"
+
 
 # -------------------------------------------------------------------------------------------- #
 # Alias
@@ -386,6 +398,9 @@ alias sleepon="_manipulate_sleep on"
 # Alias to open the directory or file with VScode
 alias vs=_open_each_directory_or_file_with_vscode
 
+# Alias to make directory and README.md file
+alias mkdr=_create_directory_and_readme_file
+
 # Alias to open docker
 alias dc=_manipulate_enter_docker
 
@@ -420,17 +435,11 @@ alias tj=_compile_ts_and_execute_js
 ## use the file 'functions_about_github_cli.sh' in .zsh directory
 ##
 
-# Alias to pull request with github cli
 alias ghpc=_create_pull_request_on_git
-
-# Alias to confirm file of pull requested branch
-alias prco=_confirm_file_of_pull_requested_branch
-
-# Alias to display diff of pull request list
-alias prdiff=_display_diff_of_pull_request_list
-
-# Alias to create repository and change default branch
-alias gcre=_create_repository_and_change_default_branch
+alias ghprco=_confirm_file_of_pull_requested_branch
+alias ghprdf=_display_diff_of_pull_request_list
+alias ghcr=_create_repository_and_change_default_branch
+alias ghdr=_delete_repository
 
 ##
 ## use the file 'search_google.sh' in .zsh directory
@@ -527,14 +536,14 @@ notify_finished_loading()
 	else
 		echo "Completed!!"
 		echo -e "\e[32m              ________         __                              __         \n" \
-				"            |  |  |  |.-----.|  |.----.-----.--------.-----. |  |_.-----.\n" \
-				"            |  |  |  ||  -__||  ||  __|  _  |        |  -__| |   _|  _  |\n" \
-				"            |________||_____||__||____|_____|__|__|__|_____| |____|_____|\n" \
-				"                                                                                        \n" \
-				" _______                       __               __   ________              __     __ __ \n" \
-				"|_     _|.-----.----.--------.|__|.-----.---.-.|  | |  |  |  |.-----.----.|  |.--|  |  |\n" \
-				"  |   |  |  -__|   _|        ||  ||     |  _  ||  | |  |  |  ||  _  |   _||  ||  _  |__|\n" \
-				"  |___|  |_____|__| |__|__|__||__||__|__|___._||__| |________||_____|__|  |__||_____|__|\n"
+			"            |  |  |  |.-----.|  |.----.-----.--------.-----. |  |_.-----.\n" \
+			"            |  |  |  ||  -__||  ||  __|  _  |        |  -__| |   _|  _  |\n" \
+			"            |________||_____||__||____|_____|__|__|__|_____| |____|_____|\n" \
+			"                                                                                        \n" \
+			" _______                       __               __   ________              __     __ __ \n" \
+			"|_     _|.-----.----.--------.|__|.-----.---.-.|  | |  |  |  |.-----.----.|  |.--|  |  |\n" \
+			"  |   |  |  -__|   _|        ||  ||     |  _  ||  | |  |  |  ||  _  |   _||  ||  _  |__|\n" \
+			"  |___|  |_____|__| |__|__|__||__||__|__|___._||__| |________||_____|__|  |__||_____|__|\n"
 	fi
 }
 notify_finished_loading

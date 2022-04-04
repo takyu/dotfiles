@@ -455,3 +455,16 @@ _compile_ts_and_execute_js()
 
 	tsc "$ts" --target "$options" && node "$js"
 }
+
+_create_directory_and_readme_file()
+{
+	local name
+
+	if [ ! $# -eq 1 ] ; then
+		echo "${ESC}[31mError:${ESC}[m Specified a directory name."
+	fi
+
+	name="$1"
+	mkdir "$name" && cd "$name" && echo "# ${name}" > README.md
+	cd ../ && _open_each_directory_or_file_with_vscode "$name"
+}

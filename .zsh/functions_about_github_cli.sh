@@ -58,7 +58,25 @@ _create_repository_and_change_default_branch()
 	echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m "First commit"
 
 	echo
-	echo -n "Enter repository name: " && read -r name;
+
+	if _ask_yn "Is the repository name to be the same as the directory name?" ; then
+		name="$(basename "$(pwd)")"
+		echo "Enter repository name: ${name}"
+	else
+		while true;
+		do
+			echo -n "Enter repository name: "
+			read -r name;
+
+			if [ -z "$name" ] ; then
+				echo "${ESC}[31mError:${ESC}[m Specify repository name"
+				echo
+			else
+				break
+			fi
+		done
+	fi
+	
     echo -n "Enter repository description: " && read -r description;
 	echo -n "Enter the default branch name (If nothing is entered, it will be main) : " && read -r branch;
 
@@ -97,4 +115,24 @@ _create_repository_and_change_default_branch()
 	fi
 	
 	git push -u origin "$branch"
+}
+
+_delete_repository()
+{
+	local user_name repo_name
+
+	user_name="$(git config user.name)"
+
+	if [ $# -eq 1 ] && [ "$1" == "-s" ] ; then
+		gh repo delete --confirm
+	else
+		echo -n "Enter repository name: " && read -r repo_name;
+		expect -c "
+			set timeout 2
+			spawn gh repo delete
+			expect \"? Type ${user_name}/${repo_name} to confirm deletion:\"
+			send \"${user_name}/${repo_name}\n\"
+			interact
+		"
+	fi
 }
