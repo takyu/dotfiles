@@ -53,13 +53,13 @@ _create_repository_and_change_default_branch()
 
 	user_name="$(git config user.name)"
 
-	_break_line_before_echo "-------  ${ESC}[34mgit init${ESC}[m  -------" && git init
-	_break_line_before_echo "-------  ${ESC}[32mgit add . & git status${ESC}[m  -------" && git add . && git status
-	echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m "First commit"
+	_break_line_both_echo "-------  ${ESC}[34mgit init${ESC}[m  -------" && git init
+	_break_line_both_echo "-------  ${ESC}[32mgit add . & git status${ESC}[m  -------" && git add . && git status
+	_break_line_after_echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m "First commit"
 
-	echo
+	_break_line_both_echo "-------  ${ESC}[35setting options of git${ESC}[m  -------"
 
-	if _ask_yn "Is the repository name to be the same as the directory name?" ; then
+	if _ask_yn "Is the repository name to be the same as the project(directory) name?" ; then
 		name="$(basename "$(pwd)")"
 		echo "Enter repository name: ${name}"
 	else
@@ -69,7 +69,7 @@ _create_repository_and_change_default_branch()
 			read -r name;
 
 			if [ -z "$name" ] ; then
-				echo "${ESC}[31mError:${ESC}[m Specify repository name"
+				echo "${ESC}[31mError:${ESC}[m Specify repository name."
 				echo
 			else
 				break
@@ -86,15 +86,15 @@ _create_repository_and_change_default_branch()
 		read -r visibility
 
 		if [ "$visibility" = "1" ] ; then
-			_break_line_before_echo "-------  creating ${ESC}[34mpublic${ESC}[m repository now..  -------"
+			_break_line_both_echo "-------  creating ${ESC}[34mpublic${ESC}[m repository now..  -------"
 			gh repo create "$name" -d "$description" --public
 			break
 		elif [ "$visibility" = "2" ] ; then
-			_break_line_before_echo "-------  creating ${ESC}[31mprivate${ESC}[m repository now..  -------"
+			_break_line_both_echo "-------  creating ${ESC}[31mprivate${ESC}[m repository now..  -------"
 			gh repo create "$name" -d "$description" --private
 			break
 		elif [ "$visibility" = "3" ] ; then
-			_break_line_before_echo "-------  creating ${ESC}[32minternal${ESC}[m repository now..  -------"
+			_break_line_both_echo "-------  creating ${ESC}[32minternal${ESC}[m repository now..  -------"
 			gh repo create "$name" -d "$description" --internal
 			break
 		else
@@ -103,18 +103,42 @@ _create_repository_and_change_default_branch()
 		fi
 	done
 
-	_break_line_before_echo "-------  ${ESC}[36mgit push${ESC}[m  -------"
-
-	git remote add origin git@github.com:"$user_name"/"$name".git
-
 	if [ -n "$branch" ] ; then
 		git branch -M "$branch"
 	else
 		branch="main"
 		git branch -M main
 	fi
-	
+
+	git remote add origin git@github.com:"$user_name"/"$name".git
+
+	_break_line_both_echo "-------  ${ESC}[36mgit push${ESC}[m origin / ${ESC}[36m${branch}${ESC}[m  -------"
+
 	git push -u origin "$branch"
+}
+
+_create_project_and_repository()
+{
+	local project
+
+	_break_line_both_echo "-------  ${ESC}[35mcreate project (directory)${ESC}[m  -------"
+	while true;
+	do
+		echo -n "Enter project(directory) name: "
+		read -r project;
+
+		if [ -z "$project" ] ; then
+			echo "${ESC}[31mError:${ESC}[m Specify project(directory) name."
+			echo
+		else
+			break
+		fi
+	done
+	echo "project name : ${project}"
+
+	mkdir "$project" && echo "# ${project}" > "$project"/README.md
+	cd "$project" && _create_repository_and_change_default_branch
+	cd ../ && _open_each_directory_or_file_with_vscode "$project"
 }
 
 _delete_repository()

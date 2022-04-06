@@ -16,6 +16,13 @@ _break_line_before_echo()
 	echo "$@"
 }
 
+_break_line_both_echo()
+{
+	echo
+	echo "$@"
+	echo
+}
+
 # Function to add line after command
 _add_line()
 {
@@ -422,7 +429,7 @@ _manipulate_enter_docker()
 	fi
 }
 
-_compile_ts_and_execute_js()
+_compile_ts_and_execute_nodejs()
 {
 	local ts js options
 
@@ -454,17 +461,4 @@ _compile_ts_and_execute_js()
 	js=$(echo "${ts//.ts/.js}")
 
 	tsc "$ts" --target "$options" && node "$js"
-}
-
-_create_directory_and_readme_file()
-{
-	local name
-
-	if [ ! $# -eq 1 ] ; then
-		echo "${ESC}[31mError:${ESC}[m Specified a directory name."
-	fi
-
-	name="$1"
-	mkdir "$name" && cd "$name" && echo "# ${name}" > README.md
-	cd ../ && _open_each_directory_or_file_with_vscode "$name"
 }

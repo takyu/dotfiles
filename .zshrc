@@ -398,9 +398,6 @@ alias sleepon="_manipulate_sleep on"
 # Alias to open the directory or file with VScode
 alias vs=_open_each_directory_or_file_with_vscode
 
-# Alias to make directory and README.md file
-alias mkdr=_create_directory_and_readme_file
-
 # Alias to open docker
 alias dc=_manipulate_enter_docker
 
@@ -429,7 +426,7 @@ alias ss=_start_screen_saver
 alias ql=_execute_quicklook
 
 # Alias to compile ts file and execute js file with node
-alias tj=_compile_ts_and_execute_js
+alias tj=_compile_ts_and_execute_nodejs
 
 ##
 ## use the file 'functions_about_github_cli.sh' in .zsh directory
@@ -439,6 +436,7 @@ alias ghpc=_create_pull_request_on_git
 alias ghprco=_confirm_file_of_pull_requested_branch
 alias ghprdf=_display_diff_of_pull_request_list
 alias ghcr=_create_repository_and_change_default_branch
+alias ghcp=_create_project_and_repository
 alias ghdr=_delete_repository
 
 ##
