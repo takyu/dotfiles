@@ -7,6 +7,7 @@ bradlc.vscode-tailwindcss
 ChakrounAnas.turbo-console-log
 christian-kohler.path-intellisense
 chrmarti.regex
+circledev.glsl-canvas
 codelios.dartsass
 codingyu.laravel-goto-view
 Dart-Code.dart-code
@@ -16,6 +17,7 @@ dbaeumer.vscode-eslint
 donjayamanne.githistory
 eamodio.gitlens
 esbenp.prettier-vscode
+evilz.vscode-reveal
 formulahendry.auto-rename-tag
 formulahendry.code-runner
 gencer.html-slim-scss-css-class-completion
@@ -50,12 +52,17 @@ ms-vscode-remote.remote-ssh-edit
 ms-vscode.cmake-tools
 ms-vscode.cpptools
 ms-vsliveshare.vsliveshare
+mtxr.sqltools
+mtxr.sqltools-driver-mysql
+mtxr.sqltools-driver-pg
+mtxr.sqltools-driver-sqlite
 mushan.vscode-paste-image
 oderwat.indent-rainbow
 onecentlin.laravel-blade
 onecentlin.laravel5-snippets
 PKief.material-icon-theme
 pranaygp.vscode-css-peek
+raczzalan.webgl-glsl-editor
 redhat.java
 redhat.vscode-yaml
 rifi2k.format-html-in-php
@@ -82,6 +89,8 @@ vscjava.vscode-maven
 waderyan.gitblame
 wix.vscode-import-cost
 Wscats.search
+xabikos.JavaScriptSnippets
 xdebug.php-debug
 yzane.markdown-pdf
+ZainChen.json
 Zignd.html-css-class-completion

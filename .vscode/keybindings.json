@@ -3,8 +3,16 @@
   /**
    * add shortcut key
    */
-
   // cmd
+  {
+    "key": "cmd+l",
+    "command": "expandLineSelection",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "cmd+r",
+    "command": "workbench.action.reopenClosedEditor"
+  },
   {
     "key": "cmd+t",
     "command": "workbench.action.createTerminalEditor"
@@ -12,10 +20,6 @@
   {
     "key": "shift+cmd+t",
     "command": "workbench.action.createTerminalEditorSide"
-  },
-  {
-    "key": "cmd+r",
-    "command": "workbench.action.reopenClosedEditor"
   },
   {
     "key": "cmd+n",
@@ -50,11 +54,30 @@
     "when": "editorFocus && parameterHintsVisible"
   },
   {
+    "key": "ctrl+alt+cmd+space",
+    "command": "editor.action.fontZoomReset"
+  },
+  {
+    "key": "ctrl+alt+cmd+right",
+    "command": "workbench.action.moveEditorToNextGroup"
+  },
+  {
+    "key": "ctrl+alt+cmd+left",
+    "command": "workbench.action.moveEditorToPreviousGroup"
+  },
+  {
+    "key": "ctrl+cmd+left",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+cmd+right",
+    "command": "workbench.action.nextEditor"
+  },
+  {
     "key": "shift+cmd+g",
     "command": "workbench.view.scm",
     "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
   },
-
   // ctrl
   {
     "key": "ctrl+x",
@@ -66,17 +89,28 @@
     "command": "turboConsoleLog.displayLogMessage"
   },
   {
+    "key": "ctrl+z",
+    "command": "editor.action.toggleWordWrap"
+  },
+  {
+    "key": "ctrl+z",
+    "command": "workbench.action.terminal.sizeToContentWidth",
+    "when": "terminalFocus && terminalHasBeenCreated && terminalIsOpen || terminalFocus && terminalIsOpen && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+s",
+    "command": "extension.search-online",
+    "when": "editorHasSelection"
+  },
+  {
     "key": "ctrl+shift+`",
     "command": "workbench.action.showAllSymbols"
   },
-
   // option
   {
-    "key": "alt+r",
-    "command": "workbench.action.reloadWindow",
-    "when": "isDevelopment"
+    "key": "alt+\\",
+    "command": "workbench.action.splitEditorOrthogonal"
   },
-
   /**
    * Delete shortcut key
    */
@@ -124,5 +158,54 @@
     "key": "ctrl+shift+`",
     "command": "-workbench.action.terminal.new",
     "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+  },
+  {
+    "key": "alt+z",
+    "command": "-editor.action.toggleWordWrap"
+  },
+  {
+    "key": "alt+z",
+    "command": "-workbench.action.terminal.sizeToContentWidth",
+    "when": "terminalFocus && terminalHasBeenCreated && terminalIsOpen || terminalFocus && terminalIsOpen && terminalProcessSupported"
+  },
+  {
+    "key": "cmd+k cmd+\\",
+    "command": "-workbench.action.splitEditorOrthogonal"
+  },
+  {
+    "key": "cmd+enter",
+    "command": "-extension.search-online",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "-deleteRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+delete",
+    "command": "-deleteRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+backspace",
+    "command": "-deleteLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+cmd+right",
+    "command": "-workbench.action.moveEditorToNextGroup"
+  },
+  {
+    "key": "ctrl+cmd+left",
+    "command": "-workbench.action.moveEditorToPreviousGroup"
+  },
+  {
+    "key": "shift+cmd+[",
+    "command": "-workbench.action.previousEditor"
+  },
+  {
+    "key": "shift+cmd+]",
+    "command": "-workbench.action.nextEditor"
   }
 ]

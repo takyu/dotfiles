@@ -2,7 +2,6 @@
   /* ---------------------------------------------------------------------------
     Settings general
   --------------------------------------------------------------------------- */
-
   /**
    * editor
    */
@@ -21,9 +20,10 @@
   "editor.comments.insertSpace": true,
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.folding": true,
-  "editor.wordWrap": "on",
   "editor.suggest.showKeywords": false,
   "editor.suggest.showWords": false,
   "editor.snippetSuggestions": "top",
@@ -31,79 +31,78 @@
   "editor.suggestSelection": "recentlyUsedByPrefix",
   "editor.minimap.enabled": false,
   "editor.tabCompletion": "on",
-
+  // Setting word wrap with option ( toggle: control + z )
+  "editor.wordWrap": "off",
+  "editor.wordWrapColumn": 80,
+  "editor.wrappingIndent": "indent",
   // Zoom in/out on the editor using Command key + mouse wheel
-  "editor.mouseWheelZoom": false,
-
+  "editor.mouseWheelZoom": true,
   // Don't include formatting when copying text
   "editor.copyWithSyntaxHighlighting": false,
-
   // Don't auto compltion when press specific key
   "editor.acceptSuggestionOnEnter": "off",
   "editor.acceptSuggestionOnCommitCharacter": false,
-
   // enable Bracket Pair Colorizer
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
-
   // Disable copying empty lines
   "editor.emptySelectionClipboard": false,
-
   // Difference editor ignores whitespace
   "diffEditor.ignoreTrimWhitespace": true,
-
   /**
    * workbench
    */
   // display in preview mode if there is a readme
   "workbench.startupEditor": "readme",
-
   "workbench.colorCustomizations": {
     "editor.lineHighlightBackground": "#222222",
     // "editorLineNumber.foreground": "#3f3f3f",
     "editorLineNumber.activeForeground": "#51ff00",
     "terminalCursor.foreground": "#ffffff7f"
   },
-
   // show indent guide lines in the file tree and change indent size
   "workbench.tree.renderIndentGuides": "always",
   "workbench.tree.indent": 10,
-
   // Don't close open files when opening other files
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromQuickOpen": false,
-
   "workbench.iconTheme": "material-icon-theme",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.colorTheme": "Ayu Mirage Bordered",
-
+  /**
+   * breadcrumbs
+   */
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.symbolPath": "last",
+  "breadcrumbs.symbolSortOrder": "position",
   /**
    * window
    */
   // move to window, if there is already it open.
   "window.openFilesInNewWindow": "off",
-
+  "window.title": "${dirty}${activeEditorShort}${separator}${appName}",
   /**
    * search
    */
   "search.exclude": {},
-
   // Search results in the search view with the number of rows
   "search.showLineNumbers": true,
-
   /**
    * files
    */
   // remove wasted white space.
   "files.trimTrailingWhitespace": true,
-
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
   "files.exclude": {
     "**/.classpath": true,
     "**/.project": true,
     "**/.settings": true,
-    "**/.factorypath": true
+    "**/.factorypath": true,
+    "**/.fvm": true
     // "**/node_modules": true
   },
   "files.watcherExclude": {
@@ -113,18 +112,16 @@
     "**/node_modules/**": true,
     "**/GoogleDrive/**": true,
     "**/Dropbox/**": true,
-    "**/Pictures/**": true
+    "**/Pictures/**": true,
+    "**/.fvm": true
   },
-
   /**
    * confirm explorer
    */
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": true,
-
   // Open the directory where the file is when the file is opened in a tab
   "explorer.autoReveal": false,
-
   /**
    * debug
    */
@@ -132,22 +129,17 @@
   "debug.inlineValues": true,
   "debug.internalConsoleOptions": "openOnSessionStart",
   "debug.openDebug": "openOnSessionStart",
-
   /**
    * terminal
    */
   "terminal.integrated.fontSize": 12,
-
   // copy when selected in terminal
   "terminal.integrated.copyOnSelection": true,
-
   // right-click to paste
   "terminal.integrated.rightClickBehavior": "paste",
-
   /* ---------------------------------------------------------------------------
     Settings extensions
   --------------------------------------------------------------------------- */
-
   /**
    * emmet
    */
@@ -163,12 +155,10 @@
     "erb": "html",
     "vue": "html, css"
   },
-
   // Change the language of HTML expanded by Emmet
   "emmet.variables": {
     "lang": "ja"
   },
-
   /**
    * Prettier
    */
@@ -178,7 +168,6 @@
   "prettier.singleQuote": true,
   "prettier.vueIndentScriptAndStyle": true,
   "prettier.printWidth": 80,
-
   /**
    * Eslint
    */
@@ -186,26 +175,40 @@
   "eslint.alwaysShowStatus": true,
   "eslint.packageManager": "yarn",
   "eslint.run": "onSave",
-
   // Format compatible files with ESLint when saving
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
   /**
    * Volar
    */
   "volar.formatting.printWidth": 80,
-
   /**
-   * markdown-formatter
+   * markdown formatter
    */
   "markdownFormatter.codeAreaToBlock": "",
   "markdownFormatter.fullWidthTurnHalfWidth": "auto",
   "markdownFormatter.formatOpt": {
     "indent_size": 4
   },
-
+  /**
+   * markdown lint
+   */
+  "markdownlint.config": {
+    "MD007": false,
+    "MD010": false,
+    "MD041": false
+  },
+  /**
+   * Blade formatter
+   */
+  "bladeFormatter.format.indentSize": 2,
+  "bladeFormatter.format.sortTailwindcssClasses": true,
   /**
    * Power Mode
    */
@@ -215,7 +218,6 @@
   "powermode.shake.enabled": false,
   "powermode.shake.intensity": 1,
   "powermode.explosions.duration": 300,
-
   /**
    * vscode-pets
    */
@@ -224,42 +226,39 @@
   "vscode-pets.petType": "cat",
   "vscode-pets.petColor": "brown",
   "vscode-pets.theme": "forest",
-
   /**
    * Visual Studio IntelliCode
    *
    * AI-assisted development features for Python, TypeScript/JavaScript and Java
    */
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
   /**
    * htmltagwrap
    */
   "htmltagwrap.tag": "div",
-
   /**
    * open-in-browser
    */
   "open-in-browser.default": "chrome",
-
   /**
    * intelephense
    *
    * display notice of PHP
    */
+  // PHP version
+  "intelephense.environment.phpVersion": "8.1.2",
   "intelephense.diagnostics.undefinedClassConstants": false,
   "intelephense.diagnostics.undefinedConstants": false,
   "intelephense.diagnostics.undefinedFunctions": false,
   "intelephense.diagnostics.undefinedMethods": false,
   "intelephense.diagnostics.undefinedTypes": false,
   "intelephense.diagnostics.undefinedProperties": false,
-
   /**
    * live server
    */
   "liveServer.settings.CustomBrowser": "chrome",
   "liveServer.settings.donotShowInfoMsg": true,
-
+  "liveServer.settings.port": 5500,
   /**
    * Dart Sass
    *
@@ -269,18 +268,25 @@
   "dartsass.outputFormat": "cssonly",
   "dartsass.targetDirectory": "src/css",
   "dartsass.pauseInterval": 2,
-
   /* ---------------------------------------------------------------------------
     Settings each language
   --------------------------------------------------------------------------- */
-
+  "[json][jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "gitlens.codeLens.scopes": [
+      "document"
+    ],
+  },
   "[shellscript]": {
     "editor.insertSpaces": false,
     "editor.comments.insertSpace": false,
     "editor.tabSize": 4,
     "files.trimTrailingWhitespace": false
   },
-
   "[c]": {
     "editor.defaultFormatter": null,
     "editor.insertSpaces": false,
@@ -295,7 +301,6 @@
     "editor.formatOnType": false,
     "files.trimTrailingWhitespace": false
   },
-
   "[cpp]": {
     "editor.defaultFormatter": null,
     "editor.insertSpaces": false,
@@ -310,7 +315,6 @@
     "editor.formatOnType": false,
     "files.trimTrailingWhitespace": false
   },
-
   "[markdown]": {
     "editor.defaultFormatter": "mervin.markdown-formatter",
     "editor.insertSpaces": false,
@@ -328,63 +332,67 @@
       "strings": true
     }
   },
-
   "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "javascript.inlayHints.parameterNames.enabled": "all",
-
   "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "typescript.inlayHints.parameterNames.enabled": "all",
-
   "[vue]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "gitlens.codeLens.scopes": ["document"],
+    // "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "gitlens.codeLens.scopes": [
+      "document"
+    ],
     "editor.semanticHighlighting.enabled": true
   },
-
+  "[glsl]": {
+    "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
+  },
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
     "editor.insertSpaces": false,
     "editor.tabSize": 4
   },
-
   "[blade]": {
     "editor.defaultFormatter": "shufo.vscode-blade-formatter",
-    "editor.tabSize": 4
+    "editor.tabSize": 2
   },
-
+  "[sql]": {
+    "editor.defaultFormatter": "mtxr.sqltools"
+  },
   "[python]": {
     "editor.defaultFormatter": null,
     "editor.formatOnSave": true
   },
   "python.formatting.provider": "black",
-
-  "dart.flutterSdkPath": "/usr/local/bin/flutter",
   "[dart]": {
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
-    "editor.rulers": [80],
+    "editor.rulers": [
+      80
+    ],
     "editor.selectionHighlight": false,
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggestSelection": "first",
     "editor.tabCompletion": "onlySnippets",
     "editor.wordBasedSuggestions": false
   },
+  "dart.flutterSdkPath": "$HOME/Develope/fvm/default/bin/flutter",
   "dart.openDevTools": "flutter",
-
   "[csv]": {
     "editor.wordWrap": "off"
   },
-
   "[tsv]": {
     "editor.insertSpaces": false,
     "editor.wordWrap": "off"
   },
-
   "[log]": {
     "editor.wordWrap": "off"
-  }
+  },
+  "redhat.telemetry.enabled": false
 }
