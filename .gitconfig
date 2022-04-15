@@ -1,6 +1,28 @@
 [init]
 	defaultBranch = main
 
+[core]
+	editor = vim
+
+  # Prevents Japanese file names from being garbled
+  quotepath = false
+
+# Delete automatic local branch when the remote branch has been deleted
+[fetch]
+	prune = true
+
+# Do not create merge commits when git pull
+[pull]
+	ff = only
+
+# Always create a merge commit when git merge
+[merge]
+	ff = false
+
+# Always set git push origin HEAD as default
+[push]
+	default = current
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
