@@ -302,8 +302,9 @@ _do_sleep()
 
 _customize_speedtest-cli()
 {
+	_display_sppedtest_cli_logo
 	_break_line_before_echo "## Display current wireless status, e.g. signal info, BSSID, port type etc."
-	/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
+	sleep 1;/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
 	_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
 	echo "## Memory is being free so that the speed can be measured optimally.."
 	_purge_cache
@@ -312,13 +313,17 @@ _customize_speedtest-cli()
 	echo "## Start speed test. ( $date )"
 	speedtest-cli --secure --share | tee >(rotatelogs -n 3 /tmp/speed_result.log 1M)
 	_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
-	echo "## Display the measurement results of the speed test.."
 	url="$(cat /tmp/speed_result.log | grep "Share results" | awk '{print $3}')"
-	open -a 'Google Chrome' -n --args --incognito --new-window "$url"
-	sleep 2;_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
-	echo "## Save the date of executing the speed test and the URL of the result in 'speedtest_history.log'.."
-	echo "$date -> $url" >> "$HOME"/Documents/times/speedtest_history.log
-	_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
+
+	if [ -n "$url" ] ; then
+		echo "## Display the measurement results of the speed test.."
+		open -a 'Google Chrome' -n --args --incognito --new-window "$url"
+		sleep 2;_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
+		echo "## Save the date of executing the speed test and the URL of the result in 'speedtest_history.log'.."
+		echo "$date -> $url" >> "$HOME"/Documents/times/speedtest_history.log
+		_break_line_after_echo "${ESC}[31;42mdone.${ESC}[m"
+	fi
+
 	rm -f /tmp/speed_result.log
 	_notify_done
 }
@@ -326,14 +331,12 @@ _customize_speedtest-cli()
 _customize_yt-dlp()
 {
 	clear
+	_display_yt-dlp_logo
 	if [ $# -eq 0 ] ; then
-		echo
-		_break_line_after_echo "'dlva' is an alias for 'yt-dlp' with the --verbose, --print-traffic, --progress, and --console-title options."
+		_break_line_both_echo "'dlva' is an alias for 'yt-dlp' with the --verbose, --print-traffic, --progress, and --console-title options."
 		echo "'yt-dlp' is a youtube-dl fork based on the now inactive youtube-dlc."
-		_break_line_after_echo "'youtube-dl' is a download videos from youtube.com or other video platforms."
-		echo "GitHub is as follows."
-		echo "yt-dlp ( https://github.com/yt-dlp/yt-dlp )"
-		_break_line_after_echo "youtube-dl ( https://github.com/ytdl-org/youtube-dl )"
+		echo "'youtube-dl' is a download videos from youtube.com or other video platforms."
+		_break_line_after_echo "GitHub ( https://github.com/yt-dlp/yt-dlp )"
 		_break_line_after_echo "${ESC}[32mUsage: dlva [OPTIONS] URL [URL...]${ESC}[m"
 		_break_line_after_echo "For detailed usage and to see other options, enter '-h' or '--help'."
 		echo "For example, use the following."
@@ -402,25 +405,7 @@ _manipulate_enter_docker()
 		fi
 
 	else
-		clear
-		echo -e "  ___________ \n" \
-			"< Hi, $USER!!>\n" \
-			" ----------- \n" \
-			"    \ \n" \
-			"     \ \n" \
-			"      \     \n" \
-			"                    ##        .            \n" \
-			"              ## ## ##       ==            \n" \
-			"           ## ## ## ##      ===            \n" \
-			"       /\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"___/ ===        \n" \
-			"  ~~~ {~~ ~~~~ ~~~ ~~~~ ~~ ~ /  ===- ~~~   \n" \
-			"       \______ o          __/            \n" \
-			"        \    \        __/             \n" \
-			"          \____\______/   \n" \
-			"                                            \n"
-
-		figlet -f slant Open Docker.
-		open -a Docker
+		clear && _display_docker_logo && open -a Docker
 
 		if [ $# -gt 0 ] ; then
 			_break_line_before_echo "${ESC}[36mInfo:${ESC}[m When docker starts, enter it again!"

@@ -25,6 +25,9 @@ display_init
 # Read source files
 # -------------------------------------------------------------------------------------------- #
 
+# Function to display logo
+source $HOME/dotfiles/.zsh/display_logo.sh
+
 # Private functions
 source $HOME/dotfiles/.zsh/private_functions.sh
 
@@ -397,6 +400,9 @@ alias sleepon="_manipulate_sleep on"
 
 # Alias to open the directory or file with VScode
 alias vs=_open_each_directory_or_file_with_vscode
+
+# Alias to exit all terminal opened VScode
+alias vset=_exit_all_terminal_opened_vscode
 
 # Alias to open docker
 alias dc=_manipulate_enter_docker

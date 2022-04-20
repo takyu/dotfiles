@@ -13,6 +13,8 @@ _create_pull_request_on_git()
 		return 0
 	fi
 
+	_display_github_cli_logo && echo
+
 	head="$(git rev-parse --abbrev-ref HEAD)"
 	title=""
 	body=""
@@ -32,6 +34,8 @@ _confirm_file_of_pull_requested_branch()
 {
 	local number
 
+	_display_github_cli_logo && echo
+
 	gh pr list;
     echo -n "Enter the number of PR to checkout: " && read -r number;
     gh pr checkout "$number";
@@ -40,6 +44,8 @@ _confirm_file_of_pull_requested_branch()
 _display_diff_of_pull_request_list()
 {
 	local number
+
+	_display_github_cli_logo && echo
 
 	gh pr list;
     echo -n "Enter the number of PR to checkout: " && read -r number;
@@ -53,11 +59,17 @@ _create_repository_and_change_default_branch()
 
 	user_name="$(git config user.name)"
 
+	if [ $# -ge 1 ] && [ "$1" = "notlogo" ] ; then
+		:
+	else
+		_display_github_cli_logo
+	fi
+
 	_break_line_both_echo "-------  ${ESC}[34mgit init${ESC}[m  -------" && git init
 	_break_line_both_echo "-------  ${ESC}[32mgit add . & git status${ESC}[m  -------" && git add . && git status
 	_break_line_after_echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m "First commit"
 
-	_break_line_both_echo "-------  ${ESC}[35setting options of git${ESC}[m  -------"
+	_break_line_both_echo "-------  ${ESC}[35msetting options of git${ESC}[m  -------"
 
 	if _ask_yn "Is the repository name to be the same as the project(directory) name?" ; then
 		name="$(basename "$(pwd)")"
@@ -121,6 +133,8 @@ _create_project_and_repository()
 {
 	local project
 
+	_display_github_cli_logo
+
 	_break_line_both_echo "-------  ${ESC}[35mcreate project (directory)${ESC}[m  -------"
 	while true;
 	do
@@ -137,7 +151,7 @@ _create_project_and_repository()
 	echo "project name : ${project}"
 
 	mkdir "$project" && echo "# ${project}" > "$project"/README.md
-	cd "$project" && _create_repository_and_change_default_branch
+	cd "$project" && _create_repository_and_change_default_branch "notlogo"
 	cd ../ && _open_each_directory_or_file_with_vscode "$project"
 }
 
@@ -146,6 +160,8 @@ _delete_repository()
 	local user_name repo_name
 
 	user_name="$(git config user.name)"
+
+	_display_github_cli_logo && echo
 
 	if [ $# -eq 1 ] && [ "$1" == "-s" ] ; then
 		gh repo delete --confirm
