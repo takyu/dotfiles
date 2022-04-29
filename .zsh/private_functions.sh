@@ -331,9 +331,9 @@ _customize_speedtest-cli()
 _customize_yt-dlp()
 {
 	clear
-	_display_yt-dlp_logo
+	_display_yt-dlp_logo && echo
 	if [ $# -eq 0 ] ; then
-		_break_line_both_echo "'dlva' is an alias for 'yt-dlp' with the --verbose, --print-traffic, --progress, and --console-title options."
+		_break_line_after_echo "'dlva' is an alias for 'yt-dlp' with the --verbose, --print-traffic, --progress, and --console-title options."
 		echo "'yt-dlp' is a youtube-dl fork based on the now inactive youtube-dlc."
 		echo "'youtube-dl' is a download videos from youtube.com or other video platforms."
 		_break_line_after_echo "GitHub ( https://github.com/yt-dlp/yt-dlp )"
@@ -446,4 +446,40 @@ _compile_ts_and_execute_nodejs()
 	js=$(echo "${ts//.ts/.js}")
 
 	tsc "$ts" --target "$options" && node "$js"
+}
+
+_open_app_related_amazon()
+{
+	local selected_app
+
+	clear && figlet -f slant Amazon App && echo
+
+	while :
+	do
+		echo -n "select app ( s: shopping k: kindle m: music v: video ) : "
+		read -r selected_app
+		echo
+
+		case "$selected_app" in
+			[Ss])
+				figlet -cf slant Amazon Shopping | lolcat
+				open -a 'Brave Browser' -n --args --new-window https://www.amazon.co.jp/
+				break ;;
+			[Kk])
+				figlet -cf slant Amazon Kindle | lolcat
+				open -a 'Kindle' -n
+				break ;;
+			[Mm])
+				figlet -cf slant Amazon Prime Music | lolcat
+				open -a 'Amazon Music' -n
+				break ;;
+			[Vv])
+				figlet -cf slant Amazon Prime Video | lolcat
+				open -a 'Prime Video' -n
+				break ;;
+			*)
+				echo "${ESC}[31mError:${ESC}[m Specify only one character in 'skmv'."
+				echo
+		esac
+	done
 }

@@ -345,15 +345,6 @@ alias si="figlet -f slant Open Simulator! && sudo purge && open -a Simulator"
 # Alias to open new QuickTime Player
 alias qp="sudo purge && open -a 'QuickTime Player'"
 
-#
-# Alias about amazon prime
-#
-# amav -> Alias to open Amazon Prime Video
-# amam -> Alias to open Amazon Prime Music
-#
-alias amav="figlet -cf slant Amazon Prime Video | lolcat && open -a 'Prime Video' -n"
-alias amam="figlet -cf slant Amazon Prime Music | lolcat && open -a 'Amazon Music' -n"
-
 # Alias to display 256 colors
 alias col256="clear && seq 0 255 | xargs -I {} printf '\033[38;5;{}m{}\033[m ' \
 	&& cat $HOME/dotfiles/.zsh/manual_col256.txt \
@@ -433,6 +424,9 @@ alias ql=_execute_quicklook
 
 # Alias to compile ts file and execute js file with node
 alias tj=_compile_ts_and_execute_nodejs
+
+# Alias to open app related amazon
+alias ama=_open_app_related_amazon
 
 ##
 ## use the file 'functions_about_github_cli.sh' in .zsh directory

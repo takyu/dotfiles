@@ -35,3 +35,13 @@ _display_yt-dlp_logo()
 {
 	figlet -f slant yt-dlp && echo -n "yt-dlp " && yt-dlp --version
 }
+
+_display_mas-cli_logo()
+{
+	figlet -f slant mas-cli && echo -n "mas-cli " && mas version
+}
+
+_display_homebrew_logo()
+{
+	figlet -f slant Homebrew && brew -v
+}
