@@ -10,7 +10,7 @@
 # 👕  :shirt: Fix Lint errors and correct code styles.
 # 💚  :green_heart: Fix and improve testing and CI.
 # 🎨  :art: Improve structure / format of the code.
-# ⚙  :gear: Change configs.
+# ⚙️  :gear: Change configs.
 # 🆙  :up: Update dependent packages, etc.
 # 👮  :cop: Improve on security.
 # 📚  :books: Add documentation.

@@ -44,6 +44,9 @@
 
 [alias]
 
+  # git pull rebase
+  drag = pull --rebase
+
   # get git alias list
   alias = !echo && git config --list | grep ^alias. | sed 's/alias./git /g' | sed -e '1d'
 
@@ -57,12 +60,12 @@
   aup = add -up .
 
   # git commit
-  cm = "!f() { git commit -v -m \"$1\" && echo && echo '-------  ↓↓ commit message ↓↓  -------' && git show -s --format=format:%B; }; f"
-  cma = "!f() { git commit -v --amend -m \"$1\" && echo && echo '-------  ↓↓ new commit message ↓↓  -------' && git show -s --format=format:%B; }; f"
+  cm = "!f() { git commit -v -m \"$1\" && echo && echo '-------  ↓↓ commit message ↓↓  -------' && git show -s --format=format:%B | emojify; }; f"
+  cma = "!f() { git commit -v --amend -m \"$1\" && echo && echo '-------  ↓↓ new commit message ↓↓  -------' && git show -s --format=format:%B | emojify; }; f"
   cmf = commit -v -F
 
   # git push
-  p = !git push origin "$(git rev-parse --abbrev-ref HEAD)" && echo && echo '-------  ↓↓ git log ( latest 5 logs ) ↓↓  -------' && git log --pretty='format:%C(yellow)%h %C(green)%ad %C(cyan)[%an] %C(reset)%s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph -5
+  p = !git push origin "$(git rev-parse --abbrev-ref HEAD)" && echo && echo '-------  ↓↓ git log ( latest 5 logs ) ↓↓  -------' && git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph -5 | emojify
 
   # git merge
   mgff = merge --ff
@@ -78,6 +81,10 @@
   brd = branch -d
   brdd = branch -D
 
+  # git show
+  sw = !git show --color | emojify
+
   # git log
-  glog = !clear && git log --pretty='format:%C(yellow)%h %C(green)%ad %C(cyan)[%an] %C(reset)%s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph
-  fhlog = !clear && git log --pretty='format:%C(yellow)%H %C(cyan)[%an] %C(green)%ad'  --date=format:'%Y-%m-%d %H:%M:%S' --all --graph
+  ll = !git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --decorate --numstat | emojify | less -r
+  glog = !clear && git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph | emojify
+  fhlog = !clear && git log --color --pretty=format:'%C(yellow)%H %C(cyan)[%an] %C(green)%ad' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph | emojify
