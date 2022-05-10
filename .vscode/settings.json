@@ -126,7 +126,7 @@
    * debug
    */
   "debug.console.fontSize": 12,
-  "debug.inlineValues": true,
+  "debug.inlineValues": "on",
   "debug.internalConsoleOptions": "openOnSessionStart",
   "debug.openDebug": "openOnSessionStart",
   /**
@@ -184,6 +184,117 @@
       "mode": "auto"
     }
   ],
+  /**
+   * Gitmoji Commit
+   */
+  "gitmoji.customEmojiMap": [
+    {
+      "emoji": "🎉",
+      "colon": ":tada:",
+      "text": "Begin a project"
+    },
+    {
+      "emoji": "🚧",
+      "colon": ":construction:",
+      "text": "Work in progress"
+    },
+    {
+      "emoji": "✨",
+      "colon": ":sparkles:",
+      "text": "Introduce new features"
+    },
+    {
+      "emoji": "⚡️",
+      "colon": ":zap:",
+      "text": "Improve performance"
+    },
+    {
+      "emoji": "🔥",
+      "colon": ":fire:",
+      "text": "Remove code or files"
+    },
+    {
+      "emoji": "🐛",
+      "colon": ":bug:",
+      "text": "Fix a bug"
+    },
+    {
+      "emoji": "🚑️",
+      "colon": ":ambulance:",
+      "text": "Critical hotfix"
+    },
+    {
+      "emoji": "🩹",
+      "colon": ":adhesive_bandage:",
+      "text": "Simple fix for a non-critical issue"
+    },
+    {
+      "emoji": "👕",
+      "colon": ":shirt:",
+      "text": "Fix Lint errors and correct code styles"
+    },
+    {
+      "emoji": "💚",
+      "colon": ":green_heart:",
+      "text": "Fix and improve testing and CI"
+    },
+    {
+      "emoji": "🎨",
+      "colon": ":art:",
+      "text": "Improve structure / format of the code"
+    },
+    {
+      "emoji": "⚙",
+      "colon": ":gear:",
+      "text": "Change configs"
+    },
+    {
+      "emoji": "🆙",
+      "colon": ":up:",
+      "text": "Update dependent packages, etc."
+    },
+    {
+      "emoji": "👮",
+      "colon": ":cop:",
+      "text": "Improve on security"
+    },
+    {
+      "emoji": "📚",
+      "colon": ":books:",
+      "text": "Add documentation"
+    },
+    {
+      "emoji": "📝",
+      "colon": ":memo:",
+      "text": "Update documentation."
+    },
+    {
+      "emoji": "♻️",
+      "colon": ":recycle:",
+      "text": "Refactor code"
+    },
+    {
+      "emoji": "💢",
+      "colon": ":anger:",
+      "text": "Conflict"
+    },
+    {
+      "emoji": "⏪️",
+      "colon": ":rewind:",
+      "text": "Revert changes"
+    },
+    {
+      "emoji": "🔖",
+      "colon": ":bookmark:",
+      "text": "Release / Version tags"
+    },
+    {
+      "emoji": "🚀",
+      "colon": ":rocket:",
+      "text": "Deploy stuff"
+    }
+  ],
+  "gitmoji.customEmoji": true,
   /**
    * Volar
    */

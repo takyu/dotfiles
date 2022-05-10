@@ -1,4 +1,6 @@
+alefragnani.project-manager
 amiralizadeh9480.laravel-extra-intellisense
+benjaminadk.emojis4git
 bierner.markdown-preview-github-styles
 blackmist.LinkCheckMD
 bmewburn.vscode-intelephense-client
@@ -18,10 +20,13 @@ donjayamanne.githistory
 eamodio.gitlens
 esbenp.prettier-vscode
 evilz.vscode-reveal
+formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
 formulahendry.code-runner
 gencer.html-slim-scss-css-class-completion
 GitHub.vscode-pull-request-github
+GrapeCity.gc-excelviewer
+Gruntfuggly.todo-tree
 hediet.vscode-drawio
 helixquar.randomeverything
 hollowtree.vue-snippets
@@ -30,7 +35,6 @@ humao.rest-client
 ipatalas.vscode-postfix-ts
 jakob101.RelativePath
 jebbs.plantuml
-johnsoncodehk.volar
 kube.42header
 mechatroner.rainbow-csv
 mervin.markdown-formatter
@@ -80,6 +84,7 @@ timonwong.shellcheck
 tomoki1207.pdf
 tonybaloney.vscode-pets
 twxs.cmake
+usernamehw.errorlens
 vadimcn.vscode-lldb
 vincaslt.highlight-matching-tag
 VisualStudioExptTeam.vscodeintellicode
@@ -88,7 +93,9 @@ vscjava.vscode-java-dependency
 vscjava.vscode-java-pack
 vscjava.vscode-java-test
 vscjava.vscode-maven
+Vue.volar
 waderyan.gitblame
+wayou.vscode-todo-highlight
 wix.vscode-import-cost
 Wscats.search
 xabikos.JavaScriptSnippets
