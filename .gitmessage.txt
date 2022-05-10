@@ -1,0 +1,22 @@
+#  ====================  Emojis  ====================
+# 🎉  :tada: Begin a project.
+# 🚧  :construction: Work in progress.
+# ✨  :sparkles: Introduce new features.
+# ⚡️  :zap: Improve performance.
+# 🔥  :fire: Remove code or files.
+# 🐛  :bug: Fix a bug.
+# 🚑️  :ambulance: Critical hotfix.
+# 🩹  :adhesive_bandage: Simple fix for a non-critical issue.
+# 👕  :shirt: Fix Lint errors and correct code styles.
+# 💚  :green_heart: Fix and improve testing and CI.
+# 🎨  :art: Improve structure / format of the code.
+# ⚙  :gear: Change configs.
+# 🆙  :up: Update dependent packages, etc.
+# 👮  :cop: Improve on security.
+# 📚  :books: Add documentation.
+# 📝  :memo: Update documentation.
+# ♻️  :recycle: Refactor code.
+# 💢  :anger: Conflict.
+# ⏪️  :rewind: Revert changes.
+# 🔖  :bookmark: Release / Version tags.
+# 🚀  :rocket: Deploy stuff.

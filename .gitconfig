@@ -7,6 +7,10 @@
   # Prevents Japanese file names from being garbled
   quotepath = false
 
+# Set gitmoji
+[commit]
+	template = .gitmessage.txt
+
 # Delete automatic local branch when the remote branch has been deleted
 [fetch]
 	prune = true
@@ -18,6 +22,7 @@
 # Always create a merge commit when git merge
 [merge]
 	ff = false
+  tool = vimdiff
 
 # Always set git push origin HEAD as default
 [push]
