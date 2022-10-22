@@ -4,4 +4,4 @@
 
 adjust_volume "with output muted"
 
-quit_app "Terminal"
+quit_app "iTerm"

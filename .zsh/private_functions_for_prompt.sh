@@ -92,3 +92,16 @@ _display_git_current_branch()
 
 	echo "${branch_status}[${branch_name}]%f"
 }
+
+_display_node_version_using_nvm()
+{
+	local node_version
+
+	if ! (type "nvm" > /dev/null 2>&1); then
+		return 0
+	fi
+
+	node_version="$(node -v)"
+
+	echo "via %F{green}${node_version}%f"
+}

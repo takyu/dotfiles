@@ -1,18 +1,22 @@
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 # Display on the terminal when the .zshrc is started loading
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 display_init()
 {
+	local terminal env zsh
+
 	terminal="$(tty | tr -d '/dev/')"
+	env="$(uname -smnr)"
+	zsh="$(zsh --version)"
 
 	if [ "$terminal" = "ttys000" ] ; then
 		echo -e '\033];Main\007'
-		neofetch && neofetch --clean
+		pfetch && echo
+		echo ">>> \033[34mToday's Current Weather\033[m"
+		echo && curl wttr.in/\?0Mq && echo "\n"
+		echo "\033[36m$env $zsh\033[m"
 		echo "Now, loading .zshrc file on \033[36m$terminal\033[m( Main Terminal ).."
 	else
-		env="$(uname -smnr)"
-		zsh="$(zsh --version)"
-
 		echo -ne '\033];Sub\007'
 		echo "\033[36m$env $zsh\033[m"
 		echo "Now, loading .zshrc file on \033[36m$terminal\033[m( Sub Terminal ).."
@@ -20,10 +24,23 @@ display_init()
 }
 display_init
 
+# ------------------------------------------------------------------------------------------------ #
+# Execute OS identification.
+# ------------------------------------------------------------------------------------------------ #
+#if [ "$(uname)" = 'Darwin' ]; then
+#	OS='Mac'
+#elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
+#	OS='Linux'
+#elif [ "$(expr substr $(uname -s) 1 10)" = 'MINGW32_NT' ]; then
+#	OS='Cygwin'
+#else
+#	echo "Your platform ($(uname -a)) is not supported."
+#	exit 1
+#fi
 
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 # Read source files
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 
 # Function to display logo
 source $HOME/dotfiles/.zsh/display_logo.sh
@@ -61,9 +78,9 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 # Terminal settings
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 
 # disable the per-terminal-session command history
 SHELL_SESSION_HISTORY=0
@@ -118,7 +135,7 @@ TRAPALRM()
 }
 
 # Customize of prompt (left prompt)
-PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch`
+PROMPT='%F{white}@%n%f%b %F{blue}%~%f `_display_git_current_branch` `_display_node_version_using_nvm`
 🐧 '
 
 # Customize of rpropmpt (right propmpt)
@@ -218,17 +235,39 @@ bindkey '^m' _custom_return_key
 #zle -N _cdup
 #bindkey '^j' _cdup
 
-# Automatic ls when moving directories
+# enabled add-zsh-hook
 autoload -Uz add-zsh-hook
+
+##
+## preexec is to execute the function just before executing the commands
+##
+#add-zsh-hook preexec _dispatch_caffeinate_process
+
+##
+## precmd is to execute the function just before displaying the prompt
+##
+
+# Automatic ls when moving directories
 add-zsh-hook precmd _auto_ls
 
 # Hook Function which is display just before the prompt
-precmd() { _add_line }
+add-zsh-hook precmd _add_line
 
+# Calling nvm use automatically in a directory with a .nvmrc file
+add-zsh-hook chpwd load-nvmrc
 
-# -------------------------------------------------------------------------------------------- #
+# Load nvm package when .nvmrc is here
+#if [[ -f .nvmrc && -r .nvmrc ]]; then
+#	_break_line_before_echo  "${ESC}[36m>>> load nvm packages and apply..${ESC}[m"
+#	_load-nvmrc && echo
+#fi
+
+# vscode shell integration
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+# ------------------------------------------------------------------------------------------------ #
 # PATH
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 
 # Path of sbin of brew
 export PATH="/usr/local/sbin:$PATH"
@@ -254,11 +293,18 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 #
 #export PATH="/usr/local/opt/llvm/bin:$PATH"
 
-# Parh of Nodebrew
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
 # Path of Larvel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+#
+# Path of anyenv
+#
+# This is a simple wrapper for environment managers.
+#
+# GitHub ( https://github.com/anyenv/anyenv )
+#
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
 
 #
 # Path to phpenv
@@ -293,9 +339,9 @@ export PATH="$HOME/.pub-cache/bin:$PATH"
 export PATH="$HOME/Develope/fvm/default/bin:$PATH"
 
 
-# -------------------------------------------------------------------------------------------- #
-# Alias
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
+# Aliases
+# ------------------------------------------------------------------------------------------------ #
 
 #
 # Alias about ls like Ubuntu
@@ -327,37 +373,35 @@ alias reb="clear && exec $SHELL -l"
 #
 alias brew='PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin brew'
 
-#
-# Alias to add a directory to the currently open window of VScode
-# Usage: advs <dir>
-#
-alias advs="code -a"
-
-#
-# Alias to add a file to the currently open window of VScode
-# Usage: avs <file>
-#
-alias avs="code"
-
-# Alias to open new simulator
-alias si="figlet -f slant Open Simulator! && sudo purge && open -a Simulator"
-
-# Alias to open new QuickTime Player
-alias qp="sudo purge && open -a 'QuickTime Player'"
-
 # Alias to display 256 colors
 alias col256="clear && seq 0 255 | xargs -I {} printf '\033[38;5;{}m{}\033[m ' \
 	&& cat $HOME/dotfiles/.zsh/manual_col256.txt \
 	&& echo '\033[38;5;155mHello, World!\033[m\n'"
-
-# Alias to open parallels Desktop
-alias pd="sudo purge && open -a 'Parallels Desktop'"
 
 # Alias of htop
 alias am="htop"
 
 # Alias that displays detailed information about Wi-Fi signals in the vicinity
 alias diws="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s"
+
+# Alias that displays weather of today
+alias tweather="curl wttr.in/?1M"
+
+##
+## Open application
+##
+
+# Alias to open parallels Desktop
+alias pd="clear && _purge_cache && echo && figlet -f larry3d Open Windows10 && open -a 'Parallels Desktop'"
+
+# Alias to open simulator
+alias si="figlet -f slant Open Simulator! && sudo purge && open -a Simulator"
+
+# Alias to open QuickTime Player
+alias qp="_purge_cache && open -a 'QuickTime Player'"
+
+# Alias to open Adobe Photoshop 2022
+alias adops="clear && _purge_cache && echo && figlet -f larry3d Adobe Photoshop | lolcat && open -a 'Adobe Photoshop 2022'"
 
 ##
 ## use the file 'private_functions.sh' in .zsh directory
@@ -428,6 +472,9 @@ alias tj=_compile_ts_and_execute_nodejs
 # Alias to open app related amazon
 alias ama=_open_app_related_amazon
 
+# Alias to open browser of firefox
+alias ff=_search_google_by_firefox
+
 ##
 ## use the file 'functions_about_github_cli.sh' in .zsh directory
 ##
@@ -473,9 +520,9 @@ alias masup=_processes_for_updating_mas
 alias mbup=_processes_for_updating_brew_and_mas
 
 
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 # Environment Variables
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 
 # Japanese localization
 export LC_ALL=en_US.UTF-8
@@ -499,10 +546,31 @@ export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PAT
 # GETOPT variable
 #export FLAGS_GETOPT_CMD=/Applications/Sourcetree.app/Contents/Resources/bin/getopt
 
+#
+# zsh-syntax-highlighting
+#
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-# -------------------------------------------------------------------------------------------- #
+# bracket
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=green,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=magenta,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=yellow,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=cyan,bold'
+ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='standout'
+
+# pattern
+ZSH_HIGHLIGHT_PATTERNS+=('rm *' 'fg=white,bold,bg=red')
+ZSH_HIGHLIGHT_PATTERNS+=('touch *' 'fg=white,bold,bg=green')
+ZSH_HIGHLIGHT_PATTERNS+=('mkdir *' 'fg=white,bold,bg=blue')
+
+# cursor
+ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+
+# ------------------------------------------------------------------------------------------------ #
 # Display on the terminal when the .zshrc is finished loading
-# -------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------------------------------ #
 
 #
 # Using Bash to display a progress indicator [duplicate]

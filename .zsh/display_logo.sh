@@ -7,7 +7,7 @@ _display_github_cli_logo()
 
 _display_sppedtest_cli_logo()
 {
-	figlet -f slant speedtest cli && speedtest-cli --version
+	figlet -f slant speedtest-cli && speedtest-cli --version
 }
 
 _display_docker_logo()

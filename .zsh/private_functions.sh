@@ -104,18 +104,7 @@ _quit_app_by_apple_script()
 
 _new_instance_terminal()
 {
-	local terminal
-
-	terminal="$(tty | tr -d '/dev/')"
-
 	osascript -e 'tell application "Terminal" to do script activate' 1>/dev/null
-	if [ "$terminal" = 'ttys000' ] ; then
-		clear && echo && pfetch
-		echo ">>>  ${ESC}[34mDetail of memory information${ESC}[m"
-		revolver --style 'dots' start
-		top -l 1 | grep Mem
-		revolver stop
-	fi
 }
 
 _check_git_status()
@@ -221,7 +210,7 @@ _open_each_directory_or_file_with_vscode()
 
 _exit_all_terminal_opened_vscode()
 {
-	ps | awk 'NR>=2' | grep '/bin/zsh -l' | grep -v 'grep' | awk '{print $1}' | xargs -I@ zsh -c 'kill -9 @'
+	ps | awk 'NR>=2' | grep '/bin/zsh -il' | grep -v 'grep' | grep -v 'ttys000' | awk '{print $1}' | xargs -I@ zsh -c 'kill -9 @'
 }
 
 _manipulate_sleep()
@@ -286,7 +275,7 @@ _do_sleep()
 	if [ "$terminal" = "ttys000" ] ; then
 
 		pokemonsay -n -p Chansey "Get plenty of rest and relax."
-		_quit_app_by_apple_script "Brave Browser" && _exit_all_terminal_opened_vscode
+		(_quit_app_by_apple_script "Brave Browser" &) && (_exit_all_terminal_opened_vscode &)
 		_show_battery_information
 		_purge_cache && echo
 		revolver --style 'arrow2' start " ${ESC}[32mSoon this computer will go into sleep mode..${ESC}[m"
@@ -295,7 +284,8 @@ _do_sleep()
 	else
 
 		pokemonsay -n -p Charmander "Come right back!"
-		sleep 2;pmset displaysleepnow
+		sleep 1.2;pmset displaysleepnow
+		_purge_cache
 
 	fi
 }
@@ -394,11 +384,11 @@ _manipulate_enter_docker()
 			echo
 			if [ $# -eq 1 ] ; then
 				if yes | _ask_yn "Quit the Docker app?" ; then
-					_quit_app_by_apple_script Docker &
+					(_quit_app_by_apple_script Docker &)
 				fi
 			else
 				if _ask_yn "Quit the Docker app?" ; then
-					_quit_app_by_apple_script Docker &
+					(_quit_app_by_apple_script Docker &)
 				fi
 			fi
 
@@ -452,7 +442,7 @@ _open_app_related_amazon()
 {
 	local selected_app
 
-	clear && figlet -f slant Amazon App && echo
+	clear && figlet -f slant Amazon Apps && echo
 
 	while :
 	do
@@ -462,19 +452,19 @@ _open_app_related_amazon()
 
 		case "$selected_app" in
 			[Ss])
-				figlet -cf slant Amazon Shopping | lolcat
+				figlet -cf slant Shopping | lolcat
 				open -a 'Brave Browser' -n --args --new-window https://www.amazon.co.jp/
 				break ;;
 			[Kk])
-				figlet -cf slant Amazon Kindle | lolcat
+				figlet -cf slant Kindle | lolcat
 				open -a 'Kindle' -n
 				break ;;
 			[Mm])
-				figlet -cf slant Amazon Prime Music | lolcat
+				figlet -cf slant Prime Music | lolcat
 				open -a 'Amazon Music' -n
 				break ;;
 			[Vv])
-				figlet -cf slant Amazon Prime Video | lolcat
+				figlet -cf slant Prime Video | lolcat
 				open -a 'Prime Video' -n
 				break ;;
 			*)
@@ -482,4 +472,48 @@ _open_app_related_amazon()
 				echo
 		esac
 	done
+}
+
+_search_google_by_firefox()
+{
+	local url word
+
+	url='https://www.google.com/search?q='
+
+	for t;
+	do
+		url="${url}${t}+"
+		word+="${t} "
+	done
+	echo ">> ${ESC}[32mSearch Words${ESC}[m"
+	echo "$word"
+	open -a 'firefox' "$url"
+}
+
+_dispatch_caffeinate_process()
+{
+	local cmd
+
+	cmd="$1"
+	_is_caffeinate=true
+
+	while read -r line
+	do
+		if [[ $cmd =~ ^([[:blank:]]+.*)*$line([[:blank:]]+.*)*$ ]] ; then
+			_is_caffeinate=false
+		fi
+	done < "$HOME"/Dotfiles/MacOS/decaffeinated_command_list
+
+	if type caffeinate 1>/dev/null 2>/dev/null && "${_is_caffeinate}" ; then
+		(caffeinate -d & echo $!) | read -r _tn_caffeinate_pid
+	fi
+}
+
+_kill_caffeinate_process()
+{
+	if "${_is_caffeinate}" && [[ "$_tn_caffeinate_pid" =~ ^[0-9]+$ ]]; then
+		kill "$_tn_caffeinate_pid"
+	fi
+
+	_tn_caffeinate_pid=''
 }

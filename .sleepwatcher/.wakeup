@@ -7,4 +7,9 @@ sudo pmset -a disablesleep 1
 
 adjust_volume "50/100*7"
 
-open_app "Terminal"
+open_app "iTerm"
+
+#osascript \
+#-e 'tell application "Terminal"' \
+#-e 'set bounds of front window to {0, 0, 720, 455}' \
+#-e 'end tell'

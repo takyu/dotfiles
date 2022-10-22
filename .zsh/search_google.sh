@@ -5,14 +5,17 @@ set_option()
 	if [[ "$1" =~ "-" ]] && [ ${#1} -gt 1 ] ; then
 		if [ ${#1} -gt 4 ] ; then
 			echo "Error 1"
-		elif [[ "$1" =~ "c" ]] && [[ "$1" =~ "b" ]] ; then
+		elif { [[ "$1" =~ "c" ]] && [[ "$1" =~ "b" ]]; } ||
+			{ [[ "$1" =~ "c" ]] && [[ "$1" =~ "f" ]]; } ||
+			{ [[ "$1" =~ "b" ]] && [[ "$1" =~ "f" ]]; } ; then
 			echo "Error 2"
-		elif [[ ! "$1" =~ ^-[cbiyhm]+$ ]] ; then
+		elif [[ ! "$1" =~ ^-[cbfiyhm]+$ ]] ; then
 			echo "Error 3"
 		elif [[ "$1" =~ "h" ]] && [[ ${#1} -gt 2 ]] ; then
 			echo "Error 4"
 		elif [ "$(echo "$1" | awk '{count += (split($0, arry, "c") - 1)} END{print count}')" -gt 1 ] ||
-				[ "$(echo "$1" | awk '{count += (split($0, arry, "b") - 1)} END{print count}')" -gt 1 ] ; then
+				[ "$(echo "$1" | awk '{count += (split($0, arry, "b") - 1)} END{print count}')" -gt 1 ] ||
+				[ "$(echo "$1" | awk '{count += (split($0, arry, "f") - 1)} END{print count}')" -gt 1 ] ; then
 			echo "Error 5"
 		elif [ "$(echo "$1" | awk '{count += (split($0, arry, "i") - 1)} END{print count}')" -gt 1 ] ||
 				[ "$(echo "$1" | awk '{count += (split($0, arry, "y") - 1)} END{print count}')" -gt 1 ] ||
@@ -21,7 +24,7 @@ set_option()
 		elif [[ "$1" =~ "y" ]] && [[ "$1" =~ "m" ]] ; then
 			echo "Error 7"
 		else
-			if [[ ! "$1" =~ "c" ]] && [[ ! "$1" =~ "b" ]] && [[ ! "$1" =~ "h" ]]; then
+			if [[ ! "$1" =~ "c" ]] && [[ ! "$1" =~ "b" ]] && [[ ! "$1" =~ "f" ]] && [[ ! "$1" =~ "h" ]]; then
 				echo "${1}b"
 			else
 				echo "$1"
@@ -177,7 +180,7 @@ do_exception()
 explain_usage()
 {
 	_break_line_before_echo "Usage: ge -${ESC}[36m[Browsers]${ESC}[m${ESC}[32m[options]${ESC}[m ${ESC}[35m[words or URL]${ESC}[m"
-	_break_line_before_echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome or b: Brave Browser (Specified only one browser.)"
+	_break_line_before_echo "${ESC}[36m[Browsers]${ESC}[m: c: Chrome, b: Brave Browser, f: firefox (Specified only one browser.)"
 	echo "${ESC}[32m[options]${ESC}[m: h: help, i: incognito mode, y: youtube, m: google maps (Specified only one of y or m)"
 	echo "${ESC}[35m[words]${ESC}[m: Words to search or URL to do(If omitted, go to top page)"
 	_break_line_before_echo "${ESC}[31m[[ Notice ]]${ESC}[m"
@@ -209,6 +212,18 @@ use_brave_browser()
 	sec_brave="open -a 'Brave Browser' -n --args --incognito --new-window"
 
 	tell_terminal_and_launch_browser "$option" "$url" "$brave" "$sec_brave"
+}
+
+use_firefox_browser()
+{
+	local option url firefox sec_firefox
+
+	option="$1"
+	url="$(set_url "$1" "$2")"
+	firefox="open -a 'firefox' -n --args --new-window"
+	sec_firefox="open -a 'firefox' -n --args --incognito --new-window"
+
+	tell_terminal_and_launch_browser "$option" "$url" "$firefox" "$sec_firefox"
 }
 
 _search_on_google_engine()
@@ -248,6 +263,10 @@ _search_on_google_engine()
 	elif [[ "$option" =~ "b" ]] ; then
 
 		use_brave_browser "$option" "$word"
+
+	elif [[ "$option" =~ "f" ]] ; then
+
+		use_firefox_browser "$option" "$word"
 
 	else
 		echo "What the hell? Unexpected error.."

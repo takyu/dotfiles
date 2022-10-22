@@ -133,13 +133,37 @@
    * terminal
    */
   "terminal.integrated.fontSize": 12,
+  // configure shell integration
+  "terminal.integrated.shellIntegration.enabled": true,
   // copy when selected in terminal
   "terminal.integrated.copyOnSelection": true,
   // right-click to paste
   "terminal.integrated.rightClickBehavior": "paste",
+  "terminal.integrated.smoothScrolling": true,
   /* ---------------------------------------------------------------------------
     Settings extensions
   --------------------------------------------------------------------------- */
+  /**
+   * Live Share
+   */
+  "liveshare.allowGuestDebugControl": true,
+  "liveshare.allowGuestTaskControl": true,
+  "liveshare.diagnosticLogging": true,
+  "liveshare.languages.allowGuestCommandControl": true,
+  /**
+   * vscode.html-language-features
+   */
+  "html.format.enable": true,
+  "html.format.wrapLineLength": 80,
+  "html.format.indentInnerHtml": true,
+  "html.format.endWithNewline": true,
+  "html.format.indentHandlebars": true,
+  "html.format.extraLiners": "head, body, /html",
+  "html.format.wrapAttributes": "auto",
+  "html.format.preserveNewLines": true,
+  "html.format.maxPreserveNewLines": 1,
+  "html.format.unformatted": null,
+  "html.format.contentUnformatted": "pre,code,textarea",
   /**
    * emmet
    */
@@ -168,6 +192,8 @@
   "prettier.singleQuote": true,
   "prettier.vueIndentScriptAndStyle": true,
   "prettier.printWidth": 80,
+  "prettier.arrowParens": "avoid",
+  "prettier.bracketSpacing": true,
   /**
    * Eslint
    */
@@ -177,7 +203,7 @@
   "eslint.run": "onSave",
   // Format compatible files with ESLint when saving
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
   },
   "eslint.workingDirectories": [
     {
@@ -443,6 +469,12 @@
       "strings": true
     }
   },
+  "[html][htm]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "gitlens.codeLens.scopes": [
+      "document"
+    ]
+  },
   "[javascript]": {
     // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -505,5 +537,34 @@
   "[log]": {
     "editor.wordWrap": "off"
   },
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "yaml.customTags": [
+    "!And",
+    "!And sequence",
+    "!If",
+    "!If sequence",
+    "!Not",
+    "!Not sequence",
+    "!Equals",
+    "!Equals sequence",
+    "!Or",
+    "!Or sequence",
+    "!FindInMap",
+    "!FindInMap sequence",
+    "!Base64",
+    "!Join",
+    "!Join sequence",
+    "!Cidr",
+    "!Ref",
+    "!Sub",
+    "!Sub sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!ImportValue sequence",
+    "!Select",
+    "!Select sequence",
+    "!Split",
+    "!Split sequence"
+  ],
 }

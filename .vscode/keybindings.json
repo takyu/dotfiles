@@ -30,6 +30,10 @@
     "command": "explorer.newFolder"
   },
   {
+    "key": "shift+cmd+j",
+    "command": "workbench.action.terminal.new"
+  },
+  {
     "key": "cmd+m",
     "command": "duplicate.execute"
   },
@@ -207,5 +211,5 @@
   {
     "key": "shift+cmd+]",
     "command": "-workbench.action.nextEditor"
-  }
+  },
 ]

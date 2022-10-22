@@ -67,7 +67,7 @@ _create_repository_and_change_default_branch()
 
 	_break_line_both_echo "-------  ${ESC}[34mgit init${ESC}[m  -------" && git init
 	_break_line_both_echo "-------  ${ESC}[32mgit add . & git status${ESC}[m  -------" && git add . && git status
-	_break_line_after_echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m "First commit"
+	_break_line_after_echo "-------  ${ESC}[33mgit commit -m 'First commit'${ESC}[m  -------" && git commit -m ":tada: first commit"
 
 	_break_line_both_echo "-------  ${ESC}[35msetting options of git${ESC}[m  -------"
 

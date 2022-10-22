@@ -1,5 +1,7 @@
 alefragnani.project-manager
+amazonwebservices.aws-toolkit-vscode
 amiralizadeh9480.laravel-extra-intellisense
+Angular.ng-template
 benjaminadk.emojis4git
 bierner.markdown-preview-github-styles
 blackmist.LinkCheckMD
@@ -12,12 +14,15 @@ chrmarti.regex
 circledev.glsl-canvas
 codelios.dartsass
 codingyu.laravel-goto-view
+csstools.postcss
 Dart-Code.dart-code
 Dart-Code.flutter
 DavidAnson.vscode-markdownlint
 dbaeumer.vscode-eslint
 donjayamanne.githistory
+dsznajder.es7-react-js-snippets
 eamodio.gitlens
+EditorConfig.EditorConfig
 esbenp.prettier-vscode
 evilz.vscode-reveal
 formulahendry.auto-close-tag
@@ -32,9 +37,12 @@ helixquar.randomeverything
 hollowtree.vue-snippets
 hoovercj.vscode-power-mode
 humao.rest-client
+infinity1207.angular2-switcher
 ipatalas.vscode-postfix-ts
 jakob101.RelativePath
 jebbs.plantuml
+johnpapa.Angular2
+josetr.cmake-language-support-vscode
 kube.42header
 mechatroner.rainbow-csv
 mervin.markdown-formatter
@@ -44,6 +52,7 @@ mkaufman.HTMLHint
 mrmlnc.vscode-apache
 mrmlnc.vscode-duplicate
 ms-azuretools.vscode-docker
+ms-dotnettools.vscode-dotnet-runtime
 ms-kubernetes-tools.vscode-kubernetes-tools
 ms-python.python
 ms-python.vscode-pylance
@@ -55,12 +64,15 @@ ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
 ms-vscode.cmake-tools
 ms-vscode.cpptools
+ms-vscode.makefile-tools
 ms-vsliveshare.vsliveshare
+ms-vsliveshare.vsliveshare-audio
 mtxr.sqltools
 mtxr.sqltools-driver-mysql
 mtxr.sqltools-driver-pg
 mtxr.sqltools-driver-sqlite
 mushan.vscode-paste-image
+octref.vetur
 oderwat.indent-rainbow
 onecentlin.laravel-blade
 onecentlin.laravel5-snippets
@@ -77,6 +89,7 @@ stef-k.laravel-goto-controller
 steoates.autoimport
 stevencl.addDocComments
 streetsidesoftware.code-spell-checker
+styled-components.vscode-styled-components
 stylelint.vscode-stylelint
 teabyii.ayu
 techer.open-in-browser
@@ -87,6 +100,7 @@ twxs.cmake
 usernamehw.errorlens
 vadimcn.vscode-lldb
 vincaslt.highlight-matching-tag
+VisualStudioExptTeam.intellicode-api-usage-examples
 VisualStudioExptTeam.vscodeintellicode
 vscjava.vscode-java-debug
 vscjava.vscode-java-dependency
@@ -96,6 +110,7 @@ vscjava.vscode-maven
 Vue.volar
 waderyan.gitblame
 wayou.vscode-todo-highlight
+willstakayama.vscode-nextjs-snippets
 wix.vscode-import-cost
 Wscats.search
 xabikos.JavaScriptSnippets

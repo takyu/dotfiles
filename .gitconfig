@@ -47,27 +47,39 @@
   # git pull rebase
   drag = pull --rebase
 
-  # get git alias list
+  # get git's alias list
   alias = !echo && git config --list | grep ^alias. | sed 's/alias./git /g' | sed -e '1d'
 
   # git status
   ss = status
 
+  # git stash
+  st = stash -u
+  stl = stash list
+  stc = stash clear
+  sta = "!f() { git stash apply stash@{$1}; }; f"
+  stai = "!f() { git stash apply stash@{$1} --index; }; f"
+  std = "!f() { git stash drop stash@{$1}; }; f"
+  stp = "!f() { git stash pop stash@{$1}; }; f"
+  sts = "!f(){ git stash show stash@{$1}; }; f"
+  stsd = "!f(){ git stash show stash@{$1} -p; }; f"
+
   # git add
-  as = "!f() { git add -A \"$@\" && git status; }; f"
+  as = "!f() { git add -A $@ && git status; }; f"
   ad = add -A .
   au = add -u .
   aup = add -up .
 
   # git commit
-  cm = "!f() { git commit -v -m \"$1\" && echo && echo '-------  ↓↓ commit message ↓↓  -------' && git show -s --format=format:%B | emojify; }; f"
-  cma = "!f() { git commit -v --amend -m \"$1\" && echo && echo '-------  ↓↓ new commit message ↓↓  -------' && git show -s --format=format:%B | emojify; }; f"
+  cm = "!f() { git commit -v -m $1 && echo && echo '-------  ↓↓ commit message ↓↓  -------' && git show -s --format=format:%B | emojify; }; f"
+  cma = "!f() { git commit -v --amend -m $1 && echo && echo '-------  ↓↓ new commit message ↓↓  -------' && git show -s --format=format:%B | emojify; }; f"
   cmf = commit -v -F
 
   # git push
   p = !git push origin "$(git rev-parse --abbrev-ref HEAD)" && echo && echo '-------  ↓↓ git log ( latest 5 logs ) ↓↓  -------' && git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph -5 | emojify
 
   # git merge
+  mg = merge
   mgff = merge --ff
   mgnff = merge --no-ff
 
@@ -77,14 +89,18 @@
 
   # git branch
   br = branch --sort=-authordate
+  brr = branch -r
   brm = branch -m
   brd = branch -d
   brdd = branch -D
 
+  # git checkout
+  co = checkout
+
   # git show
-  sw = !git show --color | emojify
+  sh = !git show --color | emojify
 
   # git log
   ll = !git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --decorate --numstat | emojify | less -r
-  glog = !clear && git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph | emojify
-  fhlog = !clear && git log --color --pretty=format:'%C(yellow)%H %C(cyan)[%an] %C(green)%ad' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph | emojify
+  glog = !clear && git log --color --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) %C(cyan)[%an]%C(reset) %s%C(auto)%d' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph | emojify | less -r
+  fhlog = !clear && git log --color --pretty=format:'%C(yellow)%H %C(cyan)[%an] %C(green)%ad' --date=format:'%Y-%m-%d %H:%M:%S' --all --graph | emojify | less -r
